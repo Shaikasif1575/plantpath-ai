@@ -1,0 +1,42 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      DEMO_MODE: "${DEMO_MODE:-false}"
+      MODEL_PATH: "/app/models/efficientnet_v2_s_best.pth"
+      MODEL_CLASSES_PATH: "/app/data/model_classes.json"
+      MODEL_AUDIT_PATH: "/app/models/classifier_audit.json"
+      CLASS_NAMES_PATH: "/app/data/class_names.json"
+      MODEL_METRICS_PATH: "/app/data/model_metrics.json"
+      DISEASES_PATH: "/app/data/diseases.json"
+      DB_PATH: "/app/app/database/plantpath.db"
+      MAX_UPLOAD_SIZE_MB: "${MAX_UPLOAD_SIZE_MB:-10}"
+      CORS_ORIGINS: "http://localhost:3000,http://127.0.0.1:3000"
+    volumes:
+      - ./models:/app/models
+      - ./data:/app/data
+      - backend-db:/app/app/database
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health')"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: "http://localhost:8000"
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  backend-db:

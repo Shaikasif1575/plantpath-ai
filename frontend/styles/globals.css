@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --pp-bg: #fafaf7;
+  --pp-surface: #ffffff;
+  --pp-text: #14201a;
+  --pp-muted: #4a5c52;
+  --pp-border: #e2e8e0;
+}
+
+.dark {
+  --pp-bg: #0c1b12;
+  --pp-surface: #142e1f;
+  --pp-text: #e8f0ea;
+  --pp-muted: #a3b8a8;
+  --pp-border: #1c402c;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--pp-bg);
+  color: var(--pp-text);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: #2d6745;
+  color: white;
+}
+
+/* Focus visibility */
+:focus-visible {
+  outline: 2px solid #3d8258;
+  outline-offset: 2px;
+}
+
+/* Subtle scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #b8d9c2;
+  border-radius: 6px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #245238;
+}
+
+/* Pipeline connector animation */
+@keyframes pulse-line {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+.animate-pulse-line {
+  animation: pulse-line 2.4s ease-in-out infinite;
+}
+
+/* Bar grow */
+@keyframes bar-grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.bar-grow {
+  transform-origin: left center;
+  animation: bar-grow 0.7s ease-out both;
+}
+
+/* Skeleton */
+.skeleton {
+  background: linear-gradient(90deg, #e8e8e0 25%, #f3f3ee 50%, #e8e8e0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+.dark .skeleton {
+  background: linear-gradient(90deg, #1c402c 25%, #245238 50%, #1c402c 75%);
+  background-size: 200% 100%;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Grid paper background for hero */
+.hero-grid {
+  background-image:
+    linear-gradient(to right, rgba(45, 103, 69, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(45, 103, 69, 0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.dark .hero-grid {
+  background-image:
+    linear-gradient(to right, rgba(107, 187, 114, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(107, 187, 114, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+}

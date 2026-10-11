@@ -1,0 +1,313 @@
+{
+  "purpose": "Determine the preprocessing pipeline and recover the class mapping of the existing trained checkpoint.",
+  "method": "Each candidate preprocessing was run against a probe set of images whose ground truth is documented from Wikimedia Commons file-description pages. A candidate is accepted only if healthy and diseased probes are separated consistently and decisively.",
+  "checkpoint": {
+    "path": "C:\\Users\\Shaik Asif\\OneDrive\\Desktop\\Plant Pathology\\models\\plant_model.pth",
+    "architecture": "MobileNetV2 backbone + custom 2-class head [Dropout, Linear(1280,128), ReLU, Dropout, Linear(128,2)]",
+    "parameters": 2388098,
+    "input_size": [
+      224,
+      224
+    ],
+    "output_classes": 2
+  },
+  "probe_set": [
+    {
+      "file": "diseased_tomato_earlyblight_1.jpg",
+      "truth": "diseased",
+      "shape": [
+        857,
+        1280,
+        3
+      ]
+    },
+    {
+      "file": "diseased_tomato_lateblight_1.jpg",
+      "truth": "diseased",
+      "shape": [
+        857,
+        1280,
+        3
+      ]
+    },
+    {
+      "file": "diseased_tomato_leafmold_1.jpg",
+      "truth": "diseased",
+      "shape": [
+        762,
+        653,
+        3
+      ]
+    },
+    {
+      "file": "diseased_tomato_phytophthora_1.jpg",
+      "truth": "diseased",
+      "shape": [
+        645,
+        1280,
+        3
+      ]
+    },
+    {
+      "file": "healthy_tomato_1.jpg",
+      "truth": "healthy",
+      "shape": [
+        857,
+        1280,
+        3
+      ]
+    },
+    {
+      "file": "healthy_tomato_2.jpg",
+      "truth": "healthy",
+      "shape": [
+        1279,
+        1280,
+        3
+      ]
+    },
+    {
+      "file": "healthy_tomato_3.jpg",
+      "truth": "healthy",
+      "shape": [
+        1104,
+        736,
+        3
+      ]
+    }
+  ],
+  "matrix": {
+    "imagenet_normalized": {
+      "probes": [
+        {
+          "file": "diseased_tomato_earlyblight_1.jpg",
+          "truth": "diseased",
+          "p_index_0": 0.50531,
+          "p_index_1": 0.49469,
+          "argmax_index": 0,
+          "confidence": 0.50531
+        },
+        {
+          "file": "diseased_tomato_lateblight_1.jpg",
+          "truth": "diseased",
+          "p_index_0": 0.50531,
+          "p_index_1": 0.49469,
+          "argmax_index": 0,
+          "confidence": 0.50531
+        },
+        {
+          "file": "diseased_tomato_leafmold_1.jpg",
+          "truth": "diseased",
+          "p_index_0": 0.50531,
+          "p_index_1": 0.49469,
+          "argmax_index": 0,
+          "confidence": 0.50531
+        },
+        {
+          "file": "diseased_tomato_phytophthora_1.jpg",
+          "truth": "diseased",
+          "p_index_0": 0.50531,
+          "p_index_1": 0.49469,
+          "argmax_index": 0,
+          "confidence": 0.50531
+        },
+        {
+          "file": "healthy_tomato_1.jpg",
+          "truth": "healthy",
+          "p_index_0": 0.50531,
+          "p_index_1": 0.49469,
+          "argmax_index": 0,
+          "confidence": 0.50531
+        },
+        {
+          "file": "healthy_tomato_2.jpg",
+          "truth": "healthy",
+          "p_index_0": 0.505284,
+          "p_index_1": 0.494716,
+          "argmax_index": 0,
+          "confidence": 0.505284
+        },
+        {
+          "file": "healthy_tomato_3.jpg",
+          "truth": "healthy",
+          "p_index_0": 0.50531,
+          "p_index_1": 0.49469,
+          "argmax_index": 0,
+          "confidence": 0.50531
+        }
+      ],
+      "user_leaf": {
+        "file": "user_leaf_unknown.jpg",
+        "truth": "unknown (user's own test image)",
+        "p_index_0": 0.50531,
+        "p_index_1": 0.49469,
+        "argmax_index": 0,
+        "confidence": 0.50531
+      }
+    },
+    "unit_range": {
+      "probes": [
+        {
+          "file": "diseased_tomato_earlyblight_1.jpg",
+          "truth": "diseased",
+          "p_index_0": 0.505331,
+          "p_index_1": 0.494669,
+          "argmax_index": 0,
+          "confidence": 0.505331
+        },
+        {
+          "file": "diseased_tomato_lateblight_1.jpg",
+          "truth": "diseased",
+          "p_index_0": 0.505316,
+          "p_index_1": 0.494684,
+          "argmax_index": 0,
+          "confidence": 0.505316
+        },
+        {
+          "file": "diseased_tomato_leafmold_1.jpg",
+          "truth": "diseased",
+          "p_index_0": 0.50531,
+          "p_index_1": 0.49469,
+          "argmax_index": 0,
+          "confidence": 0.50531
+        },
+        {
+          "file": "diseased_tomato_phytophthora_1.jpg",
+          "truth": "diseased",
+          "p_index_0": 0.50531,
+          "p_index_1": 0.49469,
+          "argmax_index": 0,
+          "confidence": 0.50531
+        },
+        {
+          "file": "healthy_tomato_1.jpg",
+          "truth": "healthy",
+          "p_index_0": 0.505397,
+          "p_index_1": 0.494603,
+          "argmax_index": 0,
+          "confidence": 0.505397
+        },
+        {
+          "file": "healthy_tomato_2.jpg",
+          "truth": "healthy",
+          "p_index_0": 0.505309,
+          "p_index_1": 0.494691,
+          "argmax_index": 0,
+          "confidence": 0.505309
+        },
+        {
+          "file": "healthy_tomato_3.jpg",
+          "truth": "healthy",
+          "p_index_0": 0.50531,
+          "p_index_1": 0.49469,
+          "argmax_index": 0,
+          "confidence": 0.50531
+        }
+      ],
+      "user_leaf": {
+        "file": "user_leaf_unknown.jpg",
+        "truth": "unknown (user's own test image)",
+        "p_index_0": 0.50531,
+        "p_index_1": 0.49469,
+        "argmax_index": 0,
+        "confidence": 0.50531
+      }
+    },
+    "raw_255": {
+      "probes": [
+        {
+          "file": "diseased_tomato_earlyblight_1.jpg",
+          "truth": "diseased",
+          "p_index_0": 0.50531,
+          "p_index_1": 0.49469,
+          "argmax_index": 0,
+          "confidence": 0.50531
+        },
+        {
+          "file": "diseased_tomato_lateblight_1.jpg",
+          "truth": "diseased",
+          "p_index_0": 0.50531,
+          "p_index_1": 0.49469,
+          "argmax_index": 0,
+          "confidence": 0.50531
+        },
+        {
+          "file": "diseased_tomato_leafmold_1.jpg",
+          "truth": "diseased",
+          "p_index_0": 0.50531,
+          "p_index_1": 0.49469,
+          "argmax_index": 0,
+          "confidence": 0.50531
+        },
+        {
+          "file": "diseased_tomato_phytophthora_1.jpg",
+          "truth": "diseased",
+          "p_index_0": 0.50531,
+          "p_index_1": 0.49469,
+          "argmax_index": 0,
+          "confidence": 0.50531
+        },
+        {
+          "file": "healthy_tomato_1.jpg",
+          "truth": "healthy",
+          "p_index_0": 0.505149,
+          "p_index_1": 0.494851,
+          "argmax_index": 0,
+          "confidence": 0.505149
+        },
+        {
+          "file": "healthy_tomato_2.jpg",
+          "truth": "healthy",
+          "p_index_0": 0.50531,
+          "p_index_1": 0.49469,
+          "argmax_index": 0,
+          "confidence": 0.50531
+        },
+        {
+          "file": "healthy_tomato_3.jpg",
+          "truth": "healthy",
+          "p_index_0": 0.50531,
+          "p_index_1": 0.49469,
+          "argmax_index": 0,
+          "confidence": 0.50531
+        }
+      ],
+      "user_leaf": {
+        "file": "user_leaf_unknown.jpg",
+        "truth": "unknown (user's own test image)",
+        "p_index_0": 0.50531,
+        "p_index_1": 0.49469,
+        "argmax_index": 0,
+        "confidence": 0.50531
+      }
+    }
+  },
+  "scores": {
+    "imagenet_normalized": {
+      "consistency": 0.5,
+      "min_confidence": 0.5053,
+      "decisive_probes": 0,
+      "total_probes": 7,
+      "mapping": null,
+      "accepted": false
+    },
+    "unit_range": {
+      "consistency": 0.5,
+      "min_confidence": 0.5053,
+      "decisive_probes": 0,
+      "total_probes": 7,
+      "mapping": null,
+      "accepted": false
+    },
+    "raw_255": {
+      "consistency": 0.5,
+      "min_confidence": 0.5051,
+      "decisive_probes": 0,
+      "total_probes": 7,
+      "mapping": null,
+      "accepted": false
+    }
+  },
+  "chosen_preprocessing": null,
+  "inferred_classes": null
+}

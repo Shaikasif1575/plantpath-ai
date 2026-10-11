@@ -1,0 +1,961 @@
+{
+  "updated": "2026-09-30",
+  "disclaimer": "Disease information is compiled from public agricultural extension and research sources for educational purposes. It is not a substitute for professional plant-pathology diagnosis. Treatment recommendations should be verified against local agricultural advisories before use.",
+  "diseases": [
+    {
+      "id": "apple-apple-scab",
+      "crop": "Apple",
+      "disease": "Apple Scab",
+      "scientific_name": "Venturia inaequalis",
+      "condition": "diseased",
+      "description": "Apple scab is a fungal disease caused by Venturia inaequalis that affects apple trees worldwide. It causes lesions on leaves, fruit, and twigs and can reduce fruit quality and yield.",
+      "symptoms": [
+        "Olive-green to brown lesions on leaves",
+        "Scabby, corky spots on fruit",
+        "Lesions may be circular or irregular",
+        "Severe infection can cause premature leaf drop"
+      ],
+      "visual_signs": [
+        "Dark olive or brown velvety spots on upper leaf surfaces",
+        "Raised scab lesions on fruit skin",
+        "Cracked, corky appearance of infected tissue"
+      ],
+      "prevention": [
+        "Plant resistant cultivars where available",
+        "Prune for good air circulation",
+        "Remove and destroy fallen leaves and infected fruit",
+        "Apply appropriate fungicide programs during the growing season"
+      ],
+      "management": [
+        "Sanitation: remove overwintering inoculum",
+        "Fungicide sprays timed to primary infection periods",
+        "Monitor weather for infection-favorable conditions"
+      ],
+      "sources": [
+        "Cornell University Plant Disease Diagnostic Clinic — Apple Scab",
+        "UMass Extension Fruit Program",
+        "Penn State Extension — Apple Disease Management"
+      ]
+    },
+    {
+      "id": "apple-black-rot",
+      "crop": "Apple",
+      "disease": "Apple Black Rot",
+      "scientific_name": "Botryosphaeria obtusa",
+      "condition": "diseased",
+      "description": "Black rot is a fungal disease that affects apple trees, causing leaf lesions, fruit rot, and cankers on branches and trunks.",
+      "symptoms": [
+        "Brown leaf spots with concentric rings (frog-eye appearance)",
+        "Fruit rot starting at the calyx end",
+        "Cankers on branches and trunks"
+      ],
+      "visual_signs": [
+        "Frog-eye pattern on leaves",
+        "Rotting fruit with reddish-brown coloration",
+        "Black, rough cankers on wood"
+      ],
+      "prevention": [
+        "Prune out dead or cankered wood",
+        "Remove mummified fruit",
+        "Maintain tree vigor"
+      ],
+      "management": [
+        "Pruning during dry weather",
+        "Fungicide applications during bloom and post-harvest",
+        "Sanitation of infected plant material"
+      ],
+      "sources": [
+        "Cornell University — Black Rot",
+        "University of Kentucky Cooperative Extension"
+      ]
+    },
+    {
+      "id": "apple-cedar-apple-rust",
+      "crop": "Apple",
+      "disease": "Cedar Apple Rust",
+      "scientific_name": "Gymnosporangium juniperi-virginianae",
+      "condition": "diseased",
+      "description": "Cedar apple rust is a fungal disease that requires both apple and juniper (cedar) hosts. It causes bright orange-yellow spots on apple leaves and can defoliate trees.",
+      "symptoms": [
+        "Bright orange-yellow spots on upper leaf surfaces",
+        "Tube-like structures (aecia) on leaf undersides",
+        "Fruit infection causing premature drop"
+      ],
+      "visual_signs": [
+        "Vivid orange or yellow leaf spots",
+        "Coral-like galls on juniper branches (alternate host)",
+        "Orange, finger-like projections on apple leaf undersides"
+      ],
+      "prevention": [
+        "Remove nearby juniper/cedar alternate hosts when practical",
+        "Plant resistant cultivars",
+        "Apply fungicides during the infection window"
+      ],
+      "management": [
+        "Fungicide programs timed to juniper telial stage",
+        "Avoid planting apples near junipers in new orchards"
+      ],
+      "sources": [
+        "Iowa State University Extension",
+        "Penn State Extension"
+      ]
+    },
+    {
+      "id": "apple-healthy",
+      "crop": "Apple",
+      "disease": "Healthy",
+      "scientific_name": "—",
+      "condition": "healthy",
+      "description": "Leaf tissue with no visible symptoms of the diseases supported by this model.",
+      "symptoms": [],
+      "visual_signs": [
+        "Uniform green coloration",
+        "No necrotic or chlorotic lesions",
+        "Intact leaf margins and structure"
+      ],
+      "prevention": [],
+      "management": [],
+      "sources": []
+    },
+    {
+      "id": "blueberry-healthy",
+      "crop": "Blueberry",
+      "disease": "Healthy",
+      "scientific_name": "—",
+      "condition": "healthy",
+      "description": "Blueberry leaf tissue with no visible symptoms of the diseases supported by this model.",
+      "symptoms": [],
+      "visual_signs": [
+        "Uniform green coloration",
+        "No lesions or discoloration"
+      ],
+      "prevention": [],
+      "management": [],
+      "sources": []
+    },
+    {
+      "id": "cherry-powdery-mildew",
+      "crop": "Cherry",
+      "disease": "Cherry Powdery Mildew",
+      "scientific_name": "Podosphaera clandestina",
+      "condition": "diseased",
+      "description": "Powdery mildew is a fungal disease affecting cherry leaves and fruit, characterized by white powdery fungal growth.",
+      "symptoms": [
+        "White powdery coating on leaves and shoots",
+        "Leaf curling and distortion",
+        "Reduced fruit quality"
+      ],
+      "visual_signs": [
+        "White to gray powdery fungal growth on leaf surfaces",
+        "Distorted, stunted new growth"
+      ],
+      "prevention": [
+        "Plant resistant varieties",
+        "Ensure good air circulation",
+        "Avoid excessive nitrogen fertilization"
+      ],
+      "management": [
+        "Fungicide applications during the growing season",
+        "Pruning to improve canopy ventilation"
+      ],
+      "sources": [
+        "Oregon State University Extension",
+        "Washington State University Tree Fruit"
+      ]
+    },
+    {
+      "id": "cherry-healthy",
+      "crop": "Cherry",
+      "disease": "Healthy",
+      "scientific_name": "—",
+      "condition": "healthy",
+      "description": "Cherry leaf tissue with no visible symptoms of the diseases supported by this model.",
+      "symptoms": [],
+      "visual_signs": ["Uniform green coloration", "No lesions"],
+      "prevention": [],
+      "management": [],
+      "sources": []
+    },
+    {
+      "id": "corn-cercospora-gray-leaf-spot",
+      "crop": "Corn",
+      "disease": "Cercospora Leaf Spot / Gray Leaf Spot",
+      "scientific_name": "Cercospora zeae-maydis",
+      "condition": "diseased",
+      "description": "Gray leaf spot is a significant fungal disease of maize caused by Cercospora zeae-maydis, producing elongated rectangular lesions on leaves.",
+      "symptoms": [
+        "Elongated, rectangular lesions parallel to leaf veins",
+        "Lesions turn gray to tan as they mature",
+        "Severe infection reduces photosynthetic area"
+      ],
+      "visual_signs": [
+        "Rectangular gray-brown lesions bounded by leaf veins",
+        "Lesions may coalesce in severe cases"
+      ],
+      "prevention": [
+        "Use resistant hybrids",
+        "Crop rotation with non-host crops",
+        "Balanced fertility management"
+      ],
+      "management": [
+        "Fungicide applications when threshold conditions are met",
+        "Residue management"
+      ],
+      "sources": [
+        "Iowa State University Extension",
+        "University of Nebraska–Lincoln CropWatch"
+      ]
+    },
+    {
+      "id": "corn-common-rust",
+      "crop": "Corn",
+      "disease": "Common Rust",
+      "scientific_name": "Puccinia sorghi",
+      "condition": "diseased",
+      "description": "Common rust of corn is caused by Puccinia sorghi and produces reddish-brown pustules on leaf surfaces.",
+      "symptoms": [
+        "Reddish-brown pustules on leaves",
+        "Pustules appear on both leaf surfaces",
+        "Severe infection can cause leaf yellowing and premature death"
+      ],
+      "visual_signs": [
+        "Cinnamon-brown raised pustules",
+        "Yellowing of surrounding leaf tissue"
+      ],
+      "prevention": [
+        "Plant resistant hybrids",
+        "Early planting to avoid peak spore periods"
+      ],
+      "management": [
+        "Fungicide use in high-value or severe infection situations"
+      ],
+      "sources": [
+        "University of Illinois Extension",
+        "Clemson Cooperative Extension"
+      ]
+    },
+    {
+      "id": "corn-northern-leaf-blight",
+      "crop": "Corn",
+      "disease": "Northern Leaf Blight",
+      "scientific_name": "Exserohilum turcicum",
+      "condition": "diseased",
+      "description": "Northern leaf blight is a fungal disease of maize producing large cigar-shaped lesions on leaves.",
+      "symptoms": [
+        "Long, cigar-shaped lesions",
+        "Lesions are tan to gray",
+        "Severe infection reduces grain fill"
+      ],
+      "visual_signs": [
+        "Elliptical lesions up to several inches long",
+        "Dark border around lesion margins"
+      ],
+      "prevention": [
+        "Use resistant hybrids",
+        "Crop rotation",
+        "Manage crop residue"
+      ],
+      "management": [
+        "Fungicide applications when disease pressure warrants",
+        "Timed scouting"
+      ],
+      "sources": [
+        "University of Wisconsin Extension",
+        "University of Nebraska–Lincoln"
+      ]
+    },
+    {
+      "id": "corn-healthy",
+      "crop": "Corn",
+      "disease": "Healthy",
+      "scientific_name": "—",
+      "condition": "healthy",
+      "description": "Corn leaf tissue with no visible symptoms of the diseases supported by this model.",
+      "symptoms": [],
+      "visual_signs": ["Uniform green coloration", "No lesions"],
+      "prevention": [],
+      "management": [],
+      "sources": []
+    },
+    {
+      "id": "grape-black-rot",
+      "crop": "Grape",
+      "disease": "Grape Black Rot",
+      "scientific_name": "Guignardia bidwellii",
+      "condition": "diseased",
+      "description": "Black rot is a major fungal disease of grapes causing fruit rot, leaf lesions, and cane infections.",
+      "symptoms": [
+        "Circular leaf lesions with dark borders",
+        "Fruit shriveling into hard black mummies",
+        "Canker-like lesions on canes"
+      ],
+      "visual_signs": [
+        "Tan leaf spots with purple-brown borders",
+        "Black, shriveled fruit mummies"
+      ],
+      "prevention": [
+        "Prune for air circulation",
+        "Remove mummified fruit and infected canes",
+        "Plant resistant varieties"
+      ],
+      "management": [
+        "Fungicide program from bloom through fruit development",
+        "Sanitation of overwintering inoculum"
+      ],
+      "sources": [
+        "Penn State Extension — Grape Disease Management",
+        "University of Missouri Extension"
+      ]
+    },
+    {
+      "id": "grape-esca",
+      "crop": "Grape",
+      "disease": "Grape Esca (Black Measles)",
+      "scientific_name": "Phaeomoniella chlamydospora / Phaeoacremonium spp.",
+      "condition": "diseased",
+      "description": "Esca is a complex grapevine trunk disease involving several fungal pathogens. It causes leaf stripes, tiger-stripe patterns, and vine decline.",
+      "symptoms": [
+        "Tiger-stripe pattern on leaves (interveinal chlorosis and necrosis)",
+        "Leaf scorching and curling",
+        "Wood discoloration in trunk cross-sections"
+      ],
+      "visual_signs": [
+        "Yellow and brown interveinal striping on leaves",
+        "Red-brown wood with white sectors in cross-section"
+      ],
+      "prevention": [
+        "Use clean planting material",
+        "Protect pruning wounds",
+        "Avoid stress conditions"
+      ],
+      "management": [
+        "Limited curative options once established",
+        "Removal of severely affected vines"
+      ],
+      "sources": [
+        "UC Davis Viticulture",
+        "European Grapevine Network (EIP-AGRI)"
+      ]
+    },
+    {
+      "id": "grape-leaf-blight-isariopsis",
+      "crop": "Grape",
+      "disease": "Grape Leaf Blight (Isariopsis Leaf Spot)",
+      "scientific_name": "Pseudocercospora vitis",
+      "condition": "diseased",
+      "description": "Grape leaf blight, also known as Isariopsis leaf spot, causes necrotic lesions on grape leaves.",
+      "symptoms": [
+        "Brown necrotic spots on leaves",
+        "Premature leaf drop in severe cases"
+      ],
+      "visual_signs": [
+        "Irregular brown spots with darker margins",
+        "Spots may coalesce"
+      ],
+      "prevention": [
+        "Good canopy management",
+        "Reduce leaf wetness duration"
+      ],
+      "management": [
+        "Fungicide applications in humid conditions"
+      ],
+      "sources": [
+        "IFV (Institut Français de la Vigne et du Vin)"
+      ]
+    },
+    {
+      "id": "grape-healthy",
+      "crop": "Grape",
+      "disease": "Healthy",
+      "scientific_name": "—",
+      "condition": "healthy",
+      "description": "Grape leaf tissue with no visible symptoms of the diseases supported by this model.",
+      "symptoms": [],
+      "visual_signs": ["Uniform green coloration", "No lesions"],
+      "prevention": [],
+      "management": [],
+      "sources": []
+    },
+    {
+      "id": "orange-hlb-citrus-greening",
+      "crop": "Orange",
+      "disease": "Huanglongbing (Citrus Greening)",
+      "scientific_name": "Candidatus Liberibacter asiaticus",
+      "condition": "diseased",
+      "description": "Huanglongbing (HLB), or citrus greening, is a devastating bacterial disease transmitted by the Asian citrus psyllid. It causes yellowing, misshapen fruit, and eventual tree decline.",
+      "symptoms": [
+        "Asymmetric blotchy mottle on leaves",
+        "Yellowing of leaf veins (vein chlorosis)",
+        "Small, lopsided, bitter-tasting fruit",
+        "Premature fruit drop"
+      ],
+      "visual_signs": [
+        "Blotchy yellow mottle on one side of the leaf",
+        "Greenish-yellow vein patterns",
+        "Unevenly colored fruit with a distinctive green lopsided appearance"
+      ],
+      "prevention": [
+        "Control psyllid vector populations",
+        "Use HLB-free nursery stock",
+        "Remove and replace infected trees in high-pressure areas"
+      ],
+      "management": [
+        "Insecticide programs for psyllid control",
+        "Nutritional support to slow decline (does not cure)",
+        "Regional coordinated management"
+      ],
+      "sources": [
+        "University of Florida IFAS — Citrus Greening",
+        "California Department of Food and Agriculture"
+      ]
+    },
+    {
+      "id": "peach-bacterial-spot",
+      "crop": "Peach",
+      "disease": "Peach Bacterial Spot",
+      "scientific_name": "Xanthomonas arboricola pv. pruni",
+      "condition": "diseased",
+      "description": "Bacterial spot of peach and nectarine is caused by Xanthomonas arboricola pv. pruni, producing leaf lesions, fruit spots, and gummosis.",
+      "symptoms": [
+        "Small angular spots on leaves",
+        "Shot-hole appearance as tissue falls out",
+        "Sunken, angular fruit spots",
+        "Gumming on fruit and twigs"
+      ],
+      "visual_signs": [
+        "Angular leaf lesions often limited by veins",
+        "Raised, rough spots on fruit"
+      ],
+      "prevention": [
+        "Plant resistant varieties",
+        "Prune for air circulation"
+      ],
+      "management": [
+        "Copper-based bactericide programs",
+        "Avoid overhead irrigation when possible"
+      ],
+      "sources": [
+        "Michigan State University Extension",
+        "UC Davis — Bacterial Spot"
+      ]
+    },
+    {
+      "id": "peach-healthy",
+      "crop": "Peach",
+      "disease": "Healthy",
+      "scientific_name": "—",
+      "condition": "healthy",
+      "description": "Peach leaf tissue with no visible symptoms of the diseases supported by this model.",
+      "symptoms": [],
+      "visual_signs": ["Uniform green coloration", "No lesions"],
+      "prevention": [],
+      "management": [],
+      "sources": []
+    },
+    {
+      "id": "pepper-bacterial-spot",
+      "crop": "Pepper",
+      "disease": "Pepper Bacterial Spot",
+      "scientific_name": "Xanthomonas campestris pv. vesicatoria",
+      "condition": "diseased",
+      "description": "Bacterial spot of pepper causes leaf, stem, and fruit lesions, reducing plant vigor and fruit quality.",
+      "symptoms": [
+        "Small dark leaf spots with yellow halos",
+        "Angular lesions",
+        "Fruit spotting and cracking"
+      ],
+      "visual_signs": [
+        "Dark, water-soaked spots",
+        "Yellow chlorotic halos around lesions"
+      ],
+      "prevention": [
+        "Use disease-free seed",
+        "Rotate with non-host crops",
+        "Avoid working plants when wet"
+      ],
+      "management": [
+        "Copper bactericides",
+        "Cultural practices to reduce leaf wetness"
+      ],
+      "sources": [
+        "University of Florida IFAS",
+        "Auburn University Extension"
+      ]
+    },
+    {
+      "id": "pepper-healthy",
+      "crop": "Pepper",
+      "disease": "Healthy",
+      "scientific_name": "—",
+      "condition": "healthy",
+      "description": "Pepper leaf tissue with no visible symptoms of the diseases supported by this model.",
+      "symptoms": [],
+      "visual_signs": ["Uniform green coloration", "No lesions"],
+      "prevention": [],
+      "management": [],
+      "sources": []
+    },
+    {
+      "id": "potato-early-blight",
+      "crop": "Potato",
+      "disease": "Potato Early Blight",
+      "scientific_name": "Alternaria solani",
+      "condition": "diseased",
+      "description": "Early blight is a fungal disease of potato caused by Alternaria solani, producing dark, target-like lesions on older leaves.",
+      "symptoms": [
+        "Dark brown spots with concentric rings (target pattern)",
+        "Lesions begin on older, lower leaves",
+        "Yellowing around lesions"
+      ],
+      "visual_signs": [
+        "Target-board pattern within lesions",
+        "Necrotic tissue with concentric rings"
+      ],
+      "prevention": [
+        "Rotate with non-solanaceous crops",
+        "Balanced fertilization",
+        "Plant certified seed"
+      ],
+      "management": [
+        "Fungicide programs beginning at canopy closure",
+        "Monitor lower canopy frequently"
+      ],
+      "sources": [
+        "University of Maine Extension",
+        "North Dakota State University"
+      ]
+    },
+    {
+      "id": "potato-late-blight",
+      "crop": "Potato",
+      "disease": "Potato Late Blight",
+      "scientific_name": "Phytophthora infestans",
+      "condition": "diseased",
+      "description": "Late blight is a destructive oomycete disease caused by Phytophthora infestans that can rapidly destroy potato foliage and tubers.",
+      "symptoms": [
+        "Water-soaked lesions on leaves",
+        "White fungal growth on leaf undersides in humid conditions",
+        "Brown, firm tuber rot"
+      ],
+      "visual_signs": [
+        "Dark, water-soaked lesions expanding rapidly",
+        "White sporulation on lesion edges",
+        "Brown, marbled tuber flesh"
+      ],
+      "prevention": [
+        "Plant resistant varieties",
+        "Destroy volunteer potatoes",
+        "Use certified seed tubers"
+      ],
+      "management": [
+        "Protectant fungicide programs",
+        "Weather-based alert systems",
+        "Rapid removal of infected vines"
+      ],
+      "sources": [
+        "Cornell University — Late Blight",
+        "Plant Health Pro (EU)"
+      ]
+    },
+    {
+      "id": "potato-healthy",
+      "crop": "Potato",
+      "disease": "Healthy",
+      "scientific_name": "—",
+      "condition": "healthy",
+      "description": "Potato leaf tissue with no visible symptoms of the diseases supported by this model.",
+      "symptoms": [],
+      "visual_signs": ["Uniform green coloration", "No lesions"],
+      "prevention": [],
+      "management": [],
+      "sources": []
+    },
+    {
+      "id": "raspberry-healthy",
+      "crop": "Raspberry",
+      "disease": "Healthy",
+      "scientific_name": "—",
+      "condition": "healthy",
+      "description": "Raspberry leaf tissue with no visible symptoms of the diseases supported by this model.",
+      "symptoms": [],
+      "visual_signs": ["Uniform green coloration", "No lesions"],
+      "prevention": [],
+      "management": [],
+      "sources": []
+    },
+    {
+      "id": "soybean-healthy",
+      "crop": "Soybean",
+      "disease": "Healthy",
+      "scientific_name": "—",
+      "condition": "healthy",
+      "description": "Soybean leaf tissue with no visible symptoms of the diseases supported by this model.",
+      "symptoms": [],
+      "visual_signs": ["Uniform green coloration", "No lesions"],
+      "prevention": [],
+      "management": [],
+      "sources": []
+    },
+    {
+      "id": "squash-powdery-mildew",
+      "crop": "Squash",
+      "disease": "Squash Powdery Mildew",
+      "scientific_name": "Podosphaera xanthii",
+      "condition": "diseased",
+      "description": "Powdery mildew on squash and cucurbits is caused by Podosphaera xanthii and produces white powdery growth on leaves.",
+      "symptoms": [
+        "White powdery fungal growth on upper leaf surfaces",
+        "Yellowing of infected leaves",
+        "Premature senescence in severe cases"
+      ],
+      "visual_signs": [
+        "White powdery coating that can be rubbed off",
+        "Lower leaves infected first"
+      ],
+      "prevention": [
+        "Plant resistant varieties",
+        "Space plants for air circulation",
+        "Avoid excessive shading"
+      ],
+      "management": [
+        "Fungicide applications (sulfur, horticultural oils, or registered products)",
+        "Remove heavily infected leaves"
+      ],
+      "sources": [
+        "University of California IPM",
+        "University of Minnesota Extension"
+      ]
+    },
+    {
+      "id": "strawberry-leaf-scorch",
+      "crop": "Strawberry",
+      "disease": "Strawberry Leaf Scorch",
+      "scientific_name": "Diplocarpon earlianum",
+      "condition": "diseased",
+      "description": "Leaf scorch of strawberry is caused by Diplocarpon earlianum, producing irregular purplish-red to brown leaf lesions.",
+      "symptoms": [
+        "Irregular purplish-red leaf spots",
+        "Leaf margins turning brown and dry",
+        "Reduced fruit yield"
+      ],
+      "visual_signs": [
+        "Dark purplish-brown lesions on leaves",
+        "Scorched, dry leaf margins"
+      ],
+      "prevention": [
+        "Plant resistant cultivars",
+        "Avoid overhead irrigation",
+        "Renovate plantings appropriately"
+      ],
+      "management": [
+        "Fungicide applications in autumn and spring",
+        "Remove infected leaves after harvest"
+      ],
+      "sources": [
+        "University of California IPM",
+        "Rutgers Extension"
+      ]
+    },
+    {
+      "id": "strawberry-healthy",
+      "crop": "Strawberry",
+      "disease": "Healthy",
+      "scientific_name": "—",
+      "condition": "healthy",
+      "description": "Strawberry leaf tissue with no visible symptoms of the diseases supported by this model.",
+      "symptoms": [],
+      "visual_signs": ["Uniform green coloration", "No lesions"],
+      "prevention": [],
+      "management": [],
+      "sources": []
+    },
+    {
+      "id": "tomato-bacterial-spot",
+      "crop": "Tomato",
+      "disease": "Tomato Bacterial Spot",
+      "scientific_name": "Xanthomonas spp.",
+      "condition": "diseased",
+      "description": "Bacterial spot of tomato is caused by several Xanthomonas species and produces small, dark lesions on leaves, stems, and fruit.",
+      "symptoms": [
+        "Small, dark, angular leaf lesions",
+        "Yellowing around lesions",
+        "Raised, scabby spots on fruit"
+      ],
+      "visual_signs": [
+        "Dark angular spots limited by veins",
+        "Small raised fruit spots"
+      ],
+      "prevention": [
+        "Use pathogen-free seed",
+        "Rotate with non-host crops",
+        "Avoid working wet plants"
+      ],
+      "management": [
+        "Copper-based bactericides",
+        "Cultural practices reducing leaf wetness"
+      ],
+      "sources": [
+        "University of Florida IFAS",
+        "Auburn University Extension"
+      ]
+    },
+    {
+      "id": "tomato-early-blight",
+      "crop": "Tomato",
+      "disease": "Tomato Early Blight",
+      "scientific_name": "Alternaria solani",
+      "condition": "diseased",
+      "description": "Early blight is a common fungal disease of tomato caused by Alternaria solani, producing target-like lesions on older leaves.",
+      "symptoms": [
+        "Dark brown lesions with concentric rings",
+        "Lower leaves affected first",
+        "Yellow halos around lesions"
+      ],
+      "visual_signs": [
+        "Target-pattern lesions",
+        "Concentric rings within dark spots"
+      ],
+      "prevention": [
+        "Rotate crops every 2–3 years",
+        "Mulch to reduce soil splash",
+        "Space plants for air circulation"
+      ],
+      "management": [
+        "Fungicide applications starting at first symptoms",
+        "Remove lower infected leaves"
+      ],
+      "sources": [
+        "Cornell University — Early Blight",
+        "University of California IPM"
+      ]
+    },
+    {
+      "id": "tomato-late-blight",
+      "crop": "Tomato",
+      "disease": "Tomato Late Blight",
+      "scientific_name": "Phytophthora infestans",
+      "condition": "diseased",
+      "description": "Late blight of tomato is a fast-spreading oomycete disease that can destroy foliage and fruit within days under cool, wet conditions.",
+      "symptoms": [
+        "Large, water-soaked leaf lesions",
+        "White growth on leaf undersides",
+        "Brown, greasy fruit rot"
+      ],
+      "visual_signs": [
+        "Dark, expanding lesions often starting at leaf tips or margins",
+        "White sporangiophores on lesion undersides"
+      ],
+      "prevention": [
+        "Avoid overhead irrigation",
+        "Destroy volunteer tomatoes and potatoes",
+        "Plant resistant varieties"
+      ],
+      "management": [
+        "Protectant fungicide programs",
+        "Rapid removal of infected plants",
+        "Weather-based disease alerts"
+      ],
+      "sources": [
+        "Cornell University — Late Blight",
+        "Oregon State University Extension"
+      ]
+    },
+    {
+      "id": "tomato-leaf-mold",
+      "crop": "Tomato",
+      "disease": "Tomato Leaf Mold",
+      "scientific_name": "Passalora fulva",
+      "condition": "diseased",
+      "description": "Tomato leaf mold is a fungal disease common in greenhouses, caused by Passalora fulva (formerly Cladosporium fulvum), producing yellow upper leaf surfaces and olive-green mold on undersides.",
+      "symptoms": [
+        "Pale yellow spots on upper leaf surfaces",
+        "Olive-green to brown mold on lower surfaces",
+        "Leaf curling and defoliation"
+      ],
+      "visual_signs": [
+        "Velvety olive-green fungal growth on leaf undersides",
+        "Chlorotic spots on upper surfaces"
+      ],
+      "prevention": [
+        "Use resistant varieties",
+        "Control greenhouse humidity",
+        "Improve ventilation"
+      ],
+      "management": [
+        "Fungicide applications (registered products for leaf mold)",
+        "Remove infected leaves"
+      ],
+      "sources": [
+        "Cornell University — Leaf Mold",
+        "University of Florida IFAS"
+      ]
+    },
+    {
+      "id": "tomato-septoria-leaf-spot",
+      "crop": "Tomato",
+      "disease": "Tomato Septoria Leaf Spot",
+      "scientific_name": "Septoria lycopersici",
+      "condition": "diseased",
+      "description": "Septoria leaf spot is a fungal disease caused by Septoria lycopersici, producing numerous small circular leaf lesions with dark margins and tan centers.",
+      "symptoms": [
+        "Many small circular leaf spots",
+        "Dark brown margins with tan or gray centers",
+        "Premature defoliation in severe cases"
+      ],
+      "visual_signs": [
+        "Numerous small dark-bordered spots",
+        "Gray or tan lesion centers"
+      ],
+      "prevention": [
+        "Rotate with non-host crops",
+        "Mulch to reduce splash",
+        "Use disease-free transplants"
+      ],
+      "management": [
+        "Fungicide applications at first symptoms",
+        "Remove lower infected leaves"
+      ],
+      "sources": [
+        "University of California IPM",
+        "Penn State Extension"
+      ]
+    },
+    {
+      "id": "tomato-spider-mites",
+      "crop": "Tomato",
+      "disease": "Tomato Spider Mites (Two-Spotted Spider Mite)",
+      "scientific_name": "Tetranychus urticae",
+      "condition": "diseased",
+      "description": "Two-spotted spider mites are arachnid pests that feed on tomato leaf cells, causing stippling, bronzing, and webbing.",
+      "symptoms": [
+        "Fine white or yellow stippling on leaves",
+        "Bronzing of heavily infested leaves",
+        "Fine webbing on leaf undersides and stems"
+      ],
+      "visual_signs": [
+        "Stippled, pale leaves",
+        "Visible mite webbing",
+        "Mites visible on leaf undersides"
+      ],
+      "prevention": [
+        "Avoid dusty conditions",
+        "Control weeds that harbor mites",
+        "Use resistant varieties where available"
+      ],
+      "management": [
+        "Miticide applications (rotate modes of action)",
+        "Predatory mite releases (biological control)",
+        "High-pressure water sprays"
+      ],
+      "sources": [
+        "UC Statewide IPM Program",
+        "University of Florida IFAS"
+      ]
+    },
+    {
+      "id": "tomato-target-spot",
+      "crop": "Tomato",
+      "disease": "Tomato Target Spot",
+      "scientific_name": "Corynespora cassiicola",
+      "condition": "diseased",
+      "description": "Target spot of tomato is caused by Corynespora cassiicola and produces brown leaf lesions with concentric rings, similar in appearance to early blight.",
+      "symptoms": [
+        "Brown lesions with concentric rings",
+        "Lesions on leaves, stems, and fruit",
+        "Leaf yellowing and drop"
+      ],
+      "visual_signs": [
+        "Target-like lesions with alternating light and dark bands",
+        "Sunken fruit spots"
+      ],
+      "prevention": [
+        "Crop rotation",
+        "Avoid overhead irrigation",
+        "Improve canopy airflow"
+      ],
+      "management": [
+        "Fungicide applications (rotate chemical classes)",
+        "Remove infected plant debris"
+      ],
+      "sources": [
+        "University of Florida IFAS",
+        "TOMATO-DISEASES.ORG"
+      ]
+    },
+    {
+      "id": "tomato-yellow-leaf-curl-virus",
+      "crop": "Tomato",
+      "disease": "Tomato Yellow Leaf Curl Virus",
+      "scientific_name": "Tomato yellow leaf curl virus (TYLCV)",
+      "condition": "diseased",
+      "description": "TYLCV is a geminivirus transmitted by whiteflies (Bemisia tabaci). It causes severe leaf curling, yellowing, and stunting of tomato plants.",
+      "symptoms": [
+        "Upward curling and yellowing of young leaves",
+        "Stunted plant growth",
+        "Reduced fruit set"
+      ],
+      "visual_signs": [
+        "Strong upward leaf curl",
+        "Bright yellow leaf margins",
+        "Compact, bushy stunted appearance"
+      ],
+      "prevention": [
+        "Use whitefly-resistant varieties",
+        "Control whitefly populations",
+        "Remove infected plants promptly"
+      ],
+      "management": [
+        "Insecticide programs for whitefly control",
+        "No curative treatment once infected"
+      ],
+      "sources": [
+        "University of Florida IFAS",
+        "CGIAR / AVRDC"
+      ]
+    },
+    {
+      "id": "tomato-mosaic-virus",
+      "crop": "Tomato",
+      "disease": "Tomato Mosaic Virus",
+      "scientific_name": "Tomato mosaic virus (ToMV)",
+      "condition": "diseased",
+      "description": "Tomato mosaic virus is a highly stable plant virus transmitted by mechanical contact, seed, and contaminated tools. It causes mottled leaf patterns and fruit deformation.",
+      "symptoms": [
+        "Mottled light and dark green leaf patterns",
+        "Leaf distortion and curling",
+        "Irregularly shaped fruit with internal browning"
+      ],
+      "visual_signs": [
+        "Mosaic mottling on leaves",
+        "Stunted growth",
+        "Internal fruit necrosis"
+      ],
+      "prevention": [
+        "Use virus-free seed",
+        "Disinfect tools and hands between plants",
+        "Remove infected plants"
+      ],
+      "management": [
+        "No chemical cure",
+        "Sanitation and resistant varieties"
+      ],
+      "sources": [
+        "Cornell University — Virus Diseases",
+        "University of Florida IFAS"
+      ]
+    },
+    {
+      "id": "tomato-healthy",
+      "crop": "Tomato",
+      "disease": "Healthy",
+      "scientific_name": "—",
+      "condition": "healthy",
+      "description": "Tomato leaf tissue with no visible symptoms of the diseases supported by this model.",
+      "symptoms": [],
+      "visual_signs": ["Uniform green coloration", "No lesions"],
+      "prevention": [],
+      "management": [],
+      "sources": []
+    }
+  ]
+}

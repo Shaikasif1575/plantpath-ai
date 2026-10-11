@@ -1,0 +1,28 @@
+{
+  "metrics": {
+    "accuracy": 0.9988950276243094,
+    "precision": null,
+    "recall": null,
+    "f1": null,
+    "note": "Accuracy is the validation accuracy recorded inside the connected checkpoint itself (models/efficientnet_v2_s_best.pth, key 'val_acc', epoch 20) and reported in the model card of BiernyVR/crop-disease-classifier (Hugging Face, MIT license). It is the source training run's own output on its validation split, not measured by this project, and not evidence of field performance. Precision, recall and F1 were not distributed with the checkpoint, so they remain null."
+  },
+  "training": {
+    "training_accuracy": null,
+    "validation_accuracy": 0.9988950276243094,
+    "training_loss": null,
+    "validation_loss": null,
+    "epochs": 20,
+    "note": "Epochs (20) and validation accuracy are read from the checkpoint metadata keys 'epoch' and 'val_acc' of the downloaded model. Training curves and losses were not distributed with the checkpoint, so they remain null."
+  },
+  "confusion_matrix": null,
+  "class_wise": null,
+  "project_evaluation": {
+    "note": "Measured by this project with tests/verify_new_model.py. Small-sample sanity checks only; not a benchmark.",
+    "field_probe_accuracy": 0.5714285714285714,
+    "field_probe_correct": 4,
+    "field_probe_total": 7,
+    "field_probe_detail": "7 labelled Wikimedia Commons field photographs (out-of-domain versus the source's training data). See models/classifier_audit.json for per-image results.",
+    "in_domain_sample": "The model author's distributed test image classified as Apple___Apple_scab with p=0.903 (models/classifier_audit.json)."
+  },
+  "evaluation_note": "Metrics are only displayed when present in project files, together with their source. They are never invented."
+}

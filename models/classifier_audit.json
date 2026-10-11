@@ -1,0 +1,126 @@
+{
+  "status": "verified_working_classifier",
+  "model_file": "efficientnet_v2_s_best.pth",
+  "architecture": "torchvision efficientnet_v2_s + Linear(38) head",
+  "load_variant": "torchvision efficientnet_v2_s + Linear(38) head (strict load)",
+  "num_parameters": 20226166,
+  "source": {
+    "repo": "https://huggingface.co/BiernyVR/crop-disease-classifier",
+    "license": "MIT",
+    "reported_val_accuracy": 0.9988950276243094,
+    "reported_metric_provenance": "model card / classes.json shipped with the checkpoint (author's self-reported training output)"
+  },
+  "classes_provenance": "models/classes.json shipped with the checkpoint (authoritative mapping, not guessed)",
+  "preprocessing": {
+    "size": 224,
+    "interpolation": "bilinear",
+    "scale": "0-1 then ImageNet mean/std",
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ],
+    "provenance": "models/infer.py shipped with the checkpoint"
+  },
+  "gates": {
+    "liveness": {
+      "pass": true,
+      "criterion": ">=3 distinct top classes, >=0.2 confidence spread, min prob >0.4",
+      "distinct_top_classes": 5,
+      "confidence_min": 0.5284,
+      "confidence_max": 0.891
+    },
+    "in_domain_sample": {
+      "pass": true,
+      "file": "author_sample_apple_scab.jpg",
+      "expected": "Apple___Apple_scab",
+      "predicted": "Apple___Apple_scab",
+      "probability": 0.9035,
+      "inference_ms": 44.0
+    }
+  },
+  "field_photo_probe_evaluation": {
+    "note": "Informal sanity check on 7 Wikimedia Commons field photographs \u2014 out of the PlantVillage training domain (lab photos, plain backgrounds). Small sample; NOT a benchmark. Reported for honesty.",
+    "label_separation_accuracy": 0.5714,
+    "correct": 4,
+    "labeled": 7
+  },
+  "probe_results": [
+    {
+      "file": "diseased_tomato_earlyblight_1.jpg",
+      "truth": "diseased",
+      "top_class": "Pepper,_bell___healthy",
+      "top_probability": 0.717593,
+      "healthy_vs_diseased_correct": false,
+      "inference_ms": 37.0
+    },
+    {
+      "file": "diseased_tomato_lateblight_1.jpg",
+      "truth": "diseased",
+      "top_class": "Tomato___Early_blight",
+      "top_probability": 0.528354,
+      "healthy_vs_diseased_correct": true,
+      "inference_ms": 36.0
+    },
+    {
+      "file": "diseased_tomato_leafmold_1.jpg",
+      "truth": "diseased",
+      "top_class": "Strawberry___Leaf_scorch",
+      "top_probability": 0.891037,
+      "healthy_vs_diseased_correct": true,
+      "inference_ms": 35.0
+    },
+    {
+      "file": "diseased_tomato_phytophthora_1.jpg",
+      "truth": "diseased",
+      "top_class": "Pepper,_bell___healthy",
+      "top_probability": 0.761338,
+      "healthy_vs_diseased_correct": false,
+      "inference_ms": 38.5
+    },
+    {
+      "file": "healthy_tomato_1.jpg",
+      "truth": "healthy",
+      "top_class": "Cherry_(including_sour)___healthy",
+      "top_probability": 0.648164,
+      "healthy_vs_diseased_correct": true,
+      "inference_ms": 38.0
+    },
+    {
+      "file": "healthy_tomato_2.jpg",
+      "truth": "healthy",
+      "top_class": "Pepper,_bell___healthy",
+      "top_probability": 0.80616,
+      "healthy_vs_diseased_correct": true,
+      "inference_ms": 38.0
+    },
+    {
+      "file": "healthy_tomato_3.jpg",
+      "truth": "healthy",
+      "top_class": "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+      "top_probability": 0.609875,
+      "healthy_vs_diseased_correct": false,
+      "inference_ms": 41.3
+    },
+    {
+      "file": "user_leaf_unknown.jpg",
+      "truth": "unknown",
+      "top_class": "Tomato___Early_blight",
+      "top_probability": 0.784994,
+      "healthy_vs_diseased_correct": false,
+      "inference_ms": 33.0
+    }
+  ],
+  "known_limitations": [
+    "Trained on PlantVillage laboratory photographs; field-photo generalisation is not validated.",
+    "Severity assessment unavailable (no segmentation model connected).",
+    "Metrics shown from model card are author self-reported validation numbers."
+  ],
+  "load_seconds": 0.23,
+  "checked_at": "2026-10-10T06:57:55Z"
+}

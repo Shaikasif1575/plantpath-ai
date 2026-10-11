@@ -1,0 +1,18 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+python-multipart==0.0.20
+pydantic==2.10.4
+pydantic-settings==2.7.0
+numpy>=1.26.0,<2.3
+Pillow>=10.0.0
+opencv-python>=4.8.0
+httpx==0.28.1
+pytest==8.3.4
+pytest-asyncio==0.25.0
+
+# Real inference with the existing trained classifier (CPU-only wheels).
+# Install from the PyTorch CPU index:
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+#
+# The backend reports the model as unavailable rather than simulating results if
+# torch, the checkpoint, or its class mapping is missing.

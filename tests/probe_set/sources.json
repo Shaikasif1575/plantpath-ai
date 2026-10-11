@@ -1,0 +1,65 @@
+{
+  "healthy_tomato_1.jpg": {
+    "commons_title": "File:Healthy tomato leaves (7871755330).jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Healthy_tomato_leaves_(7871755330).jpg",
+    "file_url": "https://upload.wikimedia.org/wikipedia/commons/9/96/Healthy_tomato_leaves_%287871755330%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "description": "Wish they all looked like this.",
+    "license": "CC BY 2.0",
+    "author": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/62528187@N00\">Dwight Sipler</a> from Stow, MA, USA",
+    "ground_truth": "healthy"
+  },
+  "diseased_tomato_lateblight_1.jpg": {
+    "commons_title": "File:Late blight on tomato leaf (7871756748).jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Late_blight_on_tomato_leaf_(7871756748).jpg",
+    "file_url": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Late_blight_on_tomato_leaf_%287871756748%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "description": "Late blight on tomato leaf",
+    "license": "CC BY 2.0",
+    "author": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/62528187@N00\">Dwight Sipler</a> from Stow, MA, USA",
+    "ground_truth": "diseased"
+  },
+  "diseased_tomato_earlyblight_1.jpg": {
+    "commons_title": "File:Early blight on tomato leaves (7871930010).jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Early_blight_on_tomato_leaves_(7871930010).jpg",
+    "file_url": "https://upload.wikimedia.org/wikipedia/commons/7/70/Early_blight_on_tomato_leaves_%287871930010%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "description": "Early blight on tomato leaves",
+    "license": "CC BY 2.0",
+    "author": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/62528187@N00\">Dwight Sipler</a> from Stow, MA, USA",
+    "ground_truth": "diseased"
+  },
+  "diseased_tomato_phytophthora_1.jpg": {
+    "commons_title": "File:Tomato with Phytophthora infestans (late blight).jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Tomato_with_Phytophthora_infestans_(late_blight).jpg",
+    "file_url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Tomato_with_Phytophthora_infestans_%28late_blight%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "description": "Garden tomato (variety \"Ace\") with Phytophthora infestans (late blight or potato blight). Los Angeles, California",
+    "license": "CC BY-SA 3.0",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Downtowngal\" title=\"User:Downtowngal\">Downtowngal</a>",
+    "ground_truth": "diseased"
+  },
+  "diseased_tomato_leafmold_1.jpg": {
+    "commons_title": "File:Tomaat bladvlekkenziekte.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Tomaat_bladvlekkenziekte.jpg",
+    "file_url": "https://upload.wikimedia.org/wikipedia/commons/9/95/Tomaat_bladvlekkenziekte.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "description": "Tomato leaf mold, mid August.",
+    "license": "CC BY-SA 3.0",
+    "author": "<a href=\"https://en.wikipedia.org/wiki/nl:User:Rasbak\" class=\"extiw\" title=\"w:nl:User:Rasbak\">Rasbak</a> at <a href=\"https://en.wikipedia.org/wiki/nl:\" class=\"extiw\" title=\"w:nl:\">Dutch Wikipedia</a>",
+    "ground_truth": "diseased"
+  },
+  "healthy_tomato_2.jpg": {
+    "commons_title": "File:Tomato leaf.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Tomato_leaf.jpg",
+    "file_url": "https://upload.wikimedia.org/wikipedia/commons/0/06/Tomato_leaf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "description": "Tomato leaf",
+    "license": "CC BY 2.0",
+    "author": "Muffet",
+    "ground_truth": "healthy"
+  },
+  "healthy_tomato_3.jpg": {
+    "commons_title": "File:Tomato plant leaves.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Tomato_plant_leaves.jpg",
+    "file_url": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Tomato_plant_leaves.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "description": "Green beauty",
+    "license": "CC0",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Jahra_Tasfia_Reza\" title=\"User:Jahra Tasfia Reza\">Jahra Tasfia Reza</a>",
+    "ground_truth": "healthy"
+  }
+}
