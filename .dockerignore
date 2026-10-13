@@ -1,0 +1,14 @@
+# Keep the Docker build context lean (compose builds from the repo root).
+.git
+.gitignore
+.env
+**/__pycache__
+**/.pytest_cache
+**/*.log
+**/node_modules
+frontend/.next
+models/_segdata
+data/field_eval
+data/field_eval_v1_*
+tests
+scripts

@@ -368,8 +368,9 @@ CPU (PyTorch, `scripts/train_segmentation.py`) produce the masks:
 | `models/segmentation/lesion_unet.pth` | lesion region | godoldol99/SAM2-based-plant-disease-lesion-segmentation-model-DATASET (Apache-2.0, 408 pairs) | **SAM2 model pseudo-labels** — not human annotation | 0.6845 / 0.5246 (best epoch 13 of 18) |
 | `models/segmentation/leaf_unet.pth` | leaf vs background | LeafNet75/Leaf-Disease-Segmentation-masks (Apache-2.0, 588 pairs) | dataset-provided binary masks | 0.6868 / 0.5284 (best epoch 16 of 18) |
 
-Both models are 1,942,577-parameter U-Nets trained on CPU (~27 min each).
-Full per-epoch history and split sizes are in `models/segmentation/meta.json`.
+Both models are 1,942,577-parameter U-Nets trained on CPU (~24–27 min each).
+Full per-epoch history and split sizes are in `models/segmentation/meta.json`;
+dataset provenance is in `models/segmentation/dataset_sources.json`.
 
 Severity = `lesion ∩ leaf` pixels / `leaf` pixels × 100, with thresholds
 mild < 10%, moderate 10–40%, severe ≥ 40%. Validation metrics (Dice/IoU

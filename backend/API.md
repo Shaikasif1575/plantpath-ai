@@ -26,6 +26,11 @@ Returns backend status, model load state, and demo-mode flag.
 }
 ```
 
+This example shows the demo-mode payload (`DEMO_MODE=true`). With the verified
+model connected (`DEMO_MODE=false`), the same shape returns
+`model_loaded: true`, `demo_mode: false`, `gradcam_available: true`, and
+`severity_available: true` when the segmentation model is loaded.
+
 ## GET /api/model-info
 
 Model architecture, metrics (if available), training history (if available),
@@ -62,7 +67,10 @@ Returns:
 - confidence band (low / medium / high)
 - model metadata
 - explainability availability (real Grad-CAM when a model is loaded)
-- severity availability (false until a segmentation model is connected)
+- severity (real affected-area percentage from the connected segmentation
+  model's masks — lesion pixels / leaf pixels × 100; `available: false` with
+  a reason when no segmentation model is loaded, and never derived from
+  classification confidence)
 - limitations list
 
 History is recorded in SQLite. Images are not stored.
@@ -71,8 +79,9 @@ History is recorded in SQLite. Images are not stored.
 
 `multipart/form-data` with field `image` and optional `target_class`.
 
-Generates Grad-CAM when a compatible Keras model is loaded. Returns
-`available: false` with a clear message otherwise.
+Generates Grad-CAM when a compatible PyTorch model is loaded (the connected
+EfficientNetV2-S supports it). Returns `available: false` with a clear
+message otherwise.
 
 ## GET /api/history
 

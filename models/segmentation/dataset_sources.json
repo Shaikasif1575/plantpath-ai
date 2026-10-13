@@ -1,0 +1,13 @@
+{
+  "lesion": {
+    "repo": "godoldol99/SAM2-based-plant-disease-lesion-segmentation-model-DATASET",
+    "license": "apache-2.0",
+    "note": "Lesion masks are SAM2 model pseudo-labels (per dataset name), not human annotations.",
+    "pairs": 408
+  },
+  "leaf": {
+    "repo": "LeafNet75/Leaf-Disease-Segmentation-masks",
+    "license": "apache-2.0",
+    "note": "In-the-wild leaf images with binary leaf-vs-background masks."
+  }
+}
