@@ -283,7 +283,9 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const url = `${API_BASE}${path}`;
   let res: Response;
   try {
-    res = await fetch(url, init);
+    // Live model/API state — never store in Next's Data Cache. Server
+    // components would otherwise serve a frozen response from the last build.
+    res = await fetch(url, { ...init, cache: "no-store" });
   } catch (err) {
     throw new ApiError(
       "Cannot reach the PlantPath AI backend. Make sure the API server is running.",
