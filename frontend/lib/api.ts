@@ -43,7 +43,7 @@ export interface GradCamResult {
 
 export interface SeverityResult {
   available: boolean;
-  message: string;
+  message: string | null;
   affected_area_percent: number | null;
   severity_level: string | null;
   method: string | null;

@@ -32,6 +32,7 @@ ENV MODEL_PATH=/app/models/efficientnet_v2_s_best.pth \
     CLASS_NAMES_PATH=/app/data/class_names.json \
     MODEL_METRICS_PATH=/app/data/model_metrics.json \
     DISEASES_PATH=/app/data/diseases.json \
+    SEGMENTATION_MODEL_PATH=/app/models/segmentation \
     DB_PATH=/app/app/database/plantpath.db \
     DEMO_MODE=false \
     MAX_UPLOAD_SIZE_MB=10 \

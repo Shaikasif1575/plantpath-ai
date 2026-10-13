@@ -1,0 +1,45 @@
+{
+  "generated_by": "scripts/train_segmentation.py",
+  "generated_at": "2026-10-13T09:39:20.025666+00:00",
+  "purpose": "severity assessment (affected leaf area %) for PlantPath AI",
+  "models": {
+    "lesion": {
+      "checkpoint": "models/segmentation/lesion_unet.pth",
+      "dataset_repo": "godoldol99/SAM2-based-plant-disease-lesion-segmentation-model-DATASET",
+      "dataset_license": "apache-2.0",
+      "label_source": "SAM2 model pseudo-labels (per dataset name/description), not human annotation",
+      "train_pairs": 327,
+      "val_pairs": 81,
+      "best_val_metrics": {
+        "epoch": 13,
+        "train_loss": 0.7188,
+        "dice": 0.6845,
+        "iou": 0.5246,
+        "pixel_accuracy": 0.9106
+      },
+      "epochs_run": 18,
+      "hardware": "cpu"
+    },
+    "leaf": {
+      "checkpoint": "models/segmentation/leaf_unet.pth",
+      "dataset_repo": "LeafNet75/Leaf-Disease-Segmentation-masks",
+      "dataset_license": "apache-2.0",
+      "label_source": "binary leaf-vs-background masks as published in the dataset",
+      "train_pairs": 471,
+      "val_pairs": 117,
+      "best_val_metrics": {
+        "epoch": 16,
+        "train_loss": 0.6452,
+        "dice": 0.6868,
+        "iou": 0.5284,
+        "pixel_accuracy": 0.9079
+      },
+      "epochs_run": 18,
+      "hardware": "cpu"
+    }
+  },
+  "honesty_notes": [
+    "Validation metrics are computed against the same label source used for training (pseudo-labels for lesion), so they measure fit to that labeler, not agreement with humans.",
+    "The disease classifier was not trained, retrained or fine-tuned as part of this work."
+  ]
+}

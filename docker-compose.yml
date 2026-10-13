@@ -10,6 +10,7 @@ services:
       MODEL_PATH: "/app/models/efficientnet_v2_s_best.pth"
       MODEL_CLASSES_PATH: "/app/data/model_classes.json"
       MODEL_AUDIT_PATH: "/app/models/classifier_audit.json"
+      SEGMENTATION_MODEL_PATH: "/app/models/segmentation"
       CLASS_NAMES_PATH: "/app/data/class_names.json"
       MODEL_METRICS_PATH: "/app/data/model_metrics.json"
       DISEASES_PATH: "/app/data/diseases.json"

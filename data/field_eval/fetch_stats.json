@@ -1,0 +1,57 @@
+{
+  "Tomato___Late_blight": {
+    "kept": 4,
+    "candidates_tried": 1,
+    "target": 7
+  },
+  "Tomato___Early_blight": {
+    "kept": 1,
+    "candidates_tried": 0,
+    "target": 7
+  },
+  "Tomato___Septoria_leaf_spot": {
+    "kept": 5,
+    "candidates_tried": 0,
+    "target": 5
+  },
+  "Tomato___Leaf_Mold": {
+    "kept": 0,
+    "candidates_tried": 7,
+    "target": 5
+  },
+  "Tomato___healthy": {
+    "kept": 6,
+    "candidates_tried": 0,
+    "target": 6
+  },
+  "Potato___Late_blight": {
+    "kept": 6,
+    "candidates_tried": 0,
+    "target": 6
+  },
+  "Potato___Early_blight": {
+    "kept": 0,
+    "candidates_tried": 4,
+    "target": 5
+  },
+  "Apple___Apple_scab": {
+    "kept": 0,
+    "candidates_tried": 16,
+    "target": 6
+  },
+  "Corn_(maize)___Common_rust": {
+    "kept": 0,
+    "candidates_tried": 6,
+    "target": 5
+  },
+  "Corn_(maize)___Northern_Leaf_Blight": {
+    "kept": 2,
+    "candidates_tried": 1,
+    "target": 5
+  },
+  "Grape___Black_rot": {
+    "kept": 3,
+    "candidates_tried": 39,
+    "target": 5
+  }
+}

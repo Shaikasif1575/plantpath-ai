@@ -24,7 +24,7 @@ const PIPELINE = [
   { icon: Brain, title: "Transfer Learning", desc: "Pretrained CNN backbone adapted to the plant-disease classification task." },
   { icon: Target, title: "Classification", desc: "Softmax over trained disease classes with calibrated probability reporting." },
   { icon: Microscope, title: "Explainability", desc: "Grad-CAM attention maps when the architecture supports gradient-based attribution." },
-  { icon: Layers, title: "Severity", desc: "Future segmentation-based severity estimation (not derived from classification confidence)." },
+  { icon: Layers, title: "Severity", desc: "Segmentation-based severity estimation from project-trained U-Nets (never derived from classification confidence)." },
   { icon: Rocket, title: "Deployment", desc: "Local FastAPI inference with optional Docker packaging — no proprietary cloud AI." },
 ];
 
@@ -67,7 +67,7 @@ const SECTIONS: { icon: LucideIcon; title: string; body: React.ReactNode }[] = [
         <li>Build a working leaf-image classification pipeline with local inference.</li>
         <li>Integrate Grad-CAM for model interpretability where architecture permits.</li>
         <li>Surface model metadata, class mapping, and evaluation honestly.</li>
-        <li>Design extension points for severity segmentation and OOD detection.</li>
+        <li>Implement segmentation-based severity (U-Net pair) with honest attribution; keep OOD detection as an extension point.</li>
         <li>Deliver a professional research-prototype web application.</li>
       </ul>
     ),
@@ -80,7 +80,7 @@ const SECTIONS: { icon: LucideIcon; title: string; body: React.ReactNode }[] = [
         Transfer learning from a pretrained convolutional backbone, fine-tuned on
         the PlantVillage class set. Inference runs locally through PyTorch. The
         application layer separates API routes, services,
-        ML, and persistence so future modules (U-Net severity, OOD detector)
+        ML, and persistence so future modules (OOD detector)
         can be integrated without rewriting the product.
       </p>
     ),
@@ -163,10 +163,10 @@ const SECTIONS: { icon: LucideIcon; title: string; body: React.ReactNode }[] = [
     title: "Future Work",
     body: (
       <ul className="list-disc space-y-1 pl-5">
-        <li>U-Net / segmentation model for disease-region masks and severity %</li>
+        <li>Human-annotated lesion masks to validate severity estimates against real labels</li>
         <li>Plant / non-plant validation classifier</li>
         <li>Out-of-distribution detector (e.g. energy-based or ensemble methods)</li>
-        <li>Field-image robustness evaluation protocol</li>
+        <li>Larger, community-labelled field evaluation set beyond Wikimedia Commons</li>
         <li>Multi-model comparison (ResNet50, EfficientNet, ONNX/TFLite)</li>
         <li>Batch analysis and mobile deployment</li>
       </ul>

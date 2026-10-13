@@ -457,6 +457,10 @@ class TorchClassifier:
             "class_name": self._classes[int(order[0])],
             "confidence": float(probs[int(order[0])]),
             "top_predictions": top,
+            # Full probability vector in CLASS ORDER (aligned with get_classes());
+            # top_predictions above is sorted by confidence and must not be used
+            # for index->class mapping.
+            "probabilities": [float(p) for p in probs],
         }
 
     def predict_logits_for_gradcam(self, image: np.ndarray):

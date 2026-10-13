@@ -7,7 +7,8 @@ Asserts the production live-model contract (DEMO_MODE=false, model connected):
   - Analyze uploads a real image and the UI shows a real prediction: detected
     class from the model's own class list, softmax confidence, ranked
     top predictions, Grad-CAM heatmap
-  - severity still reports honestly unavailable (no segmentation model)
+  - severity comes from the connected segmentation model (affected area %,
+    level, rendered mask overlay) — never from classification confidence
   - report download contains the real prediction and the live-model status
   - the prediction is recorded in history, then cleared
   - model dashboard reports the connected architecture, 38 mapped classes,
@@ -144,22 +145,21 @@ def main() -> int:
         check("model architecture reported in result",
               visible(page.get_by_text("EfficientNetV2-S (torchvision) + Linear(38) head")))
         check("no DEMO MODE banner", page.get_by_text("DEMO MODE").count() == 0)
-        # Grad-CAM + severity honesty
+        # Grad-CAM + severity (connected segmentation model)
         check("Grad-CAM heatmap rendered",
               visible(page.get_by_text("AI Attention / Grad-CAM")))
-        check("severity honestly unavailable",
-              visible(page.get_by_text("Severity assessment is currently unavailable for this model.")))
-        # The severity card's available branch shows the "Affected Leaf Area" /
-        # "Severity Level" definition list plus Mild/Moderate/Severe values.
-        # With no segmentation model connected none of those may appear — the
-        # card must stay on its honest unavailable branch. (Checked as whole
-        # rendered values so the unavailable branch's own explanatory sentence
-        # — "no ... percentage or severity level is shown" — doesn't false-hit.)
-        check("no fabricated severity percentage",
-              page.get_by_text("Affected Leaf Area").count() == 0 and
-              page.get_by_text("Mild", exact=True).count() == 0 and
-              page.get_by_text("Moderate", exact=True).count() == 0 and
-              page.get_by_text("Severe", exact=True).count() == 0)
+        check("severity unavailable sentence absent",
+              page.get_by_text("Severity assessment is currently unavailable for this model.").count() == 0)
+        # The severity card's available branch: affected area %, level, method,
+        # and the rendered segmentation-mask overlay image.
+        check("severity: Affected Leaf Area shown",
+              visible(page.get_by_text("Affected Leaf Area")))
+        check("severity: level shown",
+              any(visible(page.get_by_text(lvl, exact=True)) for lvl in ("Mild", "Moderate", "Severe")))
+        check("severity: method attributed",
+              visible(page.get_by_text("Method: diseased region area / leaf region area x 100")))
+        check("severity: mask overlay image rendered",
+              page.locator('img[alt="Segmentation mask overlay"]').count() >= 1)
         shot(page, "02-scan-result")
 
         # ---------------- 4. Report download (real data) ----------------
@@ -178,8 +178,8 @@ def main() -> int:
                   "Live model — result returned by the backend" in html)
             check("report has the real architecture",
                   "EfficientNetV2" in html)
-            check("report severity is honestly unavailable",
-                  "Severity assessment is currently unavailable for this model." in html)
+            check("report shows segmentation-derived severity",
+                  "Affected area:" in html and "Severity assessment is currently unavailable" not in html)
             check("report has no demo banner", "DEMO MODE" not in html)
         except Exception as e:
             check("report content readable", False, str(e)[:80])
@@ -363,8 +363,9 @@ def main() -> int:
             check("mobile scan → real prediction", True)
             check("mobile shows detected class",
                   visible(mp.get_by_text("Apple scab")))
-            check("mobile severity still honest",
-                  visible(mp.get_by_text("Severity assessment is currently unavailable for this model.")))
+            check("mobile severity shown (available branch)",
+                  visible(mp.get_by_text("Affected Leaf Area")) and
+                  mp.get_by_text("Severity assessment is currently unavailable for this model.").count() == 0)
             mp.screenshot(path=str(OUT / "13-mobile-result.png"), full_page=True)
         except Exception as e:
             check("mobile scan → real prediction", False, str(e)[:80])

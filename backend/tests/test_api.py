@@ -107,11 +107,17 @@ class TestModelInfo:
         ):
             assert field in data, f"missing {field}"
 
-    def test_severity_never_claims_available_without_model(self, client_live):
+    def test_severity_available_with_connected_model(self, client_live):
+        """With the project-trained segmentation model present, model-info must
+        report available severity AND its honest attribution (pseudo-labels)."""
         data = client_live.get("/api/model-info").json()
         sev = data.get("severity", {})
-        assert sev.get("available") is False
+        assert sev.get("available") is True
         assert "confidence" in (sev.get("note") or "").lower()
+        assert "pseudo-label" in (sev.get("note") or "").lower()
+        # The without-model branch still reports honestly (unit-level, below).
+        assert data.get("segmentation_available") is True
+        assert data.get("segmentation_status") == "available"
 
     def test_metrics_are_sourced_not_fabricated(self, client_live):
         """Metrics may only appear with an attribution note; the rest stay null."""
@@ -210,8 +216,15 @@ class TestPredictWithModel:
         assert isinstance(data["low_confidence"], bool)
         if data["low_confidence"]:
             assert "Low-confidence" in data["low_confidence_message"]
-        assert data["severity"]["available"] is False
-        assert "unavailable" in data["severity"]["message"].lower()
+        # Severity must be coherent: either segmentation-derived values that
+        # match the published thresholds, or an honest unavailable result.
+        sev = data["severity"]
+        if sev["available"]:
+            assert isinstance(sev["affected_area_percent"], float)
+            assert sev["severity_level"] in ("Mild", "Moderate", "Severe")
+        else:
+            assert "unavailable" in (sev.get("message") or "").lower()
+            assert sev["affected_area_percent"] is None
 
     def test_low_confidence_flag_forced(self, client_live, monkeypatch):
         """Raising the threshold above the observed probability must flip the
@@ -249,6 +262,38 @@ class TestPredictWithModel:
         # The predicted class must come from the connected model's class list.
         assert data["supported_classes"] == client_live.get("/api/model-info").json()["classes"]
 
+    def test_api_top1_matches_direct_classifier(self, client_live):
+        """Regression: the API's top-1 must equal the classifier's own top-1.
+
+        Pins the class-order probability mapping — a confidence-sorted rank list
+        used as class indices would report class_names[0] for every image (this
+        bug once made every prediction 'Apple___Apple_scab').
+        """
+        if not _model_is_loaded(client_live):
+            pytest.skip("no verified model connected")
+        import numpy as np
+        from PIL import Image
+
+        import app.main as main_app
+
+        clf = main_app.AppState.classifier
+        # A field image whose true top-1 is NOT the first class alphabetically.
+        field = ROOT / "data" / "field_eval" / "images" / "Tomato___Late_blight__00.jpg"
+        img_path = field if field.exists() else PROBE_IMAGE
+        arr = np.asarray(Image.open(img_path).convert("RGB"))
+        direct = clf.predict(arr)
+        r = client_live.post(
+            "/api/predict", files={"image": (img_path.name, img_path.read_bytes(), "image/jpeg")}
+        )
+        assert r.status_code == 200
+        data = r.json()
+        assert data["top_prediction"]["class_name"] == direct["class_name"]
+        assert abs(data["top_prediction"]["probability"] - direct["confidence"]) < 0.01
+        if direct["class_name"] != clf.get_classes()[0]:
+            assert data["top_prediction"]["class_name"] != clf.get_classes()[0], (
+                "top-1 collapsed to the first class of the mapping"
+            )
+
     def test_real_gradcam(self, client_live):
         if not _model_is_loaded(client_live):
             pytest.skip("no verified model connected")
@@ -258,16 +303,32 @@ class TestPredictWithModel:
         assert data["available"] is True
         assert data["overlay"].startswith("data:image/png;base64,")
 
-    def test_predict_returns_gradcam_and_unavailable_severity(self, client_live):
+    def test_predict_returns_gradcam_and_real_severity(self, client_live):
         if not _model_is_loaded(client_live):
             pytest.skip("no verified model connected")
-        r = client_live.post("/api/predict", files={"image": ("leaf.png", _make_png(), "image/png")})
+        assert PROBE_IMAGE.exists(), f"probe image missing: {PROBE_IMAGE}"
+        # A real leaf photograph so the leaf segmenter has tissue to find.
+        r = client_live.post(
+            "/api/predict",
+            files={"image": ("apple_scab.jpg", PROBE_IMAGE.read_bytes(), "image/jpeg")},
+        )
         data = r.json()
         assert data["explainability"]["available"] is True
         assert data["explainability"]["overlay"].startswith("data:image/png;base64,")
-        assert data["severity"]["available"] is False
-        assert data["severity"]["affected_area_percent"] is None
-        assert data["severity"]["severity_level"] is None
+        sev = data["severity"]
+        assert sev["available"] is True
+        assert isinstance(sev["affected_area_percent"], float)
+        assert 0.0 <= sev["affected_area_percent"] <= 100.0
+        assert sev["severity_level"] in ("Mild", "Moderate", "Severe")
+        # Severity level must agree with the published thresholds.
+        pct = sev["affected_area_percent"]
+        expected = "Mild" if pct < 10 else ("Moderate" if pct < 40 else "Severe")
+        assert sev["severity_level"] == expected
+        assert sev["method"] == "diseased region area / leaf region area x 100"
+        assert (sev.get("mask_image") or "").startswith("data:image/png;base64,")
+        assert (sev.get("original_image") or "").startswith("data:image/png;base64,")
+        # It must be labelled as segmentation-derived, not confidence-derived.
+        assert "confidence" in (sev.get("note") or "").lower() or "classifier" in (sev.get("note") or "").lower()
 
 
 class TestPredictDemo:

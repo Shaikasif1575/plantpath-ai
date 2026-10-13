@@ -21,7 +21,7 @@ const PIPELINE = [
   { icon: FileSearch, label: "Image Validation", desc: "Format & quality checks" },
   { icon: BrainCircuit, label: "Disease Classification", desc: "Local ML inference" },
   { icon: Microscope, label: "Explainable AI", desc: "Grad-CAM attention maps" },
-  { icon: Layers, label: "Severity Assessment", desc: "When a segmentation model is connected" },
+  { icon: Layers, label: "Severity Assessment", desc: "Segmentation-model affected leaf area" },
   { icon: FlaskConical, label: "Analysis Report", desc: "Downloadable summary" },
 ];
 
@@ -35,8 +35,8 @@ const CAPABILITIES = [
     body: "When the loaded model architecture supports it, Grad-CAM produces heatmaps showing which image regions influenced the prediction. These are interpretability aids — not biological causation proofs.",
   },
   {
-    title: "Severity Assessment (extension point)",
-    body: "The severity service is architected for a future U-Net / segmentation model. Until a validated mask model is connected, severity is reported as unavailable — never fabricated from classification confidence.",
+    title: "Severity Assessment (segmentation)",
+    body: "Two project-trained U-Nets (lesion region + leaf region) measure affected leaf area as a real percentage from segmentation masks — never fabricated from classification confidence. Lesion labels in the training data are SAM2 pseudo-labels, so values are unvalidated research estimates (models/segmentation_audit.json). If no segmentation model is loaded, severity is reported as unavailable.",
   },
   {
     title: "Research Dashboard",
@@ -49,7 +49,7 @@ const LIMITATIONS = [
   "PlantVillage is a controlled benchmark dataset — field-collected imagery may behave differently.",
   "Model confidence is a probability distribution, not a guarantee of diagnostic correctness.",
   "Out-of-distribution images (unknown diseases, non-plant subjects) are not reliably detected without an explicit OOD model.",
-  "Severity is not derived from classification confidence and requires a dedicated segmentation model.",
+  "Severity is never derived from classification confidence; it comes from a project-trained segmentation model whose lesion labels are pseudo-labels — unvalidated estimates for research use.",
 ];
 
 function HeroWorkflow() {
@@ -177,7 +177,7 @@ export default async function HomePage() {
           <SectionHeading
             eyebrow="Pipeline"
             title="How It Works"
-            description="Each stage is isolated and replaceable — from image validation to explainability and (future) severity estimation."
+            description="Each stage is isolated and replaceable — from image validation to explainability and segmentation-based severity estimation."
           />
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
@@ -185,7 +185,7 @@ export default async function HomePage() {
               ["Local Inference", "Preprocessing matches the trained model's input contract. Softmax probabilities are mapped to class labels from the project's class mapping file."],
               ["Confidence Banding", "Predictions are banded low / medium / high using configurable thresholds — presented as relative model confidence, not certainty."],
               ["Grad-CAM", "Gradient-weighted class activation maps highlight influential regions when the model architecture supports it."],
-              ["Severity (extension point)", "Segmentation-based severity is designed but not faked. The service returns available=false until a real mask model is connected."],
+              ["Severity", "Two U-Nets segment the lesion and leaf regions; affected area = lesion ∩ leaf / leaf × 100. When no segmentation model is loaded, the service returns available=false rather than a number."],
               ["History & Report", "SQLite-backed analysis history and a local PDF/HTML report — no cloud reporting services."],
             ].map(([title, body]) => (
               <div key={title} className="rounded-lg border border-[var(--pp-border)] p-5">

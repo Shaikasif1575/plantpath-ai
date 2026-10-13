@@ -38,7 +38,7 @@ class Settings(BaseSettings):
     model_classes_path: str = "data/model_classes.json"
     model_audit_path: str = "models/classifier_audit.json"
     preprocessing: str = "imagenet_normalized"
-    segmentation_model_path: str = "models/segmentation_model"
+    segmentation_model_path: str = "models/segmentation"
     model_metrics_path: str = "data/model_metrics.json"
     diseases_path: str = "data/diseases.json"
     db_path: str = "backend/app/database/plantpath.db"

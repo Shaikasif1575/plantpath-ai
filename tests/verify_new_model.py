@@ -194,7 +194,9 @@ def main() -> int:
         "probe_results": results,
         "known_limitations": [
             "Trained on PlantVillage laboratory photographs; field-photo generalisation is not validated.",
-            "Severity assessment unavailable (no segmentation model connected).",
+            "Severity comes from a project-trained segmentation model (U-Net pair) "
+            "with SAM2 pseudo-label lesion masks — unvalidated research estimates, "
+            "never derived from classifier confidence.",
             "Metrics shown from model card are author self-reported validation numbers.",
         ],
         "load_seconds": round(load_s, 2),

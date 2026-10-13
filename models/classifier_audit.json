@@ -41,7 +41,7 @@
       "expected": "Apple___Apple_scab",
       "predicted": "Apple___Apple_scab",
       "probability": 0.9035,
-      "inference_ms": 44.0
+      "inference_ms": 314.9
     }
   },
   "field_photo_probe_evaluation": {
@@ -57,7 +57,7 @@
       "top_class": "Pepper,_bell___healthy",
       "top_probability": 0.717593,
       "healthy_vs_diseased_correct": false,
-      "inference_ms": 37.0
+      "inference_ms": 2271.9
     },
     {
       "file": "diseased_tomato_lateblight_1.jpg",
@@ -65,7 +65,7 @@
       "top_class": "Tomato___Early_blight",
       "top_probability": 0.528354,
       "healthy_vs_diseased_correct": true,
-      "inference_ms": 36.0
+      "inference_ms": 2099.0
     },
     {
       "file": "diseased_tomato_leafmold_1.jpg",
@@ -73,7 +73,7 @@
       "top_class": "Strawberry___Leaf_scorch",
       "top_probability": 0.891037,
       "healthy_vs_diseased_correct": true,
-      "inference_ms": 35.0
+      "inference_ms": 2562.1
     },
     {
       "file": "diseased_tomato_phytophthora_1.jpg",
@@ -81,7 +81,7 @@
       "top_class": "Pepper,_bell___healthy",
       "top_probability": 0.761338,
       "healthy_vs_diseased_correct": false,
-      "inference_ms": 38.5
+      "inference_ms": 2092.6
     },
     {
       "file": "healthy_tomato_1.jpg",
@@ -89,7 +89,7 @@
       "top_class": "Cherry_(including_sour)___healthy",
       "top_probability": 0.648164,
       "healthy_vs_diseased_correct": true,
-      "inference_ms": 38.0
+      "inference_ms": 1840.8
     },
     {
       "file": "healthy_tomato_2.jpg",
@@ -97,7 +97,7 @@
       "top_class": "Pepper,_bell___healthy",
       "top_probability": 0.80616,
       "healthy_vs_diseased_correct": true,
-      "inference_ms": 38.0
+      "inference_ms": 2512.3
     },
     {
       "file": "healthy_tomato_3.jpg",
@@ -105,7 +105,7 @@
       "top_class": "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
       "top_probability": 0.609875,
       "healthy_vs_diseased_correct": false,
-      "inference_ms": 41.3
+      "inference_ms": 1950.7
     },
     {
       "file": "user_leaf_unknown.jpg",
@@ -113,14 +113,14 @@
       "top_class": "Tomato___Early_blight",
       "top_probability": 0.784994,
       "healthy_vs_diseased_correct": false,
-      "inference_ms": 33.0
+      "inference_ms": 3199.8
     }
   ],
   "known_limitations": [
     "Trained on PlantVillage laboratory photographs; field-photo generalisation is not validated.",
-    "Severity assessment unavailable (no segmentation model connected).",
+    "Severity comes from a project-trained segmentation model (U-Net pair) with SAM2 pseudo-label lesion masks \u2014 unvalidated research estimates, never derived from classifier confidence.",
     "Metrics shown from model card are author self-reported validation numbers."
   ],
-  "load_seconds": 0.23,
-  "checked_at": "2026-10-10T06:57:55Z"
+  "load_seconds": 0.86,
+  "checked_at": "2026-10-13T09:19:38Z"
 }

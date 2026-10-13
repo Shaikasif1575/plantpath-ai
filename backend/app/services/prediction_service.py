@@ -111,7 +111,13 @@ class PredictionService:
 
         result = self.classifier.predict(arr)
         class_names = self.classifier.get_classes()
-        probs = [t["confidence"] for t in result["top_predictions"]]
+        # Probabilities in CLASS ORDER. (top_predictions is sorted by confidence;
+        # indexing class_names with its rank would mislabel every prediction.)
+        probs = result["probabilities"]
+        if len(probs) != len(class_names):
+            raise RuntimeError(
+                f"Probability vector length {len(probs)} != class count {len(class_names)}."
+            )
         top_pred, top_preds = self._classify(probs, class_names)
         confidence = top_pred.probability
         band, note = self._confidence_band(confidence)
@@ -138,8 +144,16 @@ class PredictionService:
             "PlantVillage is a controlled benchmark dataset; field performance may differ.",
             "Model confidence does not guarantee diagnostic correctness.",
             "Images of plants or diseases outside the trained class set may be misclassified.",
-            "Severity assessment is unavailable: no compatible segmentation model is connected.",
         ]
+        if self.severity.is_available():
+            limitations.append(
+                "Severity is estimated by a segmentation model trained on pseudo-labelled "
+                "data and is not agronomically validated (see models/segmentation_audit.json)."
+            )
+        else:
+            limitations.append(
+                "Severity assessment is unavailable: no compatible segmentation model is connected."
+            )
 
         return {
             "status": "ok",
@@ -231,7 +245,13 @@ class PredictionService:
                 "PlantVillage is a controlled benchmark dataset.",
                 "Performance on field-collected images is not established by dataset metrics alone.",
                 "Unknown / out-of-distribution classes are not detected by this classifier.",
-                "Severity requires a segmentation model; none is connected.",
+                (
+                    "Severity comes from a project-trained segmentation model "
+                    "(models/segmentation/); its lesion labels are pseudo-labels and the "
+                    "values are not agronomically validated."
+                    if self.severity.is_available()
+                    else "Severity requires a segmentation model; none is connected."
+                ),
             ],
             "class_names": self.classifier.get_classes(),
             "comparison": [],

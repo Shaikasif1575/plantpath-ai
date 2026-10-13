@@ -1,0 +1,407 @@
+{
+  "Tomato___Late_blight__00.jpg": {
+    "ground_truth": "Tomato___Late_blight",
+    "commons_title": "File:Late blight on tomato leaf (7871756748).jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Late_blight_on_tomato_leaf_(7871756748).jpg",
+    "license": "CC BY 2.0",
+    "author": "Dwight Sipler from Stow, MA, USA",
+    "description": "Late blight on tomato leaf",
+    "date_original": "2012-08-23 12:08",
+    "matched_query": "late blight tomato leaf",
+    "verified_keywords": [
+      "late blight",
+      "tomato"
+    ],
+    "fetched_at": "2026-10-13T08:49:09.048964+00:00"
+  },
+  "Tomato___Late_blight__01.jpg": {
+    "ground_truth": "Tomato___Late_blight",
+    "commons_title": "File:Tomato late blight leaf curl 2 (5816171413).jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Tomato_late_blight_leaf_curl_2_(5816171413).jpg",
+    "license": "CC BY-SA 2.0",
+    "author": "Scot Nelson from Honolulu, Hawaii, USA",
+    "description": "Late blight of tomato (Lycopersicon esculentum) in a garden near Hilo, Hawaii, caused by Phyophthora infestans",
+    "date_original": "2007-05-01 11:58",
+    "matched_query": "late blight tomato leaf",
+    "verified_keywords": [
+      "late blight",
+      "tomato"
+    ],
+    "fetched_at": "2026-10-13T08:49:11.801011+00:00"
+  },
+  "Tomato___Late_blight__02.jpg": {
+    "ground_truth": "Tomato___Late_blight",
+    "commons_title": "File:Tomato late blight leaf sporulating lesions 1 (5816170621).jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Tomato_late_blight_leaf_sporulating_lesions_1_(5816170621).jpg",
+    "license": "CC0",
+    "author": "Scot Nelson from Honolulu, Hawaii, USA",
+    "description": "Late blight of tomato (Lycopersicon esculentum) in a garden near Hilo, Hawaii, caused by Phyophthora infestans",
+    "date_original": "2007-05-01 11:52",
+    "matched_query": "late blight tomato leaf",
+    "verified_keywords": [
+      "late blight",
+      "tomato"
+    ],
+    "fetched_at": "2026-10-13T08:49:13.924247+00:00"
+  },
+  "Tomato___Late_blight__03.jpg": {
+    "ground_truth": "Tomato___Late_blight",
+    "commons_title": "File:Toomato late blight leaf curling (5816170789).jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Toomato_late_blight_leaf_curling_(5816170789).jpg",
+    "license": "CC0",
+    "author": "Scot Nelson from Honolulu, Hawaii, USA",
+    "description": "Late blight of tomato (Lycopersicon esculentum) in a garden near Hilo, Hawaii, caused by Phyophthora infestans",
+    "date_original": "2007-05-01 11:53",
+    "matched_query": "late blight tomato leaf",
+    "verified_keywords": [
+      "late blight",
+      "tomato"
+    ],
+    "fetched_at": "2026-10-13T08:49:17.193923+00:00"
+  },
+  "Tomato___Early_blight__00.jpg": {
+    "ground_truth": "Tomato___Early_blight",
+    "commons_title": "File:Alternaria solani - leaf lesions.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Alternaria_solani_-_leaf_lesions.jpg",
+    "license": "CC BY 3.0 us",
+    "author": "Clemson University - USDA Cooperative Extension Slide Series",
+    "description": "A tomato leaf showing typical target shaped lesions of Alternaria solani",
+    "date_original": "2011-05-06",
+    "matched_query": "Alternaria solani tomato leaf",
+    "verified_keywords": [
+      "alternaria",
+      "tomato"
+    ],
+    "fetched_at": "2026-10-13T08:49:28.069412+00:00"
+  },
+  "Tomato___Septoria_leaf_spot__00.jpg": {
+    "ground_truth": "Tomato___Septoria_leaf_spot",
+    "commons_title": "File:Septoria leaf spot symptoms on tomato leaf (Septoria lycopersici on Solanum lycopersicum leaf).jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Septoria_leaf_spot_symptoms_on_tomato_leaf_(Septoria_lycopersici_on_Solanum_lycopersicum_leaf).jpg",
+    "license": "CC BY-SA 4.0",
+    "author": "MerielGJones",
+    "description": "The disease symptoms of tomato leaf spot, caused by Septoria lycopersici, on a tomato leaf (Solanum lycopersicum). Scale on orange bar on RHS is in mm and cm. Taken September 2021 on variety Sungold grown outdoors in domestic garden.",
+    "date_original": "2021-09-08",
+    "matched_query": "Septoria lycopersici tomato leaf",
+    "verified_keywords": [
+      "septoria",
+      "tomato"
+    ],
+    "fetched_at": "2026-10-13T08:49:39.839134+00:00"
+  },
+  "Tomato___Septoria_leaf_spot__01.jpg": {
+    "ground_truth": "Tomato___Septoria_leaf_spot",
+    "commons_title": "File:Septoria lycopersici malagutii leaf spot on tomato leaf.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Septoria_lycopersici_malagutii_leaf_spot_on_tomato_leaf.jpg",
+    "license": "CC BY 3.0 us",
+    "author": "Dr Parthasarathy Seethapathy, Tamil Nadu Agricultural University, Bugwood.org",
+    "description": "Septoria leaf spot of tomato",
+    "date_original": "2019-05-12",
+    "matched_query": "Septoria lycopersici tomato leaf",
+    "verified_keywords": [
+      "septoria",
+      "tomato"
+    ],
+    "fetched_at": "2026-10-13T08:49:41.903353+00:00"
+  },
+  "Tomato___Septoria_leaf_spot__02.jpg": {
+    "ground_truth": "Tomato___Septoria_leaf_spot",
+    "commons_title": "File:Tomato septoria leaf spot 3006.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Tomato_septoria_leaf_spot_3006.jpg",
+    "license": "CC0",
+    "author": "Wolan268",
+    "description": "Tomato leaves with septoria leaf spot fungus",
+    "date_original": "2026-01-20 19:03:26",
+    "matched_query": "septoria leaf spot tomato",
+    "verified_keywords": [
+      "septoria",
+      "tomato"
+    ],
+    "fetched_at": "2026-10-13T08:49:46.810149+00:00"
+  },
+  "Tomato___Septoria_leaf_spot__03.jpg": {
+    "ground_truth": "Tomato___Septoria_leaf_spot",
+    "commons_title": "File:Tomato septoria leaf spot 3007.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Tomato_septoria_leaf_spot_3007.jpg",
+    "license": "CC0",
+    "author": "Wolan268",
+    "description": "Tomato leaves with septoria leaf spot fungus",
+    "date_original": "2026-01-20 19:03:28",
+    "matched_query": "septoria leaf spot tomato",
+    "verified_keywords": [
+      "septoria",
+      "tomato"
+    ],
+    "fetched_at": "2026-10-13T08:49:50.267174+00:00"
+  },
+  "Tomato___Septoria_leaf_spot__04.jpg": {
+    "ground_truth": "Tomato___Septoria_leaf_spot",
+    "commons_title": "File:Tomato septoria leaf spot 3025.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Tomato_septoria_leaf_spot_3025.jpg",
+    "license": "CC0",
+    "author": "Wolan268",
+    "description": "Tomato leaves with septoria leaf spot fungus",
+    "date_original": "2026-01-20 19:04:03",
+    "matched_query": "septoria leaf spot tomato",
+    "verified_keywords": [
+      "septoria",
+      "tomato"
+    ],
+    "fetched_at": "2026-10-13T08:49:52.712779+00:00"
+  },
+  "Tomato___healthy__00.jpg": {
+    "ground_truth": "Tomato___healthy",
+    "commons_title": "File:Healthy tomato leaves (7871755330).jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Healthy_tomato_leaves_(7871755330).jpg",
+    "license": "CC BY 2.0",
+    "author": "Dwight Sipler from Stow, MA, USA",
+    "description": "Wish they all looked like this.",
+    "date_original": "2012-08-23 12:01",
+    "matched_query": "healthy tomato leaves",
+    "verified_keywords": [
+      "healthy",
+      "tomato"
+    ],
+    "fetched_at": "2026-10-13T08:50:06.140053+00:00"
+  },
+  "Tomato___healthy__01.jpg": {
+    "ground_truth": "Tomato___healthy",
+    "commons_title": "File:Liat Portal for Foodie Disorder - Healthy snack plate with cherry tomatoes avocado mushrooms and tzfatit cheese.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Liat_Portal_for_Foodie_Disorder_-_Healthy_snack_plate_with_cherry_tomatoes_avocado_mushrooms_and_tzfatit_cheese.jpg",
+    "license": "CC BY-SA 4.0",
+    "author": "HaJunkiyada",
+    "description": "High-quality photograph by Liat Portal showing a homemade healthy snack plate prepared in Tel Aviv with sliced cherry tomatoes, fresh avocado, raw mushrooms, basil leaves, and tzfatit cheese. The ingredients are served simply and fresh without cooking. This image documents everyday healthy home eating as part of the Foodie Disorder global food culture archive.",
+    "date_original": "2017-01-08 21:17:33",
+    "matched_query": "healthy tomato leaves",
+    "verified_keywords": [
+      "healthy",
+      "tomato"
+    ],
+    "fetched_at": "2026-10-13T08:50:08.485125+00:00"
+  },
+  "Tomato___healthy__02.jpg": {
+    "ground_truth": "Tomato___healthy",
+    "commons_title": "File:TUNA SARDINES WITH MALUNGGAY LEAVES TOMATOES ONIONS GARLIC PANGASINAN.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:TUNA_SARDINES_WITH_MALUNGGAY_LEAVES_TOMATOES_ONIONS_GARLIC_PANGASINAN.jpg",
+    "license": "CC BY-SA 4.0",
+    "author": "Elmer Centeno Guevarra",
+    "description": "To make a dish look healthy is to add some greenies like malunggay leaves.Tuna sardines looks better and healthy with additional leaves of malunggay.",
+    "date_original": "2023-12-29",
+    "matched_query": "healthy tomato leaves",
+    "verified_keywords": [
+      "healthy",
+      "tomato"
+    ],
+    "fetched_at": "2026-10-13T08:50:11.048092+00:00"
+  },
+  "Tomato___healthy__03.jpg": {
+    "ground_truth": "Tomato___healthy",
+    "commons_title": "File:294 Tomato var Sweet Pea Solanum lycopersicum LEAF epidermis print.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:294_Tomato_var_Sweet_Pea_Solanum_lycopersicum_LEAF_epidermis_print.jpg",
+    "license": "CC BY-SA 4.0",
+    "author": "ChrisInMilton",
+    "description": "Tomato var Sweet Pea Solanum lycopersicum LEAF epidermis print",
+    "date_original": "2025-07-01",
+    "matched_query": "Solanum lycopersicum leaf",
+    "verified_keywords": [
+      "leaf",
+      "tomato"
+    ],
+    "fetched_at": "2026-10-13T08:50:16.818947+00:00"
+  },
+  "Tomato___healthy__04.jpg": {
+    "ground_truth": "Tomato___healthy",
+    "commons_title": "File:295 Tomato var Heart Breaker Solanum lycopersicum LEAF epidermis print.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:295_Tomato_var_Heart_Breaker_Solanum_lycopersicum_LEAF_epidermis_print.jpg",
+    "license": "CC BY-SA 4.0",
+    "author": "ChrisInMilton",
+    "description": "Tomato var Heart Breaker Solanum lycopersicum LEAF epidermis print",
+    "date_original": "2025-07-01",
+    "matched_query": "Solanum lycopersicum leaf",
+    "verified_keywords": [
+      "leaf",
+      "tomato"
+    ],
+    "fetched_at": "2026-10-13T08:50:20.097831+00:00"
+  },
+  "Tomato___healthy__05.jpg": {
+    "ground_truth": "Tomato___healthy",
+    "commons_title": "File:296 Tomato var Black Solanum lycopersicum LEAF epidermis print.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:296_Tomato_var_Black_Solanum_lycopersicum_LEAF_epidermis_print.jpg",
+    "license": "CC BY-SA 4.0",
+    "author": "ChrisInMilton",
+    "description": "Tomato var Black Solanum lycopersicum LEAF epidermis print",
+    "date_original": "2025-07-01",
+    "matched_query": "Solanum lycopersicum leaf",
+    "verified_keywords": [
+      "leaf",
+      "tomato"
+    ],
+    "fetched_at": "2026-10-13T08:50:24.123947+00:00"
+  },
+  "Potato___Late_blight__00.jpg": {
+    "ground_truth": "Potato___Late_blight",
+    "commons_title": "File:Late blight on potato leaf 2.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Late_blight_on_potato_leaf_2.jpg",
+    "license": "CC BY 3.0 us",
+    "author": "Howard F. Schwartz, Colorado State University, United States",
+    "description": "A potato leaflet showing late blight infection caused by Phytophthora infestans on a potato field at Peckham.",
+    "date_original": "",
+    "matched_query": "late blight potato leaf",
+    "verified_keywords": [
+      "late blight",
+      "potato"
+    ],
+    "fetched_at": "2026-10-13T08:50:39.678096+00:00"
+  },
+  "Potato___Late_blight__01.jpg": {
+    "ground_truth": "Potato___Late_blight",
+    "commons_title": "File:Phytophthora infestans on potato leaf.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Phytophthora_infestans_on_potato_leaf.jpg",
+    "license": "CC BY 3.0 us",
+    "author": "Mary Ann Hansen, Virginia Polytechnic Institute and State University, United States",
+    "description": "Symptoms of Phytophthora infestans (late blight) on potato leaf",
+    "date_original": "",
+    "matched_query": "late blight potato leaf",
+    "verified_keywords": [
+      "late blight",
+      "potato"
+    ],
+    "fetched_at": "2026-10-13T08:50:41.713461+00:00"
+  },
+  "Potato___Late_blight__02.jpg": {
+    "ground_truth": "Potato___Late_blight",
+    "commons_title": "File:Phytophthora infestans on potato leaf 2.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Phytophthora_infestans_on_potato_leaf_2.jpg",
+    "license": "CC BY 3.0 us",
+    "author": "Mary Ann Hansen, Virginia Polytechnic Institute and State University, United States",
+    "description": "Symptoms of Phytophthora infestans (late blight) on potato leaf",
+    "date_original": "",
+    "matched_query": "late blight potato leaf",
+    "verified_keywords": [
+      "late blight",
+      "potato"
+    ],
+    "fetched_at": "2026-10-13T08:50:44.232698+00:00"
+  },
+  "Potato___Late_blight__03.jpg": {
+    "ground_truth": "Potato___Late_blight",
+    "commons_title": "File:Potato Late Blight.JPG",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Potato_Late_Blight.JPG",
+    "license": "CC BY-SA 4.0",
+    "author": "Björn Andersson (SLU)",
+    "description": "Potato leaf infected by Phytophthora infestans",
+    "date_original": "2006-08-24 08:55:48",
+    "matched_query": "late blight potato leaf",
+    "verified_keywords": [
+      "late blight",
+      "potato"
+    ],
+    "fetched_at": "2026-10-13T08:50:46.261553+00:00"
+  },
+  "Potato___Late_blight__04.jpg": {
+    "ground_truth": "Potato___Late_blight",
+    "commons_title": "File:Unidentified disease on potato leaf.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Unidentified_disease_on_potato_leaf.jpg",
+    "license": "CC BY 2.5",
+    "author": "No machine-readable author provided. Fk assumed (based on copyright claims).",
+    "description": "An unidentified disease on a potato leaf Taken by Fk. Date:August, 2000?. Place: Japan. = hu=Burgonya-, paradicsom fitoftóra (Phytophthora infestans)",
+    "date_original": "17 July 2006 (original upload date)",
+    "matched_query": "late blight potato leaf",
+    "verified_keywords": [
+      "infestans",
+      "potato"
+    ],
+    "fetched_at": "2026-10-13T08:50:48.444770+00:00"
+  },
+  "Potato___Late_blight__05.jpg": {
+    "ground_truth": "Potato___Late_blight",
+    "commons_title": "File:Phytophthora infestans a1 (2).jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Phytophthora_infestans_a1_(2).jpg",
+    "license": "CC BY-SA 4.0",
+    "author": "Jerzy Opioła",
+    "description": "Phytophthora infestans on leaf Solanum tuberosum . Location: Poland, Trzciana, województwo małopolskie",
+    "date_original": "2017-08-24 00:33:58",
+    "matched_query": "Phytophthora infestans potato",
+    "verified_keywords": [
+      "infestans",
+      "tuberosum"
+    ],
+    "fetched_at": "2026-10-13T08:50:53.039028+00:00"
+  },
+  "Corn_(maize)___Northern_Leaf_Blight__00.jpg": {
+    "ground_truth": "Corn_(maize)___Northern_Leaf_Blight",
+    "commons_title": "File:Northern corn leaf blight.JPG",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Northern_corn_leaf_blight.JPG",
+    "license": "CC BY-SA 4.0",
+    "author": "Chroanch",
+    "description": "Northern corn leaf blight on corn.",
+    "date_original": "2015-09-13 16:56:26",
+    "matched_query": "northern corn leaf blight",
+    "verified_keywords": [
+      "northern corn leaf blight",
+      "corn"
+    ],
+    "fetched_at": "2026-10-13T08:52:11.752516+00:00"
+  },
+  "Corn_(maize)___Northern_Leaf_Blight__01.jpg": {
+    "ground_truth": "Corn_(maize)___Northern_Leaf_Blight",
+    "commons_title": "File:NCLB disease cycle.JPG",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:NCLB_disease_cycle.JPG",
+    "license": "CC BY-SA 4.0",
+    "author": "Chroanch",
+    "description": "Disease cycle of northern corn leaf blight.",
+    "date_original": "2015-10-17",
+    "matched_query": "northern leaf blight maize",
+    "verified_keywords": [
+      "northern corn leaf blight",
+      "corn"
+    ],
+    "fetched_at": "2026-10-13T08:52:51.030045+00:00"
+  },
+  "Grape___Black_rot__00.jpg": {
+    "ground_truth": "Grape___Black_rot",
+    "commons_title": "File:Guignardia bidwellii (black rot) 2.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Guignardia_bidwellii_(black_rot)_2.jpg",
+    "license": "Public domain",
+    "author": "Clemson University - USDA Cooperative Extension Slide Series, United States",
+    "description": "Symptoms of Guignardia bidwellii (black rot) on grape leaf",
+    "date_original": "",
+    "matched_query": "grape black rot leaf",
+    "verified_keywords": [
+      "black rot",
+      "grape"
+    ],
+    "fetched_at": "2026-10-13T08:53:00.560408+00:00"
+  },
+  "Grape___Black_rot__01.jpg": {
+    "ground_truth": "Grape___Black_rot",
+    "commons_title": "File:Guignardia bidwellii (black rot) on grape 1.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Guignardia_bidwellii_(black_rot)_on_grape_1.jpg",
+    "license": "CC BY 3.0 us",
+    "author": "Clemson University - USDA Cooperative Extension Slide Series, Bugwood.org",
+    "description": "Symptoms of black rot ( Guignardia bidwellii ) on grape leaf",
+    "date_original": "",
+    "matched_query": "grape black rot leaf",
+    "verified_keywords": [
+      "black rot",
+      "grape"
+    ],
+    "fetched_at": "2026-10-13T08:53:03.511100+00:00"
+  },
+  "Grape___Black_rot__02.jpg": {
+    "ground_truth": "Grape___Black_rot",
+    "commons_title": "File:Guignardia bidwellii (black rot) on grape 5.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Guignardia_bidwellii_(black_rot)_on_grape_5.jpg",
+    "license": "CC BY 3.0 us",
+    "author": "Mary Ann Hansen, Virginia Polytechnic Institute and State University, Bugwood.org",
+    "description": "Symptoms of black rot ( Guignardia bidwellii ) on grape leaves.",
+    "date_original": "",
+    "matched_query": "Guignardia bidwellii grape",
+    "verified_keywords": [
+      "black rot",
+      "grape"
+    ],
+    "fetched_at": "2026-10-13T08:53:09.698457+00:00"
+  }
+}

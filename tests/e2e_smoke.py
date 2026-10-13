@@ -6,8 +6,8 @@ API health → model info → disease library → crop explorer → real predict
 
 Production contract asserted here (DEMO_MODE=false, model connected):
   - /api/predict returns 200 with a real class from the connected model's
-    own class list; confidence comes from softmax, severity stays
-    unavailable (no segmentation model), Grad-CAM is a real heatmap.
+    own class list; confidence comes from softmax, severity comes from the
+    connected segmentation model's masks, Grad-CAM is a real heatmap.
   - The class list served by the API matches data/model_classes.json
     (which mirrors the checkpoint's embedded list) — nothing hard-coded.
   - Metrics appear only with attribution (checkpoint / model card);
@@ -103,12 +103,15 @@ def main() -> int:
     check("comparison is a list (no invented model cards)",
           isinstance(d.get("comparison"), list))
     check("demo_mode false on model-info", d.get("demo_mode") is False)
-    check("severity available=false", d.get("severity", {}).get("available") is False)
-    check("severity has unavailable_reason",
-          bool(d.get("severity", {}).get("unavailable_reason")))
+    sev_info = d.get("severity", {})
+    check("severity available=true (connected segmentation model)",
+          sev_info.get("available") is True, f"got {sev_info!r}")
+    check("severity note carries honesty (never confidence)",
+          "never" in (sev_info.get("note") or "").lower()
+          and "confidence" in (sev_info.get("note") or "").lower())
     check("gradcam_available=true (architecture supports it)",
           d.get("gradcam_available") is True, f"got {d.get('gradcam_available')!r}")
-    check("segmentation_status=unavailable", d.get("segmentation_status") == "unavailable")
+    check("segmentation_status=available", d.get("segmentation_status") == "available")
     check("low_confidence_threshold present",
           isinstance(d.get("low_confidence_threshold"), (int, float)))
 
@@ -176,9 +179,20 @@ def main() -> int:
           isinstance(top.get("probability"), float) and 0.0 <= top["probability"] <= 1.0,
           f"got {top.get('probability')!r}")
     sev = body.get("severity") or {}
-    check("severity stays unavailable (no segmentation model)",
-          sev.get("available") is False and sev.get("severity_level") is None,
+    check("severity available with coherent values",
+          sev.get("available") is True
+          and isinstance(sev.get("affected_area_percent"), float)
+          and sev.get("severity_level") in ("Mild", "Moderate", "Severe"),
           f"got {sev!r}")
+    if sev.get("available"):
+        pct = sev["affected_area_percent"]
+        expected = "Mild" if pct < 10 else ("Moderate" if pct < 40 else "Severe")
+        check("severity level matches thresholds", sev.get("severity_level") == expected,
+              f"pct={pct} level={sev.get('severity_level')!r}")
+        check("severity mask is embedded png",
+              str(sev.get("mask_image", "")).startswith("data:image/png;base64,"))
+        check("severity is segmentation-derived note",
+              "confidence" in str(sev.get("note", "")).lower())
     expl = body.get("explainability") or {}
     check("Grad-CAM heatmap returned",
           expl.get("available") is True

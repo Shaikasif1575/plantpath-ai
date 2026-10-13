@@ -43,13 +43,14 @@ class GradCamResult(BaseModel):
 
 class SeverityResult(BaseModel):
     available: bool
-    message: str
+    message: Optional[str] = None
     reason: Optional[str] = None
     affected_area_percent: Optional[float] = None
     severity_level: Optional[str] = None
     method: Optional[str] = None
     original_image: Optional[str] = None
     mask_image: Optional[str] = None
+    note: Optional[str] = None
 
 
 class PredictionResponse(BaseModel):

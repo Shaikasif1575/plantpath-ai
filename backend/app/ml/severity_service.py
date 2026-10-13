@@ -5,17 +5,19 @@ Classification confidence is never converted into severity, and classical
 image-processing heuristics (thresholding, colour clustering, saliency) are
 never presented as AI segmentation.
 
-No pretrained segmentation checkpoint is connected. PlantSeg (Wolny et al.,
-2020, eLife 9:e57613, MIT licensed) was investigated as the requested
-segmentation source. Its shipped checkpoints are 3D U-Nets trained on confocal
-and light-sheet microscopy volumes of Arabidopsis tissue, and it segments
-individual cell boundaries. That is a different modality (volumetric microscopy,
-not RGB leaf photographs) and a different target (cells, not disease lesions),
-so those weights cannot be applied to leaf images without retraining. Severity
-is therefore reported as unavailable.
+A segmentation model trained by this project is connected when the checkpoints
+in ``models/segmentation/`` exist (see ``scripts/train_segmentation.py`` and
+``models/segmentation_audit.json``): two U-Nets, one for the lesion region and
+one for the leaf region, trained on public Apache-2.0 datasets. The lesion
+labels in the training data are SAM2 model pseudo-labels rather than human
+annotations, and that limitation is surfaced with every severity result. When
+no checkpoint is present, severity is reported as unavailable rather than
+estimated.
 """
 from __future__ import annotations
 
+import base64
+import io
 import logging
 from pathlib import Path
 from typing import Any, Dict, Optional
@@ -24,13 +26,38 @@ logger = logging.getLogger("plantpath.ml.severity")
 
 UNAVAILABLE_MESSAGE = "Severity assessment is currently unavailable for this model."
 
+MAX_SIDE = 384  # cap embedded preview images
+
+
+def _encode_png(arr) -> str:
+    from PIL import Image
+
+    buf = io.BytesIO()
+    Image.fromarray(arr).save(buf, format="PNG")
+    return "data:image/png;base64," + base64.b64encode(buf.getvalue()).decode("ascii")
+
+
+def _downscale(image, mask_vis):
+    """Downscale original + mask overlay to MAX_SIDE for embedding in the API response."""
+    import numpy as np
+    from PIL import Image
+
+    h, w = image.shape[:2]
+    scale = MAX_SIDE / max(h, w)
+    if scale >= 1.0:
+        return image, mask_vis
+    size = (max(1, int(w * scale)), max(1, int(h * scale)))
+    img = np.asarray(Image.fromarray(image).resize(size, Image.BILINEAR))
+    msk = np.asarray(Image.fromarray(mask_vis).resize(size, Image.NEAREST))
+    return img, msk
+
 
 class SeverityService:
     """Severity via a real segmentation mask, or an honest unavailable result.
 
-    Integration seam: set SEGMENTATION_MODEL_PATH to a checkpoint that outputs a
-    lesion/leaf mask. Until such a checkpoint is supplied and validated, every
-    call reports available = false.
+    Integration seam: SEGMENTATION_MODEL_PATH points at models/segmentation/
+    (meta.json + two U-Net checkpoints). When it is missing or broken, every
+    call reports available = false with the load error as the reason.
     """
 
     def __init__(self, segmentation_model_path: Optional[Path] = None) -> None:
@@ -67,23 +94,40 @@ class SeverityService:
         return self._available and self._inference is not None
 
     def get_method_info(self) -> Dict[str, Any]:
-        return {
+        base = {
             "name": "Diseased region area percentage",
             "formula": "diseased region area / leaf region area x 100",
             "requires": "A segmentation model producing a lesion mask and a leaf mask",
             "available": self.is_available(),
             "severity_categories": {"mild": "< 10%", "moderate": "10-40%", "severe": ">= 40%"},
-            "note": (
-                "Severity is never derived from classifier confidence. No segmentation "
-                "checkpoint compatible with RGB leaf photographs is connected, so no "
-                "severity value is produced."
-            ),
-            "unavailable_reason": (
-                "PlantSeg checkpoints are 3D microscopy cell-segmentation networks and are "
-                "not compatible with RGB leaf images. No alternative pretrained lesion "
-                "segmentation model is connected."
-            ),
         }
+        if self.is_available():
+            model_info = self._model.info() if hasattr(self._model, "info") else {}
+            base.update(
+                {
+                    "model": model_info,
+                    "note": (
+                        "Severity is computed from the segmentation model's masks "
+                        "(lesion pixels / leaf pixels), never from classifier confidence. "
+                        "The U-Nets were trained by this project on public Apache-2.0 "
+                        "datasets; the lesion labels are SAM2 model pseudo-labels rather "
+                        "than human annotations, and severity values are unvalidated "
+                        "estimates for research use. See models/segmentation_audit.json."
+                    ),
+                }
+            )
+        else:
+            base.update(
+                {
+                    "note": (
+                        "Severity is never derived from classifier confidence. Without a "
+                        "loaded segmentation model, no severity value is produced."
+                    ),
+                    "unavailable_reason": self._error
+                    or "No segmentation model is connected; affected area cannot be measured.",
+                }
+            )
+        return base
 
     def analyze(self, image: "Any") -> Dict[str, Any]:
         if not self.is_available():
@@ -99,7 +143,6 @@ class SeverityService:
                 "mask_image": None,
             }
         try:
-            import cv2
             import numpy as np
 
             mask = np.asarray(self._inference(image))
@@ -118,17 +161,29 @@ class SeverityService:
                 level = "Moderate"
             else:
                 level = "Severe"
-            mask_vis = (mask.astype(np.uint8)) * 255
+
+            # Visualisation: lesion area tinted red over a dimmed copy of the original.
+            orig = np.asarray(image, dtype=np.uint8) if image.dtype != np.uint8 else image
+            dimmed = (orig * 0.45).astype(np.uint8)
+            overlay = dimmed.copy()
+            overlay[mask] = (
+                0.55 * np.array([220, 38, 38], dtype=np.float32)
+                + 0.45 * dimmed[mask].astype(np.float32)
+            ).astype(np.uint8)
+            small_orig, small_overlay = _downscale(orig, overlay)
+
             return {
                 "available": True,
-                "message": None,
+                "message": "",
                 "affected_area_percent": round(affected, 1),
                 "severity_level": level,
                 "method": "diseased region area / leaf region area x 100",
-                "original_image": None,
-                "mask_image": (mask_vis * 255).tolist(),
-                "_mask_array": mask_vis,
-                "note": "Derived from the segmentation mask, not from classifier confidence.",
+                "original_image": _encode_png(small_orig),
+                "mask_image": _encode_png(small_overlay),
+                "note": (
+                    "Derived from the segmentation model's lesion and leaf masks, "
+                    "not from classifier confidence."
+                ),
             }
         except Exception as exc:
             logger.exception("Severity analysis failed")

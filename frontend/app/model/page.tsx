@@ -1,4 +1,4 @@
-import { Cpu, BarChart3, History, GitCompare, Info, LucideIcon } from "lucide-react";
+import { Cpu, BarChart3, History, GitCompare, Info, Layers, LucideIcon } from "lucide-react";
 import { api, ModelInfo } from "@/lib/api";
 import { BackendReason, MetricCard, ErrorState, SectionHeading, Disclaimer } from "@/components/ui";
 import { cn } from "@/lib/utils";
@@ -52,6 +52,9 @@ export default async function ModelPage() {
     (typeof severity.unavailable_reason === "string" && severity.unavailable_reason) ||
     (typeof severity.note === "string" && severity.note) ||
     null;
+  const segModel = (severity.model || null) as Record<string, any> | null;
+  const segLesion = segModel?.models?.lesion || null;
+  const segLeaf = segModel?.models?.leaf || null;
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
@@ -154,6 +157,34 @@ export default async function ModelPage() {
             {metrics.note ? String(metrics.note) : "Metrics are only displayed when present in evaluation files."}
           </p>
         </Section>
+
+        {severity.available === true && segModel ? (
+          <Section icon={Layers} title="Severity Segmentation">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <MetricCard label="Lesion Dice (val)" value={segLesion?.val_metrics?.dice ?? null} />
+              <MetricCard label="Lesion IoU (val)" value={segLesion?.val_metrics?.iou ?? null} />
+              <MetricCard label="Leaf Dice (val)" value={segLeaf?.val_metrics?.dice ?? null} />
+              <MetricCard label="Leaf IoU (val)" value={segLeaf?.val_metrics?.iou ?? null} />
+            </div>
+            <p className="mt-3 text-sm text-[var(--pp-muted)]">
+              {String(segModel.architecture || "")} — trained on CPU by this project. Datasets:{" "}
+              {String(segLesion?.dataset_repo || "")} (lesion masks: {String(segLesion?.label_source || "")}),{" "}
+              {String(segLeaf?.dataset_repo || "")} (leaf masks).
+            </p>
+            {Array.isArray(segModel.limitations) && segModel.limitations.length > 0 ? (
+              <ul className="mt-2 space-y-1 text-xs text-[var(--pp-muted)]">
+                {(segModel.limitations as string[]).map((l) => (
+                  <li key={l}>• {l}</li>
+                ))}
+              </ul>
+            ) : null}
+            <p className="mt-2 text-xs text-[var(--pp-muted)]">
+              Held-out validation against the same label source used for training — it measures
+              fit to that labeler, not agreement with human annotators. See
+              models/segmentation_audit.json.
+            </p>
+          </Section>
+        ) : null}
 
         <Section icon={History} title="Training">
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

@@ -22,7 +22,85 @@
     "field_probe_correct": 4,
     "field_probe_total": 7,
     "field_probe_detail": "7 labelled Wikimedia Commons field photographs (out-of-domain versus the source's training data). See models/classifier_audit.json for per-image results.",
-    "in_domain_sample": "The model author's distributed test image classified as Apple___Apple_scab with p=0.903 (models/classifier_audit.json)."
+    "in_domain_sample": "The model author's distributed test image classified as Apple___Apple_scab with p=0.903 (models/classifier_audit.json).",
+    "field_evaluation": {
+      "evaluated_at": "2026-10-13T09:04:02.974176+00:00",
+      "protocol": {
+        "fetch_script": "tests/fetch_field_eval_set.py",
+        "eval_script": "tests/evaluate_field_set.py",
+        "protocol_version": 2,
+        "label_source": "Wikimedia Commons uploader descriptions, verified programmatically by keyword match on title+description (see data/field_eval/sources.json)",
+        "inclusion_rule": "crop keyword + disease keyword in title/description; leaf-tissue keyword required (leaf/laub/blad/...); electron-microscopy and non-leaf imagery rejected",
+        "request_path": "POST /api/predict via FastAPI TestClient (production code path)",
+        "image_count": 27
+      },
+      "n_images": 27,
+      "n_classes": 7,
+      "exact_class_accuracy": 0.1111,
+      "crop_accuracy": 0.2593,
+      "mean_confidence": 0.7081,
+      "low_confidence_rate": 0.1852,
+      "per_class": {
+        "Corn_(maize)___Northern_Leaf_Blight": {
+          "support": 2,
+          "predicted_as_class": 0,
+          "correct": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "Grape___Black_rot": {
+          "support": 3,
+          "predicted_as_class": 0,
+          "correct": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "Potato___Late_blight": {
+          "support": 6,
+          "predicted_as_class": 0,
+          "correct": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "Tomato___Early_blight": {
+          "support": 1,
+          "predicted_as_class": 3,
+          "correct": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "Tomato___Late_blight": {
+          "support": 4,
+          "predicted_as_class": 7,
+          "correct": 3,
+          "precision": 0.4286,
+          "recall": 0.75,
+          "f1": 0.5455
+        },
+        "Tomato___Septoria_leaf_spot": {
+          "support": 5,
+          "predicted_as_class": 0,
+          "correct": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "Tomato___healthy": {
+          "support": 6,
+          "predicted_as_class": 0,
+          "correct": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "results_file": "models/field_eval_results.json",
+      "note": "Measured by this project on verified-label Wikimedia Commons field photographs (out-of-domain versus PlantVillage-style training data). Small, non-balanced convenience sample; an informal robustness probe, not a benchmark. Labels are uploader descriptions, verified by keyword match and listed in data/field_eval/sources.json."
+    }
   },
   "evaluation_note": "Metrics are only displayed when present in project files, together with their source. They are never invented."
 }

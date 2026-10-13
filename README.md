@@ -44,8 +44,10 @@ Additional honesty guarantees built into the product:
 - **No invented metrics.** Accuracy / precision / recall / F1 are shown only
   when present in project evaluation files; otherwise "Not available".
 - **No fabricated severity.** Severity is never derived from classification
-  confidence. The service returns `available: false` until a real segmentation
-  model is connected.
+  confidence. It is computed only from the connected segmentation model's
+  masks (project-trained U-Nets; lesion labels are pseudo-labels — see
+  `models/segmentation_audit.json`); without a loaded model the service
+  returns `available: false`.
 - **No paid / cloud AI APIs.** Inference runs locally (PyTorch).
 - **Demo mode is visually obvious.** When no model file is connected,
   `DEMO_MODE=true` and the UI displays a DEMO MODE banner on every result.
@@ -66,7 +68,7 @@ information — all through a professional research-prototype web interface.
 ```
 User → Open PlantPath AI → Scan/Upload Leaf → Image Validation
       → Local ML Inference → Disease Classification → Confidence + Top Predictions
-      → Explainable AI (Grad-CAM) → Severity (when model exists)
+      → Explainable AI (Grad-CAM) → Severity (segmentation masks)
       → Disease Information → Report → Analysis History
 ```
 
@@ -80,7 +82,7 @@ User → Open PlantPath AI → Scan/Upload Leaf → Image Validation
 | **Image Validation** | Format, size, dimension, corruption checks; quality warnings (dark, blurry, very small) — warnings never hard-reject |
 | **Prediction** | Top-1 + top-3 probabilities, confidence band (low/medium/high, configurable thresholds), crop/disease parsing |
 | **Explainable AI** | Real Grad-CAM for the connected PyTorch model; honest "unavailable" messaging otherwise |
-| **Severity** | Architecture ready for U-Net integration; returns `available: false` until a real model exists |
+| **Severity** | Connected U-Net pair (lesion + leaf) measures affected leaf area % from real masks; honest `available: false` if no segmentation model is loaded |
 | **Disease Library** | 38 records, search, crop filter, healthy/diseased filter, detail panels with sources |
 | **Model Dashboard** | Architecture, input size, parameters, sourced metrics (attributed or "Not available"), training history (only if present), verified class mapping with provenance, multi-model comparison slots |
 | **Research** | Problem statement, gap, objectives, methodology, dataset, evaluation, XAI, lab-to-field gap, future work |
@@ -131,7 +133,7 @@ not certainty, and severity requires segmentation, not classification.
 
 ```
 Image → Leaf Validation (future) → OOD/Confidence Check (future)
-      → Disease Classifier → Grad-CAM → Severity (future) → Results
+      → Disease Classifier → Grad-CAM → Severity (segmentation) → Results
 ```
 
 ---
@@ -166,7 +168,37 @@ classify as `Apple___Apple_scab`). The gate writes `models/classifier_audit.json
 the backend refuses to load any checkpoint whose audit is missing, failing, or
 inconsistent with the loaded file. Its honest field probe (7 informal images:
 4/7 correct) is recorded in the same file and shown on the Model dashboard —
-this is **not** a controlled field evaluation.
+this first probe is **not** a controlled field evaluation; see the structured
+protocol below.
+
+**Field evaluation (structured protocol, measured by this project).**
+`tests/fetch_field_eval_set.py` collects in-the-wild photographs from Wikimedia
+Commons and verifies each label mechanically from the uploader's file
+description: crop keyword + disease keyword must appear in title/description,
+leaf-tissue keywords are required (a leaf classifier is evaluated on leaves),
+and electron-microscopy / non-leaf imagery is rejected. Provenance for every
+image (description page, author, license, matched keywords) is recorded in
+`data/field_eval/sources.json`. `tests/evaluate_field_set.py` then runs the
+production `POST /api/predict` path over the set and writes per-image results
+plus aggregates to `models/field_eval_results.json` and an attributed
+`project_evaluation.field_evaluation` block in `data/model_metrics.json`.
+
+| Metric (2026-10-13 run, 27 images / 7 classes) | Value |
+|---|---|
+| Exact class accuracy | **0.111** (3/27) |
+| Crop-level accuracy | **0.259** (7/27) |
+| Mean confidence | 0.708 |
+| Low-confidence rate (< 0.55) | 0.185 |
+| Best class | `Tomato___Late_blight` — recall 0.75, F1 0.55 |
+
+Read this as an informal robustness probe, not a benchmark: small,
+non-balanced convenience sample; labels are uploader descriptions; supports
+per class are 1–6. The failure modes are consistent with the lab-to-field
+gap — potato late blight is often predicted `Tomato___Late_blight` (same
+pathogen, near-identical lesion appearance), and healthy tomato leaves are
+often predicted as other healthy crops. The classifier's 0.9989 remains a
+PlantVillage figure; field performance is what this protocol measures, and it
+is far lower.
 
 **Historical note:** the original TensorFlow/Keras demo pipeline
 (`scripts/train_model.py`, `.keras` files) remains in the repository as the
@@ -228,7 +260,7 @@ Copy `.env.example` to `.env` (backend) and `frontend/.env.example` to
 | `CORS_ORIGINS` | `http://localhost:3000,…` | Comma-separated allowed origins |
 | `CONFIDENCE_LOW` | `0.55` | Low-confidence threshold (below → honest low-confidence message) |
 | `CONFIDENCE_MEDIUM` | `0.75` | Medium/high band threshold |
-| `SEGMENTATION_MODEL_PATH` | `models/segmentation_model` | Severity segmentation model; unset ⇒ severity honestly unavailable |
+| `SEGMENTATION_MODEL_PATH` | `models/segmentation` | Directory with `meta.json` + lesion/leaf U-Net checkpoints; unset ⇒ severity honestly unavailable |
 | `NEXT_PUBLIC_API_URL` (frontend) | `http://localhost:8000` | Backend base URL |
 
 ---
@@ -324,14 +356,43 @@ If no compatible model is loaded: `available: false` with a clear message —
 
 ```python
 is_available()      # segmentation model connected?
-analyze(image)      # mask → affected pixel ratio
-get_method_info()   # Diseased Pixel Area / Total Leaf Area × 100
+analyze(image)      # lesion mask + leaf mask → affected pixel ratio
+get_method_info()   # Diseased region area / Leaf region area × 100
 ```
 
-**Current status: not connected** — the UI shows "Severity assessment is
-currently unavailable for this model." Severity is *never* computed from
-classification confidence. To enable: place a segmentation model at
-`models/segmentation_model` (path configurable via `SEGMENTATION_MODEL_PATH`).
+**Current status: connected.** Two small U-Nets trained by this project on
+CPU (PyTorch, `scripts/train_segmentation.py`) produce the masks:
+
+| Model | Target | Training data | Label source | Val Dice / IoU |
+|---|---|---|---|---|
+| `models/segmentation/lesion_unet.pth` | lesion region | godoldol99/SAM2-based-plant-disease-lesion-segmentation-model-DATASET (Apache-2.0, 408 pairs) | **SAM2 model pseudo-labels** — not human annotation | 0.6845 / 0.5246 (best epoch 13 of 18) |
+| `models/segmentation/leaf_unet.pth` | leaf vs background | LeafNet75/Leaf-Disease-Segmentation-masks (Apache-2.0, 588 pairs) | dataset-provided binary masks | 0.6868 / 0.5284 (best epoch 16 of 18) |
+
+Both models are 1,942,577-parameter U-Nets trained on CPU (~27 min each).
+Full per-epoch history and split sizes are in `models/segmentation/meta.json`.
+
+Severity = `lesion ∩ leaf` pixels / `leaf` pixels × 100, with thresholds
+mild < 10%, moderate 10–40%, severe ≥ 40%. Validation metrics (Dice/IoU
+against the same label source) and every provenance detail live in
+`models/segmentation/meta.json` and `models/segmentation_audit.json`.
+
+**Honesty contract:**
+- Severity is *never* computed from classification confidence.
+- The lesion labels are pseudo-labels, so validation Dice measures fit to the
+  SAM2 labeler, not agreement with human annotators; severity values are
+  unvalidated research estimates (stated in the API `note`, the UI, and the
+  downloadable report).
+- If the segmentation model fails to load or finds no leaf tissue, the API
+  returns `available: false` with a reason instead of a number.
+- The disease classifier was **not** trained, retrained or fine-tuned to
+  produce severity — classifier weights are untouched.
+
+Retraining (CPU, ~2 h):
+
+```bash
+python scripts/download_seg_data.py     # Apache-2.0 datasets (~400 + ~590 pairs)
+python scripts/train_segmentation.py    # writes models/segmentation/{lesion,leaf}_unet.pth + meta.json
+```
 
 ---
 
@@ -347,8 +408,10 @@ Covers health, model info (live contract: 38 classes, attributed metrics,
 nulls where no evaluation ran), crops, diseases (list/filter/search/detail/404),
 real prediction fields, in-domain probe prediction (author's sample must
 classify as `Apple___Apple_scab`), Grad-CAM availability, forced
-low-confidence branch, history CRUD, and demo-mode honesty.
-**31 passed, 1 skipped** (the skip yields to the live model).
+low-confidence branch, history CRUD, demo-mode honesty, a regression test
+pinning API top-1 to the class-ordered probability vector, and connected
+severity (coherent values, threshold-consistent level, honesty note).
+**32 passed, 1 skipped** (33 total; the skip yields to the live model).
 
 **E2E smoke test (API + rendered pages):**
 
@@ -356,7 +419,7 @@ low-confidence branch, history CRUD, and demo-mode honesty.
 python tests/e2e_smoke.py
 ```
 
-Requires backend (:8000) and frontend (:3000) running. **71/71.**
+Requires backend (:8000) and frontend (:3000) running. **74/74.**
 
 **Browser journey test (Playwright + Chrome):**
 
@@ -366,7 +429,7 @@ python tests/browser_test.py
 
 Walks the real user flow end-to-end — upload → analyze → Grad-CAM → report
 download → history → model dashboard → dark mode → backend-down error state →
-mobile viewport → accessibility → console cleanliness. **93/93**, screenshots
+mobile viewport → accessibility → console cleanliness. **96/96**, screenshots
 in `tests/browser_report/`.
 
 **Model verification gate:**
@@ -399,28 +462,37 @@ plantpath-ai/
 │   │   ├── config.py        # Settings from env
 │   │   ├── api/             # health, model, diseases, predict, explain, history
 │   │   ├── services/        # prediction, disease, image validation
-│   │   ├── ml/              # torch_classifier, gradcam_service, severity_service
+│   │   ├── ml/              # torch_classifier, gradcam_service, severity_service, segmentation, unet
 │   │   ├── database/        # SQLite abstraction
 │   │   ├── schemas/         # Pydantic models
 │   │   └── utils/           # Safe filenames
-│   ├── tests/test_api.py    # 32 pytest tests (live-model contract)
+│   ├── tests/test_api.py    # 33 pytest tests (live-model contract)
 │   ├── requirements.txt
 │   └── Dockerfile
 ├── data/
 │   ├── model_classes.json   # 38-class mapping served by the API (verified)
 │   ├── class_names.json     # Legacy mapping (fallback)
 │   ├── diseases.json        # Disease knowledge base w/ sources
-│   └── model_metrics.json   # Sourced metrics (nulls where no run produced them)
+│   ├── model_metrics.json   # Sourced metrics (nulls where no run produced them)
+│   └── field_eval/          # Verified-label field set: images + sources.json (protocol v2)
 ├── models/
 │   ├── efficientnet_v2_s_best.pth  # Connected checkpoint (~82 MB)
+│   ├── segmentation/        # Trained severity U-Nets + meta.json (metrics/provenance)
+│   ├── segmentation_audit.json # Segmentation training provenance + held-out metrics
+│   ├── field_eval_results.json # Per-image field-eval predictions + aggregates
 │   ├── classes.json         # Checkpoint's shipped class list
 │   ├── infer.py             # Author's inference recipe (mirrored in loader)
 │   └── classifier_audit.json # Verification-gate output
-├── scripts/train_model.py   # Legacy training script (writes real metrics)
+├── scripts/
+│   ├── train_model.py       # Legacy training script (writes real metrics)
+│   ├── download_seg_data.py # Downloads Apache-2.0 severity datasets
+│   └── train_segmentation.py # Trains severity U-Nets (CPU, honest metrics)
 ├── tests/
 │   ├── e2e_smoke.py         # End-to-end smoke test (API + pages)
 │   ├── browser_test.py      # Playwright real-user journey
 │   ├── verify_new_model.py  # Model verification gate
+│   ├── fetch_field_eval_set.py # Wikimedia Commons field set (verified labels)
+│   ├── evaluate_field_set.py # Field evaluation → attributed per-class metrics
 │   ├── smoke_classifier.py  # In-process classifier smoke
 │   └── probe_set/           # Verification images + sources.json
 ├── docker-compose.yml
@@ -436,13 +508,18 @@ plantpath-ai/
    diseases are not detected without a future OOD module.
 2. **Controlled dataset** — PlantVillage ≠ field imagery (lighting, occlusion,
    mixed infections, novel pathogens).
-3. **No severity without segmentation** — classification confidence does not
-   indicate disease severity.
+3. **Severity is model-derived and unvalidated** — classification confidence
+   never indicates severity; the connected U-Net pair measures affected area
+   from masks, but its lesion labels are SAM2 pseudo-labels, so values are
+   research estimates, not agronomic diagnoses.
 4. **Grad-CAM is not causation** — heatmaps are interpretability aids only.
 5. **Controlled-dataset validation only** — the reported 0.9989 accuracy is
    PlantVillage validation performance carried in the checkpoint's own
-   metadata; an informal 7-image field probe scored 4/7 (recorded in
-   `models/classifier_audit.json`). Not field-deployment validated.
+   metadata; the structured field evaluation (27 verified-label Commons
+   photographs, 7 classes) measured **0.111 exact / 0.259 crop accuracy**
+   (`models/field_eval_results.json`), and an earlier informal 7-image probe
+   scored 4/7 (`models/classifier_audit.json`). Not field-deployment
+   validated.
 6. **Leaf validation / OOD are extension points** — reported as
    `leaf_validation_available: false`, never faked. The 0.55 low-confidence
    threshold is a guardrail, not an out-of-distribution detector.
@@ -451,16 +528,15 @@ plantpath-ai/
 
 ## Future Work
 
-1. U-Net disease segmentation → severity % and masks
+1. Human-annotated lesion masks → validate severity against real labels
 2. Plant / non-plant classifier
 3. Out-of-distribution detector
-4. Additional datasets (field-collected)
+4. Larger, community-labelled field datasets beyond Wikimedia Commons
 5. EfficientNet / ResNet comparison models
 6. ONNX / TFLite deployment
 7. Mobile application
-8. Field-image robustness evaluation protocol
-9. Batch image analysis
-10. Confusion matrix and class-wise metrics UI (data already supported)
+8. Batch image analysis
+9. Confusion matrix and class-wise metrics UI (data already supported)
 
 ---
 

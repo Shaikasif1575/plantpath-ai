@@ -1,0 +1,335 @@
+{
+  "version": 2,
+  "framework": "pytorch",
+  "architecture": "unet",
+  "input_size": [
+    192,
+    192
+  ],
+  "threshold": 0.5,
+  "preprocessing": "resize to square, /255, ImageNet mean/std normalization",
+  "trained_at": "2026-10-13T09:39:20.018151+00:00",
+  "training_script": "scripts/train_segmentation.py",
+  "hardware": "cpu",
+  "limitations": [
+    "Lesion masks in the training set are SAM2 model pseudo-labels, not human annotations.",
+    "Leaf masks are dataset-provided binary leaf-vs-background masks.",
+    "Severity percentages are model estimates on in-the-wild photographs and are not clinically or agronomically validated."
+  ],
+  "lesion": {
+    "file": "lesion_unet.pth",
+    "task": "lesion",
+    "arch": {
+      "n_channels": 3,
+      "base": 16,
+      "depth": 4,
+      "n_classes": 1,
+      "input_size": 192
+    },
+    "params": 1942577,
+    "train_pairs": 327,
+    "val_pairs": 81,
+    "best_val_metrics": {
+      "epoch": 13,
+      "train_loss": 0.7188,
+      "dice": 0.6845,
+      "iou": 0.5246,
+      "pixel_accuracy": 0.9106
+    },
+    "epochs_run": 18,
+    "best_epoch": 13,
+    "training_seconds": 1618,
+    "dataset": {
+      "repo": "godoldol99/SAM2-based-plant-disease-lesion-segmentation-model-DATASET",
+      "license": "apache-2.0",
+      "label_source": "SAM2 model pseudo-labels (per dataset name/description), not human annotation",
+      "target": "diseased lesion region"
+    },
+    "history": [
+      {
+        "epoch": 1,
+        "train_loss": 1.2631,
+        "dice": 0.4664,
+        "iou": 0.3132,
+        "pixel_accuracy": 0.7538
+      },
+      {
+        "epoch": 2,
+        "train_loss": 1.1229,
+        "dice": 0.5145,
+        "iou": 0.3566,
+        "pixel_accuracy": 0.7947
+      },
+      {
+        "epoch": 3,
+        "train_loss": 1.0525,
+        "dice": 0.5412,
+        "iou": 0.3825,
+        "pixel_accuracy": 0.8141
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.9777,
+        "dice": 0.6091,
+        "iou": 0.4448,
+        "pixel_accuracy": 0.8709
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.9122,
+        "dice": 0.5922,
+        "iou": 0.4256,
+        "pixel_accuracy": 0.8775
+      },
+      {
+        "epoch": 6,
+        "train_loss": 0.8801,
+        "dice": 0.6289,
+        "iou": 0.462,
+        "pixel_accuracy": 0.9014
+      },
+      {
+        "epoch": 7,
+        "train_loss": 0.836,
+        "dice": 0.6235,
+        "iou": 0.4576,
+        "pixel_accuracy": 0.9023
+      },
+      {
+        "epoch": 8,
+        "train_loss": 0.8103,
+        "dice": 0.6604,
+        "iou": 0.4964,
+        "pixel_accuracy": 0.9065
+      },
+      {
+        "epoch": 9,
+        "train_loss": 0.797,
+        "dice": 0.6541,
+        "iou": 0.4881,
+        "pixel_accuracy": 0.9005
+      },
+      {
+        "epoch": 10,
+        "train_loss": 0.7763,
+        "dice": 0.6154,
+        "iou": 0.4498,
+        "pixel_accuracy": 0.8976
+      },
+      {
+        "epoch": 11,
+        "train_loss": 0.7746,
+        "dice": 0.6153,
+        "iou": 0.4478,
+        "pixel_accuracy": 0.9046
+      },
+      {
+        "epoch": 12,
+        "train_loss": 0.75,
+        "dice": 0.6703,
+        "iou": 0.5094,
+        "pixel_accuracy": 0.9092
+      },
+      {
+        "epoch": 13,
+        "train_loss": 0.7188,
+        "dice": 0.6845,
+        "iou": 0.5246,
+        "pixel_accuracy": 0.9106
+      },
+      {
+        "epoch": 14,
+        "train_loss": 0.7178,
+        "dice": 0.6659,
+        "iou": 0.5046,
+        "pixel_accuracy": 0.9109
+      },
+      {
+        "epoch": 15,
+        "train_loss": 0.7071,
+        "dice": 0.6742,
+        "iou": 0.5124,
+        "pixel_accuracy": 0.9109
+      },
+      {
+        "epoch": 16,
+        "train_loss": 0.7088,
+        "dice": 0.6771,
+        "iou": 0.5165,
+        "pixel_accuracy": 0.9119
+      },
+      {
+        "epoch": 17,
+        "train_loss": 0.6963,
+        "dice": 0.6736,
+        "iou": 0.5118,
+        "pixel_accuracy": 0.9128
+      },
+      {
+        "epoch": 18,
+        "train_loss": 0.7009,
+        "dice": 0.6794,
+        "iou": 0.5185,
+        "pixel_accuracy": 0.9128
+      }
+    ]
+  },
+  "leaf": {
+    "file": "leaf_unet.pth",
+    "task": "leaf",
+    "arch": {
+      "n_channels": 3,
+      "base": 16,
+      "depth": 4,
+      "n_classes": 1,
+      "input_size": 192
+    },
+    "params": 1942577,
+    "train_pairs": 471,
+    "val_pairs": 117,
+    "best_val_metrics": {
+      "epoch": 16,
+      "train_loss": 0.6452,
+      "dice": 0.6868,
+      "iou": 0.5284,
+      "pixel_accuracy": 0.9079
+    },
+    "epochs_run": 18,
+    "best_epoch": 16,
+    "training_seconds": 1409,
+    "dataset": {
+      "repo": "LeafNet75/Leaf-Disease-Segmentation-masks",
+      "license": "apache-2.0",
+      "label_source": "binary leaf-vs-background masks as published in the dataset",
+      "target": "leaf region"
+    },
+    "history": [
+      {
+        "epoch": 1,
+        "train_loss": 1.1509,
+        "dice": 0.3385,
+        "iou": 0.2062,
+        "pixel_accuracy": 0.4661
+      },
+      {
+        "epoch": 2,
+        "train_loss": 0.9882,
+        "dice": 0.5549,
+        "iou": 0.3905,
+        "pixel_accuracy": 0.8622
+      },
+      {
+        "epoch": 3,
+        "train_loss": 0.9085,
+        "dice": 0.6017,
+        "iou": 0.4368,
+        "pixel_accuracy": 0.892
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.8674,
+        "dice": 0.5926,
+        "iou": 0.4264,
+        "pixel_accuracy": 0.846
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.8136,
+        "dice": 0.6167,
+        "iou": 0.4524,
+        "pixel_accuracy": 0.8796
+      },
+      {
+        "epoch": 6,
+        "train_loss": 0.7974,
+        "dice": 0.6324,
+        "iou": 0.467,
+        "pixel_accuracy": 0.8841
+      },
+      {
+        "epoch": 7,
+        "train_loss": 0.7654,
+        "dice": 0.639,
+        "iou": 0.4766,
+        "pixel_accuracy": 0.9039
+      },
+      {
+        "epoch": 8,
+        "train_loss": 0.7603,
+        "dice": 0.6379,
+        "iou": 0.475,
+        "pixel_accuracy": 0.8907
+      },
+      {
+        "epoch": 9,
+        "train_loss": 0.737,
+        "dice": 0.6332,
+        "iou": 0.4682,
+        "pixel_accuracy": 0.8962
+      },
+      {
+        "epoch": 10,
+        "train_loss": 0.7219,
+        "dice": 0.627,
+        "iou": 0.4632,
+        "pixel_accuracy": 0.889
+      },
+      {
+        "epoch": 11,
+        "train_loss": 0.7008,
+        "dice": 0.6517,
+        "iou": 0.4894,
+        "pixel_accuracy": 0.9039
+      },
+      {
+        "epoch": 12,
+        "train_loss": 0.6938,
+        "dice": 0.6638,
+        "iou": 0.5018,
+        "pixel_accuracy": 0.9083
+      },
+      {
+        "epoch": 13,
+        "train_loss": 0.6766,
+        "dice": 0.6812,
+        "iou": 0.5213,
+        "pixel_accuracy": 0.9051
+      },
+      {
+        "epoch": 14,
+        "train_loss": 0.6464,
+        "dice": 0.6801,
+        "iou": 0.5196,
+        "pixel_accuracy": 0.9021
+      },
+      {
+        "epoch": 15,
+        "train_loss": 0.6449,
+        "dice": 0.6836,
+        "iou": 0.5248,
+        "pixel_accuracy": 0.9099
+      },
+      {
+        "epoch": 16,
+        "train_loss": 0.6452,
+        "dice": 0.6868,
+        "iou": 0.5284,
+        "pixel_accuracy": 0.9079
+      },
+      {
+        "epoch": 17,
+        "train_loss": 0.6364,
+        "dice": 0.6803,
+        "iou": 0.521,
+        "pixel_accuracy": 0.9031
+      },
+      {
+        "epoch": 18,
+        "train_loss": 0.6317,
+        "dice": 0.6827,
+        "iou": 0.5235,
+        "pixel_accuracy": 0.9046
+      }
+    ]
+  }
+}
