@@ -100,6 +100,16 @@
       },
       "results_file": "models/field_eval_results.json",
       "note": "Measured by this project on verified-label Wikimedia Commons field photographs (out-of-domain versus PlantVillage-style training data). Small, non-balanced convenience sample; an informal robustness probe, not a benchmark. Labels are uploader descriptions, verified by keyword match and listed in data/field_eval/sources.json."
+    },
+    "severity_sanity": {
+      "n_images": 28,
+      "n_available": 28,
+      "healthy_mean_percent": 45.18,
+      "diseased_mean_percent": 78.63,
+      "diseased_mean_exceeds_healthy_mean": true,
+      "note": "Known-groups directional sanity check, not severity accuracy: the field set's ground truth is disease presence from uploader descriptions, not annotated severity; lesion training labels are SAM2 pseudo-labels.",
+      "results_file": "models/severity_sanity_results.json",
+      "run_at": "2026-10-13T14:47:32.284382+00:00"
     }
   },
   "evaluation_note": "Metrics are only displayed when present in project files, together with their source. They are never invented."

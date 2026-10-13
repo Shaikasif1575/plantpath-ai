@@ -112,7 +112,11 @@ class SeverityService:
                         "The U-Nets were trained by this project on public Apache-2.0 "
                         "datasets; the lesion labels are SAM2 model pseudo-labels rather "
                         "than human annotations, and severity values are unvalidated "
-                        "estimates for research use. See models/segmentation_audit.json."
+                        "estimates for research use. See models/segmentation_audit.json. "
+                        "A known-groups field check found strong over-segmentation on "
+                        "healthy leaves; treat absolute percentages as relative "
+                        "comparisons rather than measurements "
+                        "(models/severity_sanity_results.json)."
                     ),
                 }
             )

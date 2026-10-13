@@ -400,6 +400,26 @@ against the same label source) and every provenance detail live in
 - The disease classifier was **not** trained, retrained or fine-tuned to
   produce severity — classifier weights are untouched.
 
+**Field sanity check (measured, 2026-10-13).**
+`tests/evaluate_severity_sanity.py` ran the production severity path over the
+28 verified-label field photographs and grouped them by ground-truth
+condition (a *known-groups* check — direction, not accuracy):
+
+| Group | n | Mean affected | Median | Levels |
+|---|---|---|---|---|
+| Diseased | 22 | 78.6% | 82.0% | 21 Severe, 1 Moderate |
+| Healthy | 6 | 45.2% | 40.3% | 4 Severe/Moderate, 1 Moderate, 1 Mild |
+
+Directionally correct (diseased mean exceeds healthy mean; coverage 28/28)
+**but with a strong positive bias**: healthy leaves averaged 45% "affected"
+and 5 of 6 were rated Moderate or Severe — the lesion U-Net over-segments on
+in-the-wild photographs, a predictable consequence of pseudo-label training
+plus domain shift. Absolute percentages must be read as relative comparisons,
+not measurements. This finding is stated in the API `note`; per-image values
+are in `models/severity_sanity_results.json` and the attributed
+`project_evaluation.severity_sanity` block in `data/model_metrics.json`.
+Human-annotated masks (Future Work) are the fix, not threshold tuning.
+
 Retraining (CPU, ~2 h):
 
 ```bash
@@ -492,6 +512,7 @@ plantpath-ai/
 │   ├── efficientnet_v2_s_best.pth  # Connected checkpoint (~82 MB)
 │   ├── segmentation/        # Trained severity U-Nets + meta.json (metrics/provenance)
 │   ├── segmentation_audit.json # Segmentation training provenance + held-out metrics
+│   ├── severity_sanity_results.json # Known-groups field check of severity estimates
 │   ├── field_eval_results.json # Per-image field-eval predictions + aggregates
 │   ├── classes.json         # Checkpoint's shipped class list
 │   ├── infer.py             # Author's inference recipe (mirrored in loader)
@@ -506,6 +527,7 @@ plantpath-ai/
 │   ├── verify_new_model.py  # Model verification gate
 │   ├── fetch_field_eval_set.py # Wikimedia Commons field set (verified labels)
 │   ├── evaluate_field_set.py # Field evaluation → attributed per-class metrics
+│   ├── evaluate_severity_sanity.py # Known-groups severity check on field images
 │   ├── smoke_classifier.py  # In-process classifier smoke
 │   └── probe_set/           # Verification images + sources.json
 ├── docker-compose.yml
@@ -524,7 +546,9 @@ plantpath-ai/
 3. **Severity is model-derived and unvalidated** — classification confidence
    never indicates severity; the connected U-Net pair measures affected area
    from masks, but its lesion labels are SAM2 pseudo-labels, so values are
-   research estimates, not agronomic diagnoses.
+   research estimates, not agronomic diagnoses. A field sanity check measured
+   strong over-segmentation on healthy leaves (45% mean affected, n=6), so
+   treat percentages as relative comparisons only.
 4. **Grad-CAM is not causation** — heatmaps are interpretability aids only.
 5. **Controlled-dataset validation only** — the reported 0.9989 accuracy is
    PlantVillage validation performance carried in the checkpoint's own

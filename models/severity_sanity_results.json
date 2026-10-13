@@ -1,0 +1,297 @@
+{
+  "protocol": "known-groups directional check on the verified-label field set",
+  "note": "Known-groups directional sanity check, not severity accuracy: the field set's ground truth is disease presence from uploader descriptions, not annotated severity; lesion training labels are SAM2 pseudo-labels.",
+  "n_images": 28,
+  "n_available": 28,
+  "n_unavailable": 0,
+  "groups": {
+    "healthy": {
+      "n": 6,
+      "mean": 45.18,
+      "median": 40.25,
+      "min": 0.5,
+      "max": 95.2,
+      "levels": {
+        "Mild": 1,
+        "Severe": 3,
+        "Moderate": 2
+      }
+    },
+    "diseased": {
+      "n": 22,
+      "mean": 78.63,
+      "median": 81.95,
+      "min": 18.0,
+      "max": 96.4,
+      "levels": {
+        "Severe": 21,
+        "Moderate": 1
+      }
+    }
+  },
+  "diseased_mean_exceeds_healthy_mean": true,
+  "per_class_mean_percent": {
+    "Corn_(maize)___Northern_Leaf_Blight": 85.7,
+    "Grape___Black_rot": 63.43,
+    "Potato___Late_blight": 79.98,
+    "Tomato___Early_blight": 82.3,
+    "Tomato___Late_blight": 85.62,
+    "Tomato___Septoria_leaf_spot": 76.22,
+    "Tomato___healthy": 45.18
+  },
+  "per_image": [
+    {
+      "image": "Corn_(maize)___Northern_Leaf_Blight__00.jpg",
+      "ground_truth": "Corn_(maize)___Northern_Leaf_Blight",
+      "group": "diseased",
+      "available": true,
+      "affected_area_percent": 77.2,
+      "severity_level": "Severe",
+      "reason": null
+    },
+    {
+      "image": "Corn_(maize)___Northern_Leaf_Blight__01.jpg",
+      "ground_truth": "Corn_(maize)___Northern_Leaf_Blight",
+      "group": "diseased",
+      "available": true,
+      "affected_area_percent": 94.2,
+      "severity_level": "Severe",
+      "reason": null
+    },
+    {
+      "image": "Grape___Black_rot__00.jpg",
+      "ground_truth": "Grape___Black_rot",
+      "group": "diseased",
+      "available": true,
+      "affected_area_percent": 18.0,
+      "severity_level": "Moderate",
+      "reason": null
+    },
+    {
+      "image": "Grape___Black_rot__01.jpg",
+      "ground_truth": "Grape___Black_rot",
+      "group": "diseased",
+      "available": true,
+      "affected_area_percent": 81.4,
+      "severity_level": "Severe",
+      "reason": null
+    },
+    {
+      "image": "Grape___Black_rot__02.jpg",
+      "ground_truth": "Grape___Black_rot",
+      "group": "diseased",
+      "available": true,
+      "affected_area_percent": 90.9,
+      "severity_level": "Severe",
+      "reason": null
+    },
+    {
+      "image": "Potato___Late_blight__00.jpg",
+      "ground_truth": "Potato___Late_blight",
+      "group": "diseased",
+      "available": true,
+      "affected_area_percent": 55.9,
+      "severity_level": "Severe",
+      "reason": null
+    },
+    {
+      "image": "Potato___Late_blight__01.jpg",
+      "ground_truth": "Potato___Late_blight",
+      "group": "diseased",
+      "available": true,
+      "affected_area_percent": 84.3,
+      "severity_level": "Severe",
+      "reason": null
+    },
+    {
+      "image": "Potato___Late_blight__02.jpg",
+      "ground_truth": "Potato___Late_blight",
+      "group": "diseased",
+      "available": true,
+      "affected_area_percent": 89.4,
+      "severity_level": "Severe",
+      "reason": null
+    },
+    {
+      "image": "Potato___Late_blight__03.jpg",
+      "ground_truth": "Potato___Late_blight",
+      "group": "diseased",
+      "available": true,
+      "affected_area_percent": 87.2,
+      "severity_level": "Severe",
+      "reason": null
+    },
+    {
+      "image": "Potato___Late_blight__04.jpg",
+      "ground_truth": "Potato___Late_blight",
+      "group": "diseased",
+      "available": true,
+      "affected_area_percent": 96.4,
+      "severity_level": "Severe",
+      "reason": null
+    },
+    {
+      "image": "Potato___Late_blight__05.jpg",
+      "ground_truth": "Potato___Late_blight",
+      "group": "diseased",
+      "available": true,
+      "affected_area_percent": 66.7,
+      "severity_level": "Severe",
+      "reason": null
+    },
+    {
+      "image": "Tomato___Early_blight__00.jpg",
+      "ground_truth": "Tomato___Early_blight",
+      "group": "diseased",
+      "available": true,
+      "affected_area_percent": 72.7,
+      "severity_level": "Severe",
+      "reason": null
+    },
+    {
+      "image": "Tomato___Early_blight__01.jpg",
+      "ground_truth": "Tomato___Early_blight",
+      "group": "diseased",
+      "available": true,
+      "affected_area_percent": 91.9,
+      "severity_level": "Severe",
+      "reason": null
+    },
+    {
+      "image": "Tomato___healthy__00.jpg",
+      "ground_truth": "Tomato___healthy",
+      "group": "healthy",
+      "available": true,
+      "affected_area_percent": 0.5,
+      "severity_level": "Mild",
+      "reason": null
+    },
+    {
+      "image": "Tomato___healthy__01.jpg",
+      "ground_truth": "Tomato___healthy",
+      "group": "healthy",
+      "available": true,
+      "affected_area_percent": 95.2,
+      "severity_level": "Severe",
+      "reason": null
+    },
+    {
+      "image": "Tomato___healthy__02.jpg",
+      "ground_truth": "Tomato___healthy",
+      "group": "healthy",
+      "available": true,
+      "affected_area_percent": 69.8,
+      "severity_level": "Severe",
+      "reason": null
+    },
+    {
+      "image": "Tomato___healthy__03.jpg",
+      "ground_truth": "Tomato___healthy",
+      "group": "healthy",
+      "available": true,
+      "affected_area_percent": 25.1,
+      "severity_level": "Moderate",
+      "reason": null
+    },
+    {
+      "image": "Tomato___healthy__04.jpg",
+      "ground_truth": "Tomato___healthy",
+      "group": "healthy",
+      "available": true,
+      "affected_area_percent": 28.8,
+      "severity_level": "Moderate",
+      "reason": null
+    },
+    {
+      "image": "Tomato___healthy__05.jpg",
+      "ground_truth": "Tomato___healthy",
+      "group": "healthy",
+      "available": true,
+      "affected_area_percent": 51.7,
+      "severity_level": "Severe",
+      "reason": null
+    },
+    {
+      "image": "Tomato___Late_blight__00.jpg",
+      "ground_truth": "Tomato___Late_blight",
+      "group": "diseased",
+      "available": true,
+      "affected_area_percent": 78.5,
+      "severity_level": "Severe",
+      "reason": null
+    },
+    {
+      "image": "Tomato___Late_blight__01.jpg",
+      "ground_truth": "Tomato___Late_blight",
+      "group": "diseased",
+      "available": true,
+      "affected_area_percent": 78.1,
+      "severity_level": "Severe",
+      "reason": null
+    },
+    {
+      "image": "Tomato___Late_blight__02.jpg",
+      "ground_truth": "Tomato___Late_blight",
+      "group": "diseased",
+      "available": true,
+      "affected_area_percent": 94.6,
+      "severity_level": "Severe",
+      "reason": null
+    },
+    {
+      "image": "Tomato___Late_blight__03.jpg",
+      "ground_truth": "Tomato___Late_blight",
+      "group": "diseased",
+      "available": true,
+      "affected_area_percent": 91.3,
+      "severity_level": "Severe",
+      "reason": null
+    },
+    {
+      "image": "Tomato___Septoria_leaf_spot__00.jpg",
+      "ground_truth": "Tomato___Septoria_leaf_spot",
+      "group": "diseased",
+      "available": true,
+      "affected_area_percent": 82.5,
+      "severity_level": "Severe",
+      "reason": null
+    },
+    {
+      "image": "Tomato___Septoria_leaf_spot__01.jpg",
+      "ground_truth": "Tomato___Septoria_leaf_spot",
+      "group": "diseased",
+      "available": true,
+      "affected_area_percent": 84.4,
+      "severity_level": "Severe",
+      "reason": null
+    },
+    {
+      "image": "Tomato___Septoria_leaf_spot__02.jpg",
+      "ground_truth": "Tomato___Septoria_leaf_spot",
+      "group": "diseased",
+      "available": true,
+      "affected_area_percent": 77.4,
+      "severity_level": "Severe",
+      "reason": null
+    },
+    {
+      "image": "Tomato___Septoria_leaf_spot__03.jpg",
+      "ground_truth": "Tomato___Septoria_leaf_spot",
+      "group": "diseased",
+      "available": true,
+      "affected_area_percent": 74.9,
+      "severity_level": "Severe",
+      "reason": null
+    },
+    {
+      "image": "Tomato___Septoria_leaf_spot__04.jpg",
+      "ground_truth": "Tomato___Septoria_leaf_spot",
+      "group": "diseased",
+      "available": true,
+      "affected_area_percent": 61.9,
+      "severity_level": "Severe",
+      "reason": null
+    }
+  ],
+  "run_at": "2026-10-13T14:47:32.284382+00:00"
+}
