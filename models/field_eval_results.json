@@ -1,5 +1,5 @@
 {
-  "evaluated_at": "2026-10-13T09:04:02.974176+00:00",
+  "evaluated_at": "2026-10-13T14:26:05.364540+00:00",
   "protocol": {
     "fetch_script": "tests/fetch_field_eval_set.py",
     "eval_script": "tests/evaluate_field_set.py",
@@ -7,15 +7,15 @@
     "label_source": "Wikimedia Commons uploader descriptions, verified programmatically by keyword match on title+description (see data/field_eval/sources.json)",
     "inclusion_rule": "crop keyword + disease keyword in title/description; leaf-tissue keyword required (leaf/laub/blad/...); electron-microscopy and non-leaf imagery rejected",
     "request_path": "POST /api/predict via FastAPI TestClient (production code path)",
-    "image_count": 27
+    "image_count": 28
   },
   "metrics": {
-    "n_images": 27,
+    "n_images": 28,
     "n_ground_truth_classes": 7,
-    "exact_class_accuracy": 0.1111,
-    "crop_accuracy": 0.2593,
-    "mean_confidence": 0.7081,
-    "low_confidence_rate": 0.1852,
+    "exact_class_accuracy": 0.1071,
+    "crop_accuracy": 0.25,
+    "mean_confidence": 0.7084,
+    "low_confidence_rate": 0.1786,
     "per_class": {
       "Corn_(maize)___Northern_Leaf_Blight": {
         "support": 2,
@@ -42,7 +42,7 @@
         "f1": 0.0
       },
       "Tomato___Early_blight": {
-        "support": 1,
+        "support": 2,
         "predicted_as_class": 3,
         "correct": 0,
         "precision": 0.0,
@@ -91,7 +91,8 @@
         "Tomato___Early_blight": 1
       },
       "Tomato___Early_blight": {
-        "Tomato___Late_blight": 1
+        "Tomato___Late_blight": 1,
+        "Pepper,_bell___healthy": 1
       },
       "Tomato___Late_blight": {
         "Tomato___Early_blight": 1,
@@ -118,7 +119,7 @@
       "correct": false,
       "crop_correct": false,
       "low_confidence": false,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:Northern_corn_leaf_blight.JPG",
       "license": "CC BY-SA 4.0"
     },
@@ -130,7 +131,7 @@
       "correct": false,
       "crop_correct": false,
       "low_confidence": true,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:NCLB_disease_cycle.JPG",
       "license": "CC BY-SA 4.0"
     },
@@ -142,7 +143,7 @@
       "correct": false,
       "crop_correct": true,
       "low_confidence": false,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:Guignardia_bidwellii_(black_rot)_2.jpg",
       "license": "Public domain"
     },
@@ -154,7 +155,7 @@
       "correct": false,
       "crop_correct": false,
       "low_confidence": false,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:Guignardia_bidwellii_(black_rot)_on_grape_1.jpg",
       "license": "CC BY 3.0 us"
     },
@@ -166,7 +167,7 @@
       "correct": false,
       "crop_correct": false,
       "low_confidence": true,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:Guignardia_bidwellii_(black_rot)_on_grape_5.jpg",
       "license": "CC BY 3.0 us"
     },
@@ -178,7 +179,7 @@
       "correct": false,
       "crop_correct": false,
       "low_confidence": false,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:Late_blight_on_potato_leaf_2.jpg",
       "license": "CC BY 3.0 us"
     },
@@ -190,7 +191,7 @@
       "correct": false,
       "crop_correct": false,
       "low_confidence": false,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:Phytophthora_infestans_on_potato_leaf.jpg",
       "license": "CC BY 3.0 us"
     },
@@ -202,7 +203,7 @@
       "correct": false,
       "crop_correct": false,
       "low_confidence": false,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:Phytophthora_infestans_on_potato_leaf_2.jpg",
       "license": "CC BY 3.0 us"
     },
@@ -214,7 +215,7 @@
       "correct": false,
       "crop_correct": false,
       "low_confidence": false,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:Potato_Late_Blight.JPG",
       "license": "CC BY-SA 4.0"
     },
@@ -226,7 +227,7 @@
       "correct": false,
       "crop_correct": false,
       "low_confidence": false,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:Unidentified_disease_on_potato_leaf.jpg",
       "license": "CC BY 2.5"
     },
@@ -238,7 +239,7 @@
       "correct": false,
       "crop_correct": false,
       "low_confidence": false,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:Phytophthora_infestans_a1_(2).jpg",
       "license": "CC BY-SA 4.0"
     },
@@ -250,9 +251,21 @@
       "correct": false,
       "crop_correct": true,
       "low_confidence": false,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:Alternaria_solani_-_leaf_lesions.jpg",
       "license": "CC BY 3.0 us"
+    },
+    {
+      "image": "Tomato___Early_blight__01.jpg",
+      "ground_truth": "Tomato___Early_blight",
+      "prediction": "Pepper,_bell___healthy",
+      "probability": 0.7176,
+      "correct": false,
+      "crop_correct": false,
+      "low_confidence": false,
+      "severity_available": true,
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Early_blight_on_tomato_leaves_(7871930010).jpg",
+      "license": "CC BY 2.0"
     },
     {
       "image": "Tomato___healthy__00.jpg",
@@ -262,7 +275,7 @@
       "correct": false,
       "crop_correct": false,
       "low_confidence": false,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:Healthy_tomato_leaves_(7871755330).jpg",
       "license": "CC BY 2.0"
     },
@@ -274,7 +287,7 @@
       "correct": false,
       "crop_correct": false,
       "low_confidence": false,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:Liat_Portal_for_Foodie_Disorder_-_Healthy_snack_plate_with_cherry_tomatoes_avocado_mushrooms_and_tzfatit_cheese.jpg",
       "license": "CC BY-SA 4.0"
     },
@@ -286,7 +299,7 @@
       "correct": false,
       "crop_correct": false,
       "low_confidence": false,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:TUNA_SARDINES_WITH_MALUNGGAY_LEAVES_TOMATOES_ONIONS_GARLIC_PANGASINAN.jpg",
       "license": "CC BY-SA 4.0"
     },
@@ -298,7 +311,7 @@
       "correct": false,
       "crop_correct": false,
       "low_confidence": false,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:294_Tomato_var_Sweet_Pea_Solanum_lycopersicum_LEAF_epidermis_print.jpg",
       "license": "CC BY-SA 4.0"
     },
@@ -310,7 +323,7 @@
       "correct": false,
       "crop_correct": false,
       "low_confidence": false,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:295_Tomato_var_Heart_Breaker_Solanum_lycopersicum_LEAF_epidermis_print.jpg",
       "license": "CC BY-SA 4.0"
     },
@@ -322,7 +335,7 @@
       "correct": false,
       "crop_correct": false,
       "low_confidence": false,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:296_Tomato_var_Black_Solanum_lycopersicum_LEAF_epidermis_print.jpg",
       "license": "CC BY-SA 4.0"
     },
@@ -334,7 +347,7 @@
       "correct": false,
       "crop_correct": true,
       "low_confidence": true,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:Late_blight_on_tomato_leaf_(7871756748).jpg",
       "license": "CC BY 2.0"
     },
@@ -346,7 +359,7 @@
       "correct": true,
       "crop_correct": true,
       "low_confidence": false,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:Tomato_late_blight_leaf_curl_2_(5816171413).jpg",
       "license": "CC BY-SA 2.0"
     },
@@ -358,7 +371,7 @@
       "correct": true,
       "crop_correct": true,
       "low_confidence": false,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:Tomato_late_blight_leaf_sporulating_lesions_1_(5816170621).jpg",
       "license": "CC0"
     },
@@ -370,7 +383,7 @@
       "correct": true,
       "crop_correct": true,
       "low_confidence": false,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:Toomato_late_blight_leaf_curling_(5816170789).jpg",
       "license": "CC0"
     },
@@ -382,7 +395,7 @@
       "correct": false,
       "crop_correct": true,
       "low_confidence": true,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:Septoria_leaf_spot_symptoms_on_tomato_leaf_(Septoria_lycopersici_on_Solanum_lycopersicum_leaf).jpg",
       "license": "CC BY-SA 4.0"
     },
@@ -394,7 +407,7 @@
       "correct": false,
       "crop_correct": false,
       "low_confidence": false,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:Septoria_lycopersici_malagutii_leaf_spot_on_tomato_leaf.jpg",
       "license": "CC BY 3.0 us"
     },
@@ -406,7 +419,7 @@
       "correct": false,
       "crop_correct": false,
       "low_confidence": false,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:Tomato_septoria_leaf_spot_3006.jpg",
       "license": "CC0"
     },
@@ -418,7 +431,7 @@
       "correct": false,
       "crop_correct": false,
       "low_confidence": false,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:Tomato_septoria_leaf_spot_3007.jpg",
       "license": "CC0"
     },
@@ -430,7 +443,7 @@
       "correct": false,
       "crop_correct": false,
       "low_confidence": true,
-      "severity_available": false,
+      "severity_available": true,
       "commons_page": "https://commons.wikimedia.org/wiki/File:Tomato_septoria_leaf_spot_3025.jpg",
       "license": "CC0"
     }

@@ -403,5 +403,20 @@
       "grape"
     ],
     "fetched_at": "2026-10-13T08:53:09.698457+00:00"
+  },
+  "Tomato___Early_blight__01.jpg": {
+    "ground_truth": "Tomato___Early_blight",
+    "commons_title": "File:Early blight on tomato leaves (7871930010).jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Early_blight_on_tomato_leaves_(7871930010).jpg",
+    "license": "CC BY 2.0",
+    "author": "Dwight Sipler from Stow, MA, USA",
+    "description": "Early blight on tomato leaves",
+    "date_original": "2012-08-23 12:18",
+    "matched_query": "tomato early blight leaves",
+    "verified_keywords": [
+      "early blight",
+      "tomato"
+    ],
+    "fetched_at": "2026-10-13T14:06:57.780811+00:00"
   }
 }

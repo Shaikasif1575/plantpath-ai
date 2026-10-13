@@ -183,22 +183,34 @@ production `POST /api/predict` path over the set and writes per-image results
 plus aggregates to `models/field_eval_results.json` and an attributed
 `project_evaluation.field_evaluation` block in `data/model_metrics.json`.
 
-| Metric (2026-10-13 run, 27 images / 7 classes) | Value |
+| Metric (2026-10-13 run, 28 images / 7 classes) | Value |
 |---|---|
-| Exact class accuracy | **0.111** (3/27) |
-| Crop-level accuracy | **0.259** (7/27) |
+| Exact class accuracy | **0.107** (3/28) |
+| Crop-level accuracy | **0.250** (7/28) |
 | Mean confidence | 0.708 |
-| Low-confidence rate (< 0.55) | 0.185 |
+| Low-confidence rate (< 0.55) | 0.179 |
 | Best class | `Tomato___Late_blight` — recall 0.75, F1 0.55 |
 
 Read this as an informal robustness probe, not a benchmark: small,
 non-balanced convenience sample; labels are uploader descriptions; supports
-per class are 1–6. The failure modes are consistent with the lab-to-field
+per class are 2–6. The failure modes are consistent with the lab-to-field
 gap — potato late blight is often predicted `Tomato___Late_blight` (same
 pathogen, near-identical lesion appearance), and healthy tomato leaves are
 often predicted as other healthy crops. The classifier's 0.9989 remains a
 PlantVillage figure; field performance is what this protocol measures, and it
 is far lower.
+
+**Pool exhaustion (measured, not assumed).** Apple scab, maize common rust
+and potato early blight could not be filled at all. After the initial fetch,
+the candidate search was broadened (leaf-first phrasings in English, German
+and Dutch; the verification rules were not changed) and disease-category
+listings (`Category:Venturia inaequalis`, `Category:Puccinia sorghi`,
+`Category:Alternaria solani`) were crawled with the same mechanical checks.
+Result: zero eligible candidates. Commons files for those diseases carry
+pathogen-only titles without a crop keyword (`Puccinia sorghi (04).jpg`) or
+descriptions that cannot establish the crop (`Alternaria solani - leaf
+lesions.jpg` — tomato or potato?). The protocol refuses such labels rather
+than guessing, which is why the set stays at 28.
 
 **Historical note:** the original TensorFlow/Keras demo pipeline
 (`scripts/train_model.py`, `.keras` files) remains in the repository as the
@@ -516,8 +528,8 @@ plantpath-ai/
 4. **Grad-CAM is not causation** — heatmaps are interpretability aids only.
 5. **Controlled-dataset validation only** — the reported 0.9989 accuracy is
    PlantVillage validation performance carried in the checkpoint's own
-   metadata; the structured field evaluation (27 verified-label Commons
-   photographs, 7 classes) measured **0.111 exact / 0.259 crop accuracy**
+   metadata; the structured field evaluation (28 verified-label Commons
+   photographs, 7 classes) measured **0.107 exact / 0.250 crop accuracy**
    (`models/field_eval_results.json`), and an earlier informal 7-image probe
    scored 4/7 (`models/classifier_audit.json`). Not field-deployment
    validated.

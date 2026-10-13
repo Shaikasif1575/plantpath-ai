@@ -24,7 +24,7 @@
     "field_probe_detail": "7 labelled Wikimedia Commons field photographs (out-of-domain versus the source's training data). See models/classifier_audit.json for per-image results.",
     "in_domain_sample": "The model author's distributed test image classified as Apple___Apple_scab with p=0.903 (models/classifier_audit.json).",
     "field_evaluation": {
-      "evaluated_at": "2026-10-13T09:04:02.974176+00:00",
+      "evaluated_at": "2026-10-13T14:26:05.364540+00:00",
       "protocol": {
         "fetch_script": "tests/fetch_field_eval_set.py",
         "eval_script": "tests/evaluate_field_set.py",
@@ -32,14 +32,14 @@
         "label_source": "Wikimedia Commons uploader descriptions, verified programmatically by keyword match on title+description (see data/field_eval/sources.json)",
         "inclusion_rule": "crop keyword + disease keyword in title/description; leaf-tissue keyword required (leaf/laub/blad/...); electron-microscopy and non-leaf imagery rejected",
         "request_path": "POST /api/predict via FastAPI TestClient (production code path)",
-        "image_count": 27
+        "image_count": 28
       },
-      "n_images": 27,
+      "n_images": 28,
       "n_classes": 7,
-      "exact_class_accuracy": 0.1111,
-      "crop_accuracy": 0.2593,
-      "mean_confidence": 0.7081,
-      "low_confidence_rate": 0.1852,
+      "exact_class_accuracy": 0.1071,
+      "crop_accuracy": 0.25,
+      "mean_confidence": 0.7084,
+      "low_confidence_rate": 0.1786,
       "per_class": {
         "Corn_(maize)___Northern_Leaf_Blight": {
           "support": 2,
@@ -66,7 +66,7 @@
           "f1": 0.0
         },
         "Tomato___Early_blight": {
-          "support": 1,
+          "support": 2,
           "predicted_as_class": 3,
           "correct": 0,
           "precision": 0.0,
