@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Download, FileText, Loader2 } from "lucide-react";
+import { Download, FileText, Loader2, Printer } from "lucide-react";
 import { PredictionResponse, LOW_CONFIDENCE_FALLBACK } from "@/lib/api";
 import { formatPercent, formatDate } from "@/lib/utils";
 
@@ -57,6 +57,13 @@ ${
   .demo { background: #fff3e0; border: 1px solid #ffb74d; padding: 12px; font-size: 12px; margin: 12px 0; font-weight: bold; }
   .footer { margin-top: 32px; font-size: 11px; color: #4a5c52; border-top: 1px solid #d7e0d8; padding-top: 12px; }
   .kv { margin: 4px 0; font-size: 14px; }
+  @media print {
+    body { margin: 0; font-size: 12pt; color: #000; background: #fff; }
+    .banner, .demo { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .footer { font-size: 9pt; border-top-color: #999; }
+    h1 { font-size: 18pt; }
+    h2 { font-size: 13pt; }
+  }
 </style>
 </head>
 <body>
@@ -155,6 +162,16 @@ export function ReportButton({
     }
   };
 
+  const printPdf = () => {
+    const html = buildReportHtml(result, unavailableReason);
+    const win = window.open("", "_blank");
+    if (!win) return;
+    win.document.write(html);
+    win.document.close();
+    win.focus();
+    setTimeout(() => win.print(), 400);
+  };
+
   return (
     <div className="flex flex-wrap gap-3">
       <button
@@ -169,6 +186,15 @@ export function ReportButton({
           <Download className="h-4 w-4" aria-hidden />
         )}
         Download Report
+      </button>
+      <button
+        type="button"
+        onClick={printPdf}
+        className="inline-flex items-center gap-2 rounded-md border border-[var(--pp-border)] bg-[var(--pp-surface)] px-4 py-2.5 text-sm font-medium text-[var(--pp-text)] hover:bg-[var(--pp-bg)]"
+        title="Open in new tab and use browser Print → Save as PDF"
+      >
+        <Printer className="h-4 w-4" aria-hidden />
+        Print / PDF
       </button>
       <span className="inline-flex items-center gap-1.5 text-xs text-[var(--pp-muted)]">
         <FileText className="h-3.5 w-3.5" aria-hidden />

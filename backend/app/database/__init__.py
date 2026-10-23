@@ -127,6 +127,14 @@ class Database:
             row = conn.execute("SELECT COUNT(*) AS c FROM prediction_history").fetchone()
             return int(row["c"]) if row else 0
 
+    def delete_prediction(self, prediction_id: int) -> int:
+        with self._conn() as conn:
+            cur = conn.execute(
+                "DELETE FROM prediction_history WHERE id = ?",
+                (prediction_id,),
+            )
+            return int(cur.rowcount)
+
     def clear_history(self) -> int:
         with self._conn() as conn:
             cur = conn.execute("DELETE FROM prediction_history")

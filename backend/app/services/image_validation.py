@@ -45,7 +45,10 @@ def validate_image(
     # Extension check
     ext = (filename or "").rsplit(".", 1)[-1].lower() if "." in (filename or "") else ""
     if ext and ext not in {"jpg", "jpeg", "png", "webp", "bmp"}:
-        result["error"] = f"Unsupported file type '.{ext}'. Use JPG, JPEG, PNG, or WEBP."
+        result["error"] = (
+            f"We don't recognize this file type ('.{ext}'). "
+            "Please upload a photo as JPG, JPEG, PNG, or WEBP."
+        )
         return None, result
 
     try:
@@ -113,11 +116,35 @@ def validate_image(
         edges = gray.filter(ImageFilter.FIND_EDGES)
         edge_stat = ImageStat.Stat(edges)
         edge_var = float(edge_stat.stddev[0]) if edge_stat.stddev else 0.0
-        if edge_var < 8.0:
+        if edge_var < 15.0:
             warnings.append(
                 {
                     "code": "blurry",
                     "message": "Image may be blurry. Prediction may be affected.",
+                    "severity": "warning",
+                }
+            )
+    except Exception:
+        pass
+
+    # Gentle non-plant check (warning only, never hard-reject) — images
+    # with almost no green content are unlikely to be leaf photos.
+    try:
+        rgb_stat = ImageStat.Stat(img.convert("RGB"))
+        r_mean = float(rgb_stat.mean[0]) if rgb_stat.mean else 0.0
+        g_mean = float(rgb_stat.mean[1]) if rgb_stat.mean else 0.0
+        b_mean = float(rgb_stat.mean[2]) if rgb_stat.mean else 0.0
+        green_ratio = g_mean / max(r_mean + b_mean, 1.0)
+        gray_for_bright = img.convert("L")
+        bright_stat = ImageStat.Stat(gray_for_bright)
+        mean_brightness = float(bright_stat.mean[0]) if bright_stat.mean else 128.0
+        # Only warn when green is clearly not dominant and image isn't very dark.
+        if green_ratio < 0.4 and mean_brightness > 40:
+            warnings.append(
+                {
+                    "code": "unlikely_leaf",
+                    "message": "The photo doesn't appear to contain a green leaf. "
+                    "Please upload a clear leaf image for best results.",
                     "severity": "warning",
                 }
             )

@@ -21,6 +21,17 @@ async def get_history(
     return {"items": items, "total": total}
 
 
+@router.delete("/history/{prediction_id}")
+async def delete_history_item(prediction_id: int):
+    db = AppState.database
+    if db is None:
+        raise HTTPException(status_code=503, detail="Database not ready.")
+    deleted = db.delete_prediction(prediction_id)
+    if deleted == 0:
+        raise HTTPException(status_code=404, detail="History item not found.")
+    return {"status": "ok", "deleted": deleted}
+
+
 @router.delete("/history")
 async def clear_history():
     db = AppState.database
