@@ -1,10 +1,10 @@
 {
   "metrics": {
     "accuracy": 0.9988950276243094,
-    "precision": null,
-    "recall": null,
-    "f1": null,
-    "note": "Accuracy is the validation accuracy recorded inside the connected checkpoint itself (models/efficientnet_v2_s_best.pth, key 'val_acc', epoch 20) and reported in the model card of BiernyVR/crop-disease-classifier (Hugging Face, MIT license). It is the source training run's own output on its validation split, not measured by this project, and not evidence of field performance. Precision, recall and F1 were not distributed with the checkpoint, so they remain null."
+    "precision": 0.061229,
+    "recall": 0.107143,
+    "f1": 0.077929,
+    "note": "Accuracy is the validation accuracy recorded inside the connected checkpoint itself (models/efficientnet_v2_s_best.pth, key 'val_acc', epoch 20) and reported in the model card of BiernyVR/crop-disease-classifier (Hugging Face, MIT license). It is the source training run's own output on its validation split, not measured by this project, and not evidence of field performance. Precision, recall and F1 were not distributed with the checkpoint, so they remain null. Macro-averaged precision/recall/F1 computed from 7 evaluated classes (informal field-probe: 28 images / 7 classes, protocol v2, out-of-domain vs PlantVillage training data). Not a benchmark; see models/field_eval_results.json."
   },
   "training": {
     "training_accuracy": null,
