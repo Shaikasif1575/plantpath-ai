@@ -112,6 +112,8 @@ export interface PredictionResponse {
   explainability?: GradCamResult;
   severity?: SeverityResult;
   limitations?: string[];
+  /** Treatment/pesticide guidance from the knowledge base; null when unmatched. */
+  disease_info?: DiseaseInfo | null;
 }
 
 export interface HealthResponse {
@@ -128,6 +130,31 @@ export interface HealthResponse {
   detail: string | null;
 }
 
+/** One pesticide recommendation: category, active ingredients, and how to apply. */
+export interface PesticideRecommendation {
+  category: string;
+  active_ingredients: string[];
+  application: string;
+}
+
+/** Knowledge-base guidance attached to a prediction (treatment + pesticides). */
+export interface DiseaseInfo {
+  id: string;
+  crop: string;
+  disease: string;
+  scientific_name?: string;
+  condition: string;
+  description?: string;
+  treatment: string[];
+  pesticides: PesticideRecommendation[];
+  management?: string[];
+  prevention?: string[];
+  sources?: string[];
+  disclaimer?: string;
+  /** True for infections with no chemical cure (viruses, citrus greening, trunk diseases). */
+  incurable?: boolean;
+}
+
 export interface DiseaseRecord {
   id: string;
   crop: string;
@@ -140,6 +167,9 @@ export interface DiseaseRecord {
   prevention: string[];
   management: string[];
   sources: string[];
+  treatment?: string[];
+  pesticides?: PesticideRecommendation[];
+  incurable?: boolean;
 }
 
 export interface CropInfo {

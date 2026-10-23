@@ -160,6 +160,20 @@ def main() -> int:
               visible(page.get_by_text("Method: diseased region area / leaf region area x 100")))
         check("severity: mask overlay image rendered",
               page.locator('img[alt="Segmentation mask overlay"]').count() >= 1)
+        # Treatment + pesticide guidance (curated knowledge base)
+        check("treatment panel rendered",
+              page.get_by_test_id("treatment-panel").count() == 1)
+        check("treatment: how-to steps shown",
+              visible(page.get_by_text("How to Treat It")))
+        check("treatment: pesticide recommendations shown",
+              visible(page.get_by_text("Recommended Pesticides")))
+        check("treatment: active ingredients listed",
+              any(visible(page.get_by_text(x))
+                  for x in ("captan", "myclobutanil", "dodine")))
+        check("treatment: label-law disclaimer shown",
+              page.get_by_text("follow the product label").count() >= 1)
+        check("treatment: knowledge sources cited",
+              page.get_by_text("Sources:").count() >= 1)
         shot(page, "02-scan-result")
 
         # ---------------- 4. Report download (real data) ----------------
@@ -215,6 +229,12 @@ def main() -> int:
         if detail_visible:
             check("scientific name present", page.get_by_text("Phytophthora infestans").first.is_visible())
             check("symptoms listed", page.get_by_text("Symptoms").first.is_visible())
+            check("treatment steps listed", page.get_by_text("Treatment Steps").first.is_visible())
+            check("pesticide guidance listed",
+                  page.get_by_text("Recommended Pesticides").first.is_visible())
+            check("late blight actives shown",
+                  any(page.get_by_text(x).count() >= 1
+                      for x in ("chlorothalonil", "mancozeb", "mefenoxam")))
             check("sources listed", page.get_by_text("Sources").first.is_visible())
             shot(page, "03-disease-detail")
             page.get_by_label("Close disease details").click()

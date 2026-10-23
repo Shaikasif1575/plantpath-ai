@@ -198,6 +198,24 @@ def main() -> int:
           expl.get("available") is True
           and str(expl.get("overlay", "")).startswith("data:image/png;base64,"),
           f"got available={expl.get('available')} message={expl.get('message')!r}")
+    info = body.get("disease_info")
+    check("disease_info guidance attached", info is not None, f"got {info!r}")
+    if info:
+        check("guidance matches predicted disease",
+              bool(info.get("treatment")) and bool(info.get("sources")),
+              f"id={info.get('id')!r} treatment={len(info.get('treatment') or [])}")
+        check("guidance carries label-law disclaimer",
+              "label" in str(info.get("disclaimer", "")).lower(),
+              f"got {str(info.get('disclaimer'))[:80]!r}")
+        for p in (info.get("pesticides") or []):
+            ok = bool(p.get("category")) and bool(p.get("active_ingredients")) \
+                 and bool(p.get("application"))
+            check("pesticide entry well-formed", ok, f"got {p!r}")
+            if not ok:
+                break
+        if probe.exists():
+            check("probe guidance is the Apple scab record",
+                  info.get("id") == "apple-apple-scab", f"got {info.get('id')!r}")
 
     # 6. Invalid inputs (validated before inference)
     print("\n[6] Error handling")

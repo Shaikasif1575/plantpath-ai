@@ -152,6 +152,67 @@ function DiseaseDetail({
           </section>
         )}
 
+        {disease.incurable && (
+          <div
+            className="mt-5 flex items-start gap-2 rounded-lg border border-amber-400 bg-amber-50 p-3 text-sm text-amber-900 dark:border-amber-700 dark:bg-amber-950/30 dark:text-amber-100"
+            role="note"
+          >
+            <span aria-hidden>⚠</span>
+            <span>
+              No chemical cure exists for this disease. Remove and destroy
+              infected plants where recommended and manage the insect vector
+              where one exists.
+            </span>
+          </div>
+        )}
+
+        {(disease.treatment?.length ?? 0) > 0 && (
+          <section className="mt-5">
+            <h3 className="text-sm font-semibold uppercase tracking-wide text-[var(--pp-muted)]">
+              Treatment Steps
+            </h3>
+            <ol className="mt-2 space-y-1.5 text-sm">
+              {disease.treatment!.map((s) => (
+                <li key={s} className="flex gap-2">
+                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-forest-500" aria-hidden />
+                  {s}
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+
+        {(disease.pesticides?.length ?? 0) > 0 && (
+          <section className="mt-5">
+            <h3 className="text-sm font-semibold uppercase tracking-wide text-[var(--pp-muted)]">
+              Recommended Pesticides
+            </h3>
+            <ul className="mt-3 space-y-3">
+              {disease.pesticides!.map((p) => (
+                <li
+                  key={p.category}
+                  className="rounded-lg border border-[var(--pp-border)] bg-[var(--pp-bg)] p-4"
+                >
+                  <div className="text-sm font-semibold">{p.category}</div>
+                  <div className="mt-2 flex flex-wrap gap-1.5">
+                    {(p.active_ingredients ?? []).map((ing) => (
+                      <span
+                        key={ing}
+                        className="inline-flex items-center rounded-full border border-forest-300 bg-forest-50 px-2 py-0.5 text-xs font-medium text-forest-800 dark:border-forest-700 dark:bg-forest-900/40 dark:text-leaf-200"
+                      >
+                        {ing}
+                      </span>
+                    ))}
+                  </div>
+                  <p className="mt-2 text-xs leading-relaxed text-[var(--pp-muted)]">
+                    {p.application}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
         {disease.sources?.length > 0 && (
           <section className="mt-5">
             <h3 className="text-sm font-semibold uppercase tracking-wide text-[var(--pp-muted)]">
@@ -166,8 +227,11 @@ function DiseaseDetail({
         )}
 
         <p className="mt-6 text-xs text-[var(--pp-muted)]">
-          Disease information is for educational reference. Verify treatment
-          decisions against local agricultural advisories.
+          Treatment and pesticide guidance is educational reference data from
+          agricultural extension publications. Always follow the product label
+          (the legal document), confirm local product registration and
+          pre-harvest intervals, and consult your local agricultural extension
+          service before spraying.
         </p>
       </div>
     </div>

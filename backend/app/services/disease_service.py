@@ -4,9 +4,21 @@ from __future__ import annotations
 import json
 import logging
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 logger = logging.getLogger("plantpath.services.diseases")
+
+TREATMENT_DISCLAIMER = (
+    "Treatment and pesticide guidance is educational reference data distilled "
+    "from agricultural extension publications — not a prescription. Always "
+    "follow the product label (the legal document), including dosage, "
+    "pre-harvest interval and PPE requirements; confirm the product is "
+    "registered for your crop and disease in your region; and consult your "
+    "local agricultural extension or plant-protection authority before "
+    "spraying. Use integrated pest management: resistant varieties, "
+    "sanitation, crop rotation and monitoring come before any chemical "
+    "application."
+)
 
 
 class DiseaseService:
@@ -70,6 +82,74 @@ class DiseaseService:
             if r.get("id") == disease_id:
                 return r
         return None
+
+    def find_for_prediction(
+        self, crop: str, disease: str, condition: str
+    ) -> Optional[Dict[str, Any]]:
+        """Map a classifier output (crop/disease strings) to a knowledge record.
+
+        Conservative by design: candidates must share the crop and condition,
+        and a diseased prediction must overlap the record's disease name by
+        token similarity. When nothing matches well enough, return None —
+        showing no guidance is honest; showing the wrong disease's guidance
+        is not.
+        """
+        crop_l = (crop or "").strip().lower()
+        cond_l = (condition or "").strip().lower()
+        candidates = [
+            r
+            for r in self._records
+            if str(r.get("crop", "")).strip().lower() == crop_l
+            and str(r.get("condition", "")).strip().lower() == cond_l
+        ]
+        if not candidates:
+            return None
+        if cond_l == "healthy":
+            return self._guidance_record(candidates[0])
+
+        pred_tokens = self._tokens(disease)
+        if not pred_tokens:
+            return None
+        best: Optional[Tuple[float, Dict[str, Any]]] = None
+        for r in candidates:
+            rec_tokens = self._tokens(str(r.get("disease", "")))
+            if not rec_tokens:
+                continue
+            overlap = len(pred_tokens & rec_tokens) / min(len(pred_tokens), len(rec_tokens))
+            if best is None or overlap > best[0]:
+                best = (overlap, r)
+        if best is not None and best[0] >= 0.6:
+            return self._guidance_record(best[1])
+        return None
+
+    @staticmethod
+    def _tokens(text: str) -> set:
+        import re
+
+        stop = {"the", "of", "a", "an", "and", "on", "in"}
+        return {
+            t for t in re.sub(r"[^a-z0-9]+", " ", text.lower()).split() if t not in stop
+        }
+
+    @staticmethod
+    def _guidance_record(r: Dict[str, Any]) -> Dict[str, Any]:
+        out: Dict[str, Any] = {
+            "id": r.get("id"),
+            "crop": r.get("crop"),
+            "disease": r.get("disease"),
+            "scientific_name": r.get("scientific_name"),
+            "condition": r.get("condition"),
+            "description": r.get("description"),
+            "treatment": list(r.get("treatment", []) or []),
+            "pesticides": list(r.get("pesticides", []) or []),
+            "management": list(r.get("management", []) or []),
+            "prevention": list(r.get("prevention", []) or []),
+            "sources": list(r.get("sources", []) or []),
+            "disclaimer": TREATMENT_DISCLAIMER,
+        }
+        if r.get("incurable"):
+            out["incurable"] = True
+        return out
 
     def get_crops(self, class_names: List[str]) -> List[Dict[str, Any]]:
         """Build crop explorer info from class names."""

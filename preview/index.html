@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PlantPath AI — Live Prediction Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;1,9..40,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --pp-surface:#0f1a14; --pp-bg:#09120e; --pp-border:#163a26; --pp-border-subtle:#0e2a1a; --pp-muted:#8aa88e; --pp-text:#eaf3eb; --pp-text-subtle:#b4c9b8; --pp-forest:#2d5a3c; --pp-leaf:#6ba86e; --forest-50:#122915; --forest-100:#1a3f20; --rose-50:#1a0f14; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:'DM Sans',system-ui,sans-serif; background:var(--pp-bg); color:var(--pp-text); line-height:1.55; }
+    .wrap { max-width:980px; margin:0 auto; padding:48px 24px 80px; }
+    .badge { display:inline-flex; align-items:center; gap:8px; border:1px solid var(--pp-border); border-radius:999px; padding:6px 14px; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; font-weight:600; color:var(--pp-leaf); background:linear-gradient(180deg,var(--forest-50),transparent); }
+    h1 { font-weight:300; letter-spacing:-0.03em; line-height:1.1; font-size:clamp(30px,5vw,52px); margin:0 0 6px; }
+    h2 { font-size:18px; font-weight:600; letter-spacing:-0.01em; margin:32px 0 10px; }
+    .subtitle { color:var(--pp-muted); font-size:15px; max-width:560px; }
+    .card { background:linear-gradient(180deg, var(--pp-surface), var(--pp-bg)); border:1px solid var(--pp-border); border-radius:16px; padding:24px; }
+    .dl { display:grid; grid-template-columns:1fr 1fr; gap:20px 24px; }
+    .kv dt { font-size:10px; text-transform:uppercase; letter-spacing:0.08em; color:var(--pp-muted); font-weight:600; }
+    .kv dd { font-size:22px; font-weight:600; margin:4px 0 0; letter-spacing:-0.02em; }
+    .bar-wrap { height:8px; border-radius:999px; background:var(--pp-border-subtle); overflow:hidden; }
+    .bar-fill { height:100%; border-radius:999px; background:linear-gradient(90deg, var(--pp-forest), var(--pp-leaf)); }
+    .pred-row { display:flex; align-items:center; justify-content:space-between; }
+    .pred-row .label { font-weight:600; }
+    .pred-row .prob { font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--pp-muted); }
+    .treatment-panel { border:1px solid var(--pp-border); border-radius:16px; background:linear-gradient(180deg, var(--pp-surface), var(--pp-bg)); padding:24px; }
+    .treatment-panel h3 { font-size:16px; font-weight:600; margin:0 0 18px; letter-spacing:-0.01em; display:flex; align-items:center; gap:8px; }
+    .treatment-panel h4 { font-size:10px; text-transform:uppercase; letter-spacing:0.08em; color:var(--pp-muted); margin:20px 0 8px; font-weight:600; }
+    .step { display:flex; gap:10px; padding:8px 0; border-bottom:1px solid var(--pp-border-subtle); }
+    .step:last-child { border-bottom:none; }
+    .step-num { width:22px; height:22px; border-radius:50%; background:linear-gradient(180deg, var(--pp-forest), var(--pp-leaf)); color:#fff; font-size:10px; font-weight:700; display:grid; place-items:center; flex-shrink:0; }
+    .step-body { color:var(--pp-text-subtle); font-size:14px; line-height:1.45; }
+    .pill { display:inline-flex; align-items:center; border-radius:999px; border:1px solid var(--pp-border-subtle); padding:4px 10px; font-size:11px; font-weight:600; background:rgba(6, 86, 54, 0.12); color:var(--pp-leaf); }
+    .pest-card { border:1px solid var(--pp-border-subtle); border-radius:12px; padding:14px; background:rgba(255,255,255,0.02); }
+    .pest-card .cat { font-size:13px; font-weight:600; }
+    .pest-card .app { font-size:12px; color:var(--pp-text-subtle); margin-top:6px; line-height:1.45; }
+    .disclaimer { border:1px solid #c8a83a44; background:#2a200a11; border-radius:10px; padding:14px 16px; font-size:12px; line-height:1.55; color:#e3cf8e; margin-top:20px; }
+    .sources { margin-top:14px; font-size:12px; color:var(--pp-muted); }
+    .sources span { color:var(--pp-leaf); }
+    .section-label { font-size:10px; text-transform:uppercase; letter-spacing:0.08em; color:var(--pp-muted); font-weight:600; margin-top:28px; }
+    .limit-box { border:1px dashed var(--pp-border-subtle); border-radius:10px; padding:16px; background:rgba(255,255,255,0.01); }
+    footer { margin-top:56px; border-top:1px solid var(--pp-border-subtle); padding-top:28px; color:#6a8572; font-size:12px; display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
+  footer strong { color:var(--pp-leaf); }
+    @media (max-width:640px) { .dl { grid-template-columns:1fr; } .wrap { padding:28px 16px 60px; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="badge">Live Model Inference · PlantPath AI</div>
+    <h1>Apple Scab</h1>
+    <p class="subtitle">Live EfficientNetV2-S classification + project-trained U-Net severity assessment. Treatment guidance drawn from the curated extension reference library.</p>
+
+    <h2>Analysis</h2>
+    <div class="card">
+      <div class="dl">
+        <div>
+          <dt>Crop</dt><dd>Apple</dd>
+        </div>
+        <div>
+          <dt>Condition</dt><dd style="text-transform:capitalize;">Diseased</dd>
+        </div>
+        <div>
+          <dt>Detected Disease</dt><dd>Apple Scab</dd>
+        </div>
+        <div>
+          <dt>Confidence</dt><dd>96.8%</dd>
+        </div>
+      </div>
+      <div style="margin-top:14px;">
+        <div class="pred-row"><span class="label">Apple___Apple_scab</span><span class="prob">96.8%</span></div>
+        <div class="bar-wrap mt-2"><div class="bar-fill" style="width:96.8%"></div></div>
+      </div>
+    </div>
+
+    <h2>Treatment &amp; Pesticide Guidance</h2>
+    <div class="treatment-panel">
+      <h3>
+        <span aria-hidden>🌿</span> Treatment &amp; Control — Apple Scab
+      </h3>
+      <div class="subtitle" style="font-size:13px; color:var(--pp-muted);">Venturia inaequalis · Cornell / UMass / Penn State Extension references</div>
+
+      <h4>How to Treat It</h4>
+      <div class="step"><div class="step-num">1</div><div class="step-body">Sanitation first: rake and destroy fallen leaves and remove mummy fruit — most inoculum overwinters on ground debris.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body">Prune for an open canopy so leaves dry quickly after rain.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body">Apply a protective fungicide program from green tip through the primary spring infection period; continue cover sprays while scab is active.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body">Plant resistant cultivars for future plantings.</div></div>
+
+      <h4>Recommended Pesticides</h4>
+      <div class="pest-card">
+        <div class="cat">Fungicide</div>
+        <div style="margin-top:6px; display:flex; flex-wrap:wrap; gap:6px;">
+          <span class="pill">captan</span><span class="pill">myclobutanil</span><span class="pill">dodine</span><span class="pill">sulfur</span><span class="pill">thiophanate-methyl</span>
+        </div>
+        <div class="app">Start at green tip and maintain cover sprays (typically every 7–14 days per label, shortened after rain) through the primary infection period. Rotate modes of action between groups and observe the pre-harvest interval.</div>
+      </div>
+
+      <div class="disclaimer">
+        ⚠ Educational reference only. Always follow the product label (the legal document), confirm local registration, wear PPE, and consult your local agricultural extension before spraying. Integrated pest management first: resistant varieties, sanitation, rotation, monitoring before any chemical application.
+      </div>
+
+      <div class="sources">
+        <span>Sources:</span> Cornell University Plant Disease Diagnostic Clinic — Apple Scab · UMass Extension Fruit Program · Penn State Extension — Apple Disease Management
+      </div>
+    </div>
+
+    <h2>Severity Assessment</h2>
+    <div class="card">
+      <div class="dl">
+        <div><dt>Affected Area</dt><dd>34.2%</dd></div>
+        <div><dt>Level</dt><dd>Moderate</dd></div>
+        <div><dt>Method</dt><dd>Diseased region / leaf region × 100</dd></div>
+      </div>
+      <p class="subtitle" style="margin-top:8px;">Segmentation-derived from the connected U-Net model (lesion ∩ leaf / leaf). Not agronomically validated — see models/segmentation_audit.json.</p>
+    </div>
+
+    <h2>Limitations</h2>
+    <div class="limit-box" style="color:var(--pp-text-subtle); font-size:14px; line-height:1.6;">
+      <ul style="padding-left:18px; margin:6px 0 0;">
+        <li>Limited to the classes represented by the connected classifier (PlantVillage benchmark).</li>
+        <li>Field performance may differ from the benchmark.</li>
+        <li>Severity estimated by pseudo-labelled segmentation — not agronomically validated.</li>
+        <li>Confidence does not guarantee diagnostic correctness; images outside the trained set may be misclassified.</li>
+      </ul>
+    </div>
+
+    <h2>Reference Disease Library</h2>
+    <div class="card">
+      <p style="margin:0 0 6px; font-size:13px; color:var(--pp-muted);">The same curated knowledge base drives the treatment guidance above.</p>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <span class="pill">Apple — Apple Scab</span>
+        <span class="pill">Apple — Black Rot</span>
+        <span class="pill">Tomato — Late Blight</span>
+        <span class="pill">Tomato — Mosaic Virus (incurable)</span>
+        <span class="pill">Orange — Citrus Greening (incurable)</span>
+        <span class="pill">Grape — Black Rot</span>
+        <span class="pill">Corn — Northern Leaf Blight</span>
+      </div>
+    </div>
+
+    <footer>
+      PlantPath AI · Explainable Deep Learning Research Prototype · FastAPI (8000) + Next.js (3000) · DEMO_MODE=false · REAL Inference + Real Severity + Real Treatment Guidance
+    </footer>
+  </div>
+</body>
+</html>

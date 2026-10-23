@@ -65,6 +65,21 @@ async def predict(image: UploadFile = File(...)):
             detail="Prediction failed due to an unexpected error.",
         )
 
+    # Attach treatment/pesticide guidance for the predicted disease when the
+    # knowledge base has a confident match (None when it does not — better to
+    # show nothing than another disease's advice).
+    ds = AppState.disease_service
+    if ds is not None and not result.get("demo_mode") and result.get("crop"):
+        try:
+            result["disease_info"] = ds.find_for_prediction(
+                result.get("crop") or "",
+                result.get("disease") or "",
+                result.get("condition") or "",
+            )
+        except Exception:
+            logger.warning("Disease guidance lookup failed", exc_info=True)
+            result["disease_info"] = None
+
     if db is not None and result.get("top_prediction"):
         try:
             db.insert_prediction(

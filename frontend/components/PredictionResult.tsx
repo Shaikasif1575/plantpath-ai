@@ -8,6 +8,7 @@ import {
 } from "@/lib/utils";
 import { GradCamViewer } from "@/components/GradCamViewer";
 import { SeverityCard } from "@/components/SeverityCard";
+import { TreatmentPanel } from "@/components/TreatmentPanel";
 import { ReportButton } from "@/components/ReportButton";
 import { QualityWarningList } from "@/components/ui";
 import { ModelStateBadge } from "@/components/ModelStatus";
@@ -224,6 +225,11 @@ export function PredictionResult({ result }: { result: PredictionResponse }) {
         <GradCamViewer explainability={result.explainability} />
         <SeverityCard severity={result.severity} />
       </div>
+
+      {/* Treatment & pesticide guidance from the knowledge base */}
+      {hasPrediction && !isDemo ? (
+        <TreatmentPanel info={result.disease_info} />
+      ) : null}
 
       {/* Limitations */}
       {(result.limitations || []).length > 0 ? (

@@ -70,6 +70,9 @@ class PredictionResponse(BaseModel):
     explainability: GradCamResult
     severity: SeverityResult
     limitations: List[str] = Field(default_factory=list)
+    # Treatment/pesticide guidance for the predicted disease from the
+    # knowledge base (null when no confident record match exists or in demo mode).
+    disease_info: Optional[Dict[str, Any]] = None
 
 
 class ExplainRequest(BaseModel):
@@ -88,6 +91,9 @@ class DiseaseRecord(BaseModel):
     prevention: List[str] = Field(default_factory=list)
     management: List[str] = Field(default_factory=list)
     sources: List[str] = Field(default_factory=list)
+    treatment: List[str] = Field(default_factory=list)
+    pesticides: List[Dict[str, Any]] = Field(default_factory=list)
+    incurable: Optional[bool] = None
 
 
 class CropInfo(BaseModel):

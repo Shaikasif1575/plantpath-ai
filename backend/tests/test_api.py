@@ -262,6 +262,59 @@ class TestPredictWithModel:
         # The predicted class must come from the connected model's class list.
         assert data["supported_classes"] == client_live.get("/api/model-info").json()["classes"]
 
+    def test_predict_includes_treatment_guidance(self, client_live):
+        """Live predictions must carry treatment + pesticide guidance for the
+        predicted disease (the user-facing 'how do I cure it' requirement)."""
+        if not _model_is_loaded(client_live):
+            pytest.skip("no verified model connected")
+        assert PROBE_IMAGE.exists(), f"probe image missing: {PROBE_IMAGE}"
+        r = client_live.post(
+            "/api/predict",
+            files={"image": ("apple_scab.jpg", PROBE_IMAGE.read_bytes(), "image/jpeg")},
+        )
+        assert r.status_code == 200
+        info = r.json().get("disease_info")
+        assert info is not None, "disease_info missing from live prediction"
+        assert info["id"] == "apple-apple-scab"
+        assert info["condition"] == "diseased"
+        assert info["treatment"], "treatment steps missing"
+        assert info["sources"], "knowledge sources missing"
+        assert info["disclaimer"], "label-law disclaimer missing"
+        assert info["pesticides"], "pesticide guidance missing for a fungal disease"
+        p = info["pesticides"][0]
+        assert p["category"] and p["active_ingredients"] and p["application"]
+        # Guidance must belong to the predicted disease, not another record.
+        assert "scab" in info["disease"].lower()
+
+    def test_disease_kb_treatment_integrity(self, client_live):
+        """Every diseased record must carry real treatment steps; pesticide
+        entries must be well-formed. Empty pesticide lists are allowed only
+        where no chemical applies (e.g., viruses)."""
+        import json as _json
+
+        data = _json.loads((ROOT / "data" / "diseases.json").read_text(encoding="utf-8"))
+        records = data.get("diseases", [])
+        assert len(records) == 38, f"unexpected record count: {len(records)}"
+        diseased = [r for r in records if r.get("condition") == "diseased"]
+        healthy = [r for r in records if r.get("condition") == "healthy"]
+        assert len(diseased) == 26 and len(healthy) == 12
+        for r in records:
+            assert "treatment" in r and "pesticides" in r, f"missing keys in {r.get('id')}"
+        for r in diseased:
+            assert r["treatment"], f"diseased record {r['id']} has no treatment steps"
+            for p in r["pesticides"]:
+                assert p.get("category"), f"pesticide missing category in {r['id']}"
+                assert p.get("active_ingredients"), f"no ingredients in {r['id']}"
+                assert p.get("application"), f"no application notes in {r['id']}"
+        no_chem = [r["id"] for r in diseased if not r["pesticides"]]
+        # Known honest exceptions: no pesticide controls a plant virus directly
+        # (mosaic virus); everything else must list what to apply.
+        assert set(no_chem) <= {"tomato-mosaic-virus"}, f"unexpected empty pesticide lists: {no_chem}"
+        incurable = {r["id"] for r in records if r.get("incurable")}
+        assert "orange-hlb-citrus-greening" in incurable
+        assert "tomato-yellow-leaf-curl-virus" in incurable
+        assert "tomato-mosaic-virus" in incurable
+
     def test_api_top1_matches_direct_classifier(self, client_live):
         """Regression: the API's top-1 must equal the classifier's own top-1.
 
@@ -345,6 +398,12 @@ class TestPredictDemo:
     def test_demo_severity_unavailable(self, client_demo):
         r = client_demo.post("/api/predict", files={"image": ("leaf.png", _make_png(), "image/png")})
         assert r.json()["severity"]["available"] is False
+
+    def test_disease_info_absent_in_demo_mode(self, client_demo):
+        """Demo mode must not attach guidance (no real prediction to treat)."""
+        r = client_demo.post("/api/predict", files={"image": ("leaf.png", _make_png(), "image/png")})
+        assert r.status_code == 200
+        assert r.json().get("disease_info") is None
 
 
 class TestExplain:

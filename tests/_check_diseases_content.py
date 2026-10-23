@@ -1,0 +1,12 @@
+import urllib.request, re
+html = urllib.request.urlopen('http://localhost:3000/diseases', timeout=8).read().decode('utf-8', 'ignore')
+print('len:', len(html))
+print('Apple Scab:', 'Apple Scab' in html)
+print('treatment-panel:', 'treatment-panel' in html)
+print('apple-scab:', 'apple-scab' in html)
+print('Records:', 'record' in html)
+print('main tag:', bool(re.search(r'<main', html)))
+main = re.search(r'<main[^>]*>(.*?)</main>', html, re.DOTALL)
+if main: print('main len:', len(main.group(1)))
+print('error text:', bool(re.search(r'Application error|Error:|error:', html[:5000])))
+print('loading:', bool(re.search(r'loading|Loading', html)))
